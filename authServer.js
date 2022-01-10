@@ -1,12 +1,24 @@
+
+const jwt = require('jsonwebtoken')
+
 require('dotenv').config()
 
 const express = require('express')
 const app = express()
-const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
+
+const User = require('./src/users/users.model')
+
+
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('Connected to Database'))
 
 app.use(express.json())
 
-const mongoose = require('mongoose')
+
+
 
 
 let refreshTokens = []
@@ -29,9 +41,18 @@ app.delete('/logout', (req, res) => {
 
 app.post('/login', (req, res) => {
 
-
-
+  
   // Authenticate User
+  return User.find({}, { username: "abc" }, function(err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+
+
+  // return res.json({"dd": "dd" });
 
 
 
