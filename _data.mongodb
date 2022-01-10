@@ -1,0 +1,20 @@
+// MongoDB Playground
+
+use('node-api');
+
+db.users.drop();
+
+// Insert a few documents into the users collection.
+db.users.insertMany([
+    {
+        'username': 'abc',
+        'email': 'alex@domain.com',
+        'password': '123',
+        'contact_number': '123456789',
+        'email_verfiy': new Date('2014-03-01T08:00:00Z'),,
+        'location': 'Tokoy, Japan',
+        'created_at': new Date('2014-03-01T08:00:00Z'),
+        'updated_at': new Date('2014-03-01T08:00:00Z')
+    }
+]);
+

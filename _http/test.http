@@ -1,7 +1,8 @@
 
+# @url = "localhost:3000/" # HTTP/1.1
+
+
 # Users
 GET http://localhost:3000/users/
-
-
-Content-Type: application/json
-Accept: *
+Content-Type: application/json;
+# Accept: *
