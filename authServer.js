@@ -39,30 +39,63 @@ app.delete('/logout', (req, res) => {
   res.sendStatus(204)
 })
 
+
 app.post('/login', (req, res) => {
 
-  
   // Authenticate User
-  return User.find({}, { username: "abc" }, function(err, result) {
-    if (err) {
-      console.log(err);
+  // return User.findOne({}, { username: req.body.username }, function(err, result) {
+    
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     res.json(result.username);
+  //   }
+  // });
+  
+
+
+
+
+
+  return User.findOne({
+    username: req.body.username
+  }, (err, user) => {
+    if (err) throw err;
+ 
+    if (!user) {
+      res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
     } else {
-      res.json(result);
+      // res.json({ "na": "asd" })
+      // check if password matches
+      // user.comparePassword(req.body.password,  (err, isMatch) => {
+      //   if (isMatch && !err) {
+      //     // if user is found and password is right create a token
+      //     var token = jwt.sign(user.toJSON(), config.secret,{ expiresIn: '30m' });
+      //     // return the information including token as JSON
+      //     res.json({success: true, token: 'JWT ' + token});
+      //   } else {
+      //     res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
+      //   }
+      // });
+      
+      const username = req.body.username
+      const user = { name: username }
+
+      const accessToken = generateAccessToken(user)
+      const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+      refreshTokens.push(refreshToken)
+      res.json({ accessToken: accessToken, refreshToken: refreshToken })
+
     }
   });
 
+
+    
 
   // return res.json({"dd": "dd" });
 
 
 
-  const username = req.body.username
-  const user = { name: username }
-
-  const accessToken = generateAccessToken(user)
-  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
-  refreshTokens.push(refreshToken)
-  res.json({ accessToken: accessToken, refreshToken: refreshToken })
 })
 
 function generateAccessToken(user) {
