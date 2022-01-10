@@ -18,6 +18,19 @@ router.get('/', async (req, res) => {
 
 
 
+// Search Route
+router.post('/find', async (req, res) => {
+  User.find({}, { username: req.body.username }, function(err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+})
+
+
+
 
 // Getting One
 router.get('/:id', getUser, (req, res) => {
@@ -30,10 +43,13 @@ router.get('/:id', getUser, (req, res) => {
 
 // Creating one
 router.post('/', async (req, res) => {
+  
   const users = new User({
     username: req.body.username,
     email: req.body.email
   })
+
+  // return res.status.json(users);
   try {
     const newUser = await users.save()
     res.status(201).json(newUser)
@@ -62,6 +78,7 @@ router.patch('users/:id', getUser, async (req, res) => {
     res.status(400).json({ message: err.message })
   }
 })
+
 
 
 

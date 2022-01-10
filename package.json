@@ -4,16 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "devStartAuth": "nodemon authServer.js --trace-warnings"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-    "mongoose": "^5.5.7"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.5"
   },
   "devDependencies": {
     "dotenv": "^8.0.0",
-    "nodemon": "^1.19.0"
+    "nodemon": "^1.19.4"
   }
 }
