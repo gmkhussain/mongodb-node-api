@@ -1,11 +1,17 @@
 import React from 'react'
 
 // 3rd Party Lib
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
+// Styles
 import './App.css';
 
-import Home from './Home'
+// Layouts
+import DefaultLayout from './views/frontend/layouts/DefaultLayout';
+
+// Pages
+import Home from './views/frontend/pages/Home'
+
 
 function App() {
   return (
@@ -13,7 +19,9 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <Home />
+            <DefaultLayout>
+              <Home />
+            </DefaultLayout>
           </Route>
           <Route exact path="/contact">
             <p>Contact works</p>
