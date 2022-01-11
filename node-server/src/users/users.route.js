@@ -41,8 +41,8 @@ router.get('/:id', getUser, (req, res) => {
 
 
 
-// Creating one
-router.post('/', async (req, res) => {
+// Creating one / Sign Up
+router.post('/signup', async (req, res) => {
   
   const users = new User({
     username: req.body.username,
