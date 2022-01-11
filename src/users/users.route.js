@@ -46,7 +46,8 @@ router.post('/', async (req, res) => {
   
   const users = new User({
     username: req.body.username,
-    email: req.body.email
+    email: req.body.email,
+    password: req.body.password
   })
 
   // return res.status.json(users);

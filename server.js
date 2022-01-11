@@ -16,6 +16,8 @@ app.use(express.json())
 const usersRouter = require('./src/users/users.route')
 app.use('/users', usersRouter)
 
+const authRouter = require('./src/auth/auth.route')
+app.use('/auth', authRouter)
 
 // API URL: localhost:3000
-app.listen(3000, () => console.log('Server Started'))
+app.listen(3000, () => console.log('Server Started -> localhost:3000'))
