@@ -9,6 +9,7 @@ const Home = () => {
       const logoutRequest =()=> {
          // axios.get(`${API_BASE_URL}/logout`)
          localStorage.removeItem('token')
+         window.location.reload(false);
       }
 
         return (
@@ -16,8 +17,14 @@ const Home = () => {
                Header works
                <a href="/">Home</a> | 
                <a href="/singup">Signup</a> | 
-               <a href="/login">Login</a> |
-               <button onClick={logoutRequest}>Logout</button> | 
+
+               {
+                  localStorage.getItem('token')
+               ?
+                  <button onClick={logoutRequest}>Logout</button>
+               :
+                  <a href="/login">Login</a>
+               }
             </header>
           )
 }

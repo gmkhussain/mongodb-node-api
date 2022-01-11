@@ -57,7 +57,7 @@ const Login = () => {
                   
                    <p>Login</p>
                    
-                   { loggedIn ? <Redirect to="/home" /> : "Please login"}
+                   { loggedIn ? <Redirect to="/dashboard" /> : "Please login"}
                    
                     <form onSubmit={ onSubmitForm }>
                         

@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 // Styles
 import './App.css';
 
+
 // Layouts
 import DefaultLayout from './views/frontend/layouts/DefaultLayout';
 
@@ -13,8 +14,12 @@ import DefaultLayout from './views/frontend/layouts/DefaultLayout';
 import Home from './views/frontend/pages/Home'
 import Login from './views/frontend/pages/Login'
 
+// Admin
+import Dashboard from './views/backend/pages/Dashboard';
+
 
 function App() {
+
   return (
     <div className="App">
       <Router>
@@ -33,6 +38,14 @@ function App() {
               <Login />
             </DefaultLayout>
           </Route>
+
+
+          <Route exact path="/dashboard">
+            <DefaultLayout>
+              <Dashboard />
+            </DefaultLayout>
+          </Route>
+          
         </Switch>
       </Router>
     </div>
