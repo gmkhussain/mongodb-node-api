@@ -14,7 +14,11 @@ import DefaultLayout from './views/frontend/layouts/DefaultLayout';
 import Home from './views/frontend/pages/Home'
 import Login from './views/frontend/pages/Login'
 
+
+
 // Admin
+import DashboardLayout from './views/backend/layouts/DashboardLayout';
+
 import Dashboard from './views/backend/pages/Dashboard';
 
 
@@ -41,9 +45,9 @@ function App() {
 
 
           <Route exact path="/dashboard">
-            <DefaultLayout>
+            <DashboardLayout>
               <Dashboard />
-            </DefaultLayout>
+            </DashboardLayout>
           </Route>
           
         </Switch>
