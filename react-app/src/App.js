@@ -11,6 +11,7 @@ import DefaultLayout from './views/frontend/layouts/DefaultLayout';
 
 // Pages
 import Home from './views/frontend/pages/Home'
+import Login from './views/frontend/pages/Login'
 
 
 function App() {
@@ -25,6 +26,12 @@ function App() {
           </Route>
           <Route exact path="/contact">
             <p>Contact works</p>
+          </Route>
+
+          <Route exact path="/login">
+            <DefaultLayout>
+              <Login />
+            </DefaultLayout>
           </Route>
         </Switch>
       </Router>
