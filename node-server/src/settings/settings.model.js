@@ -10,8 +10,8 @@ const settingSchema = new mongoose.Schema({
     // required: true
   },
   site_logo: {
-    type: String,
-    // required: true
+      data: Buffer,
+      contentType: String
   }
 })
 

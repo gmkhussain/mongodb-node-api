@@ -57,3 +57,8 @@ db.settings.insertMany([
         }
     }
 ]);
+
+
+
+// For `Image Uploader`
+db.createCollection('files');

@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 const cors = require('cors') // Access Control Origin Header error using Axios
 
+var bodyParser = require('body-parser');
 
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
@@ -31,8 +32,12 @@ app.use(function (req, res, next) {
 
 
 
-
-app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(express.json())
+app.use(bodyParser.json())
+  
+// Set EJS as templating engine 
+app.set("view engine", "ejs");
 
 
 const rootRouter = require('./src/root/root.route')
