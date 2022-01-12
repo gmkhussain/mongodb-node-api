@@ -6,20 +6,17 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 // Styles
 import './App.css';
 
-
 // Layouts
 import DefaultLayout from './views/frontend/layouts/DefaultLayout';
-
 // Pages
 import Home from './views/frontend/pages/Home'
 import Login from './views/frontend/pages/Login'
 
-
-
-// Admin
+// Admin Layouts
 import DashboardLayout from './views/backend/layouts/DashboardLayout';
-
+// Admin Pages
 import Dashboard from './views/backend/pages/Dashboard';
+import Settings from './views/backend/pages/Settings';
 
 
 function App() {
@@ -47,6 +44,12 @@ function App() {
           <Route exact path="/dashboard">
             <DashboardLayout>
               <Dashboard />
+            </DashboardLayout>
+          </Route>
+
+          <Route exact path="/settings">
+            <DashboardLayout>
+              <Settings />
             </DashboardLayout>
           </Route>
           

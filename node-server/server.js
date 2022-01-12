@@ -35,6 +35,8 @@ app.use(function (req, res, next) {
 app.use(express.json())
 
 
+const rootRouter = require('./src/root/root.route')
+app.use('/', rootRouter )
 
 const usersRouter = require('./src/users/users.route')
 app.use('/users', usersRouter)

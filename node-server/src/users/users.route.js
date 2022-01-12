@@ -20,7 +20,9 @@ router.get('/', async (req, res) => {
 
 // Search Route
 router.post('/find', async (req, res) => {
-  User.find({}, { username: req.body.username }, function(err, result) {
+  User.find({}, {
+          username: req.body.username 
+        }, function(err, result) {
     if (err) {
       console.log(err);
     } else {
@@ -87,11 +89,15 @@ router.patch('/:id', getUser, async (req, res) => {
 router.delete('/:id', getUser, async (req, res) => {
   try {
     await res.user.remove()
-    res.json({ message: 'Deleted user' })
+    res.json({ message: 'Deleted user', info: res.user  })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
 })
+
+
+
+
 
 async function getUser(req, res, next) {
   let user
