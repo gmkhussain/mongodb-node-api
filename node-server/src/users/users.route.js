@@ -64,13 +64,11 @@ router.post('/signup', async (req, res) => {
 
 
 
+
 // Updating One
-router.patch('users/:id', getUser, async (req, res) => {
-  if (req.body.name != null) {
-    res.user.name = req.body.name
-  }
-  if (req.body.email != null) {
-    res.user.email = req.body.email
+router.patch('/:id', getUser, async (req, res) => {
+  if (req.body.username != null) {
+    res.user.username = req.body.username
   }
   try {
     const updatedUser = await res.user.save()

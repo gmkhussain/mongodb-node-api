@@ -1,8 +1,17 @@
 // MongoDB Playground
 
-use('node-api');
+const database = 'node-api';
 
 db.users.drop();
+// Create a new collection.
+db.createCollection('users');
+
+// // The current database to use.
+use(database);
+
+// use('node-api');
+
+
 
 // Insert a few documents into the users collection.
 db.users.insertMany([
@@ -18,3 +27,33 @@ db.users.insertMany([
     }
 ]);
 
+
+
+
+
+
+db.settings.drop();
+db.createCollection('settings');
+
+db.settings.insertMany([
+    {
+        'site_name': "index",
+        'site_desc': "some desc",
+        'site_logo': {
+            'ver1': " ",
+            'ver2': " "
+        },
+        'headings': {
+            'font': 'Arial',
+            'color': '#000000'
+        },
+        'content': {
+            'font': 'Arial',
+            'color': '#000000'
+        },
+        'links': {
+            'font': 'Arial',
+            'color': '#000000'
+        }
+    }
+]);
