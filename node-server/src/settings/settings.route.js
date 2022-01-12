@@ -25,10 +25,18 @@ router.get('/:id', getSetting, (req, res) => {
 
 
 
+
+
 // Updating One
 router.patch('/:id', getSetting, async (req, res) => {
   if (req.body.site_name != null) {
     res.setting.site_name = req.body.site_name
+  }
+  if( req.body.site_desc ) {
+    res.setting.site_desc = req.body.site_desc
+  }
+  if(req.body.site_logo) {
+    res.setting.site_logo = req.body.site_logo
   }
   try {
     const updatedSetting = await res.setting.save()
@@ -46,12 +54,12 @@ router.patch('/:id', getSetting, async (req, res) => {
 async function getSetting(req, res, next) {
   let setting
   try {
-    setting = await setting.findById(req.params.id)
+    setting = await Setting.findById(req.params.id)
     if (setting == null) {
       return res.status(404).json({ message: 'Cannot find setting' })
     }
   } catch (err) {
-    return res.status(500).json({ message: err.message + "~" })
+    return res.status(500).json({ message: err.message + "~ Setting" })
   }
 
   res.setting = setting

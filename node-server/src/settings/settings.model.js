@@ -4,6 +4,14 @@ const settingSchema = new mongoose.Schema({
   site_name: {
     type: String,
     // required: true
+  },
+  site_desc: {
+    type: String,
+    // required: true
+  },
+  site_logo: {
+    type: String,
+    // required: true
   }
 })
 

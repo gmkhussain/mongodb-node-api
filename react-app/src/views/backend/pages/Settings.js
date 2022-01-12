@@ -13,25 +13,33 @@ const Settings = () => {
 
     const [settingsData, setSettingsData] = useState({
         site_name: 'na',
-        headings: {
-            font: '',
-            color: ''
-        }
+        site_desc: 'na',
+        site_logo: undefined,
+        // headings: {
+        //     font: " ",
+        //     color: " "
+        // }
     });
 
 
 
 
+   
 
-
-    let updateSiteName = (e) => {
-
-        console.log( e )
-        
+    let updateInput = ( { target: { name, value } } ) => {
         setSettingsData({
-            site_name: e.target.value
+            ...settingsData,
+            [name]: value
         })
+        console.log( [name], value )
+        console.log( settingsData )
     }
+
+
+
+    
+
+  
 
 
     const getSettingsData = async () => {
@@ -61,8 +69,21 @@ const Settings = () => {
 
 
     const saveSettings = (event) => {
+
         event.preventDefault()
-        console.log( "saveSettings" )
+        
+
+        let SETTING_ID = '61de8478174d0467612f5e23';
+
+        axios.patch(`${API_BASE_URL}/settings/${SETTING_ID}`, settingsData ).then( res => {
+            
+            console.log("SAVED !")
+
+        }).catch( err=> {
+            console.log( "Err", err )
+        })
+        
+
     }
 
 
@@ -84,7 +105,7 @@ const Settings = () => {
 
 
     const { loading } = pageInfo;
-    const { site_name, headings } = settingsData;
+    const { site_name, site_desc, site_logo } = settingsData;
 
         return (
             <section className="settings-page">
@@ -100,21 +121,30 @@ const Settings = () => {
                                 <td>Sitename:</td>
                                 <td>
                                     <div>{ site_name }</div>
-                                    <input  type="text" value={site_name}
-                                            onChange={updateSiteName}
+                                    <input name="site_name" id="site_name" type="text" value={site_name}
+                                            onChange={ updateInput }
                                             />
                                 </td>
                             </tr>
                             <tr>
-                                <td>Headings Font</td>
+                                <td>site_desc:</td>
                                 <td>
-                                    <div>{ headings.font }</div>
-                                    <input  type="text" value={headings.font}
-                                            onChange={updateSiteName}
+                                    <div>{ site_desc }</div>
+                                    <input name="site_desc" id="site_desc" type="text" value={site_desc}
+                                            onChange={ updateInput }
                                             />
                                 </td>
                             </tr>
-                            
+                            {/*<tr>
+                                <td>Site Logo</td>
+                                <td>
+                                    
+                                    <input
+                                        type="file"
+                                        onChange={ (e)=>onChangeInputFile(e) } />
+                                </td>
+                            </tr>
+                           
                             <tr>
                                 <td>Headings Color</td>
                                 <td>
@@ -123,7 +153,7 @@ const Settings = () => {
                                             onChange={updateSiteName}
                                             />
                                 </td>
-                            </tr>
+                            </tr> */}
                             
                         </tbody>
                     </table>
