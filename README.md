@@ -28,12 +28,397 @@ mongod.exe --dbpath "D:\xampp7_4\htdocs\projects\_rd\MongoDB\data"
 
 
 
+#### _data.mongodb | Generate Dummy Data
+
+```js
+// MongoDB Playground
+
+use('node-api');
+
+db.users.drop();
+
+// Insert a few documents into the users collection.
+db.users.insertMany([
+    {
+        'username': 'abc',
+        'email': 'alex@domain.com',
+        'password': '123',
+        'contact_number': '123456789',
+        'email_verfiy': new Date('2014-03-01T08:00:00Z'),,
+        'location': 'Tokoy, Japan',
+        'created_at': new Date('2014-03-01T08:00:00Z'),
+        'updated_at': new Date('2014-03-01T08:00:00Z')
+    }
+]);
+```
+
+- Click on ```[Play Icon]``` top right side in VS Code
 
 
 
+
+
+
+
+
+# Node 
 
 ## Node Server
+
+#### /package.json
+```js
+{
+  "name": "current-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mongoose": "^5.5.7"
+  },
+  "devDependencies": {
+    "dotenv": "^8.0.0",
+    "nodemon": "^1.19.0"
+  }
+}
+```
+
+
+
+
+## API Crud
+
+#### /server.js
+
+```js
+require('dotenv').config()
+
+const express = require('express')
+const app = express()
+const mongoose = require('mongoose')
+
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('Connected to Database'))
+
+app.use(express.json())
+
+
+
+const usersRouter = require('./src/users/users.route')
+app.use('/users', usersRouter)
+
+
+// API URL: localhost:3000
+app.listen(3000, () => console.log('Server Started'))
+```
+
+
+
+
+
+#### src/users/users.model.js
+```js
+const mongoose = require('mongoose')
+
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  }
+})
+
+module.exports = mongoose.model('User', userSchema)
+```
+
+
+
+
+
+
+
+
+#### src/users/users.route.js
+```js
+const express = require('express')
+const router = express.Router()
+const User = require('./users.model')
+
+
+
+
+// Getting all
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find()
+    res.json(users)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
+
+
+// Search Route
+router.post('/find', async (req, res) => {
+  User.find({}, { username: req.body.username }, function(err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(result);
+    }
+  });
+})
+
+
+
+
+// Getting One
+router.get('/:id', getUser, (req, res) => {
+  res.json(res.user)
+})
+
+
+
+
+
+// Creating one
+router.post('/', async (req, res) => {
+  const users = new User({
+    username: req.body.username,
+    email: req.body.email
+  })
+  try {
+    const newUser = await users.save()
+    res.status(201).json(newUser)
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
+
+
+
+
+
+
+// Updating One
+router.patch('users/:id', getUser, async (req, res) => {
+  if (req.body.name != null) {
+    res.user.name = req.body.name
+  }
+  if (req.body.email != null) {
+    res.user.email = req.body.email
+  }
+  try {
+    const updatedUser = await res.user.save()
+    res.json(updatedUser)
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
+
+
+
+
+
+// Deleting One
+router.delete('/:id', getUser, async (req, res) => {
+  try {
+    await res.user.remove()
+    res.json({ message: 'Deleted user' })
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
+async function getUser(req, res, next) {
+  let user
+  try {
+    user = await User.findById(req.params.id)
+    if (user == null) {
+      return res.status(404).json({ message: 'Cannot find user' })
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message + "~" })
+  }
+
+  res.user = user
+  next()
+}
+
+
+module.exports = router
+```
+
 - Run ```node server.js```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Auth / Login ( via Username )
+
+#### /server.js
+```js
+require('dotenv').config()
+
+const express = require('express')
+const app = express()
+const mongoose = require('mongoose')
+
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('Connected to Database'))
+
+app.use(express.json())
+
+
+
+const usersRouter = require('./src/users/users.route')
+app.use('/users', usersRouter)
+
+const authRouter = require('./src/auth/auth.route')
+app.use('/auth', authRouter)
+
+// API URL: localhost:3000
+app.listen(3000, () => console.log('Server Started -> localhost:3000'))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+#### auth.route.js
+```js
+const jwt = require('jsonwebtoken')
+
+require('dotenv').config()
+
+const express = require('express')
+const router = express.Router()
+const User = require('../users/users.model')
+
+
+
+// Fetch All Users for testing...
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find()
+    res.json(users)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
+
+
+
+let refreshTokens = []
+
+router.post('/token', (req, res) => {
+  const refreshToken = req.body.token
+  if (refreshToken == null) return res.sendStatus(401)
+  if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403)
+  jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403)
+    const accessToken = generateAccessToken({ name: user.name })
+    res.json({ accessToken: accessToken })
+  })
+})
+
+
+
+
+
+
+router.delete('/logout', (req, res) => {
+  refreshTokens = refreshTokens.filter(token => token !== req.body.token)
+  res.sendStatus(204)
+})
+
+
+
+
+
+
+router.post('/login', (req, res) => {
+
+  // Authenticate User  
+  return User.findOne({
+    username: req.body.username
+  }, (err, user) => {
+    if (err) throw err;
+ 
+    if (!user) {
+      res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
+    } else {
+      
+      const username = req.body.username
+      const user = { name: username }
+
+      const accessToken = generateAccessToken(user)
+      const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
+      refreshTokens.push(refreshToken)
+      res.json({ accessToken: accessToken, refreshToken: refreshToken })
+
+    }
+  });
+})
+
+
+function generateAccessToken(user) {
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+}
+
+module.exports = router
+// router.listen(4000)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
