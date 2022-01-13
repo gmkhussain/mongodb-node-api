@@ -277,7 +277,7 @@ module.exports = router
 
 
 
-## Auth / Login ( via Username )
+## Auth / Login ( via Username / Password )
 
 #### /server.js
 ```js
@@ -375,6 +375,7 @@ router.post('/login', (req, res) => {
   // Authenticate User  
   return User.findOne({
     username: req.body.username
+    password: req.body.password
   }, (err, user) => {
     if (err) throw err;
  
@@ -383,7 +384,9 @@ router.post('/login', (req, res) => {
     } else {
       
       const username = req.body.username
-      const user = { name: username }
+      const password = req.body.password
+
+      const user = { name: username, password: password }
 
       const accessToken = generateAccessToken(user)
       const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
@@ -405,6 +408,101 @@ module.exports = router
 
 
 
+
+
+
+
+
+
+#### React: Login.js
+
+```js
+import React, { useEffect, useState } from 'react'
+
+import axios from 'axios'
+import { Redirect } from "react-router-dom";
+
+import { API_BASE_URL } from '../../../config/config'
+
+const Login = () => {
+    
+        const [loginInfo, setLoginInfo] = useState({
+            username: null,
+            password: null, // <-- NEW
+            loggedIn: false,
+            token: null
+        })
+
+
+        // On form submit 
+        const onSubmitForm = (event) => {
+            event.preventDefault()
+
+            console.log(  loginInfo )
+
+            loginRequest( loginInfo ) // Request to Login API
+
+        }
+
+        
+
+        const loginRequest =( _loginInfo )=> {
+
+            console.log( " _loginInfo ", _loginInfo )
+             
+            axios.post(`${API_BASE_URL}/auth/login`, _loginInfo ).then( res => {
+
+                    // Show data
+                    console.log( "Res", res )
+
+                    // Set values
+                    localStorage.setItem('token', res.data.accessToken )
+                    setLoginInfo({
+                        token: localStorage.getItem('token'),
+                        loggedIn: true,
+                    })
+
+                }
+            ).catch( err => {
+                    // Incase failed
+                    console.log( "Err", err )
+                }
+            )
+        }
+
+
+        const { username, password, loggedIn } = loginInfo
+
+        return (
+            <section className="login-page">
+               <div className="container">
+                  
+                   <p>Login</p>
+                   
+                   { loggedIn ? <Redirect to="/dashboard" /> : "Please login"}
+                   
+                    <form onSubmit={ onSubmitForm }>
+                        
+                        <label>Username <mark>{ username }</mark></label>
+                        <input  name="username" type="text"
+                                onKeyUp={e => setLoginInfo({ ...loginInfo, username: e.target.value})} /> // <-- NEW
+
+                        <label>Password <mark>{ password }</mark></label>
+                        <input  name="password" type="password" autoComplete="true"
+                                onKeyUp={e => setLoginInfo({ ...loginInfo, password: e.target.value})} /> // <-- NEW
+                        
+                        <button type="submit">loginRequest</button>
+                    </form>
+
+                    { localStorage.getItem('token') }
+                   
+               </div>
+            </section>
+          )
+}
+
+export default Login
+```
 
 
 
