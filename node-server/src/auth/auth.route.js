@@ -53,11 +53,13 @@ router.post('/login', (req, res) => {
 
   // Authenticate User  
   return User.findOne({
-    username: req.body.username
+    username: req.body.username,
+    password: req.body.password
   }, (err, user) => {
+
     if (err) throw err;
  
-    if (!user) {
+    if (!user ) {
       res.status(401).send({success: false, msg: 'Authentication failed. User not found.'});
     } else {
       // res.json({ "na": "asd" })
@@ -74,7 +76,9 @@ router.post('/login', (req, res) => {
       // });
       
       const username = req.body.username
-      const user = { name: username }
+      const password = req.body.password
+
+      const user = { name: username, password: password }
 
       const accessToken = generateAccessToken(user)
       const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET)
