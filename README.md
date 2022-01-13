@@ -950,3 +950,179 @@ const Home = () => {
 
 export default Home
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Dashboard Layout
+
+
+#### Dashboard.js
+```js
+import React from 'react'
+
+const Dashboard = () => {
+        return (
+            <section className="dashboard-page">
+               <div className="container">
+                  
+                   <p>Dashboard</p>
+                   
+               </div>
+            </section>
+          )
+}
+
+export default Dashboard
+```
+
+
+
+
+
+
+
+### DashboardLayout.js
+```js
+import React from 'react';
+
+import Header from './Header';
+import Sidebar from './Sidebar';
+
+const DashboardLayout = ({ children }) => {
+    return (
+    <React.Fragment>
+        <Header />
+        <div className="navigationWrapper">
+            <Sidebar />
+            <main>{children}</main>
+        </div>
+    </React.Fragment>
+    );
+};
+export default DashboardLayout;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### Sidebar.js
+```js
+import React from 'react'
+
+const Sidebar = () => {
+    return (
+        <aside className='col-md-3'>
+            Sidebar works
+        </aside>
+        )
+}
+
+export default Sidebar
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### App.js
+```js
+import React from 'react'
+
+// 3rd Party Lib
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+
+// Styles
+import './App.css';
+
+
+// Layouts
+import DefaultLayout from './views/frontend/layouts/DefaultLayout';
+
+// Pages
+import Home from './views/frontend/pages/Home'
+import Login from './views/frontend/pages/Login'
+
+
+
+// Admin
+import DashboardLayout from './views/backend/layouts/DashboardLayout';
+
+import Dashboard from './views/backend/pages/Dashboard';
+
+
+function App() {
+
+  return (
+    <div className="App">
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <DefaultLayout>
+              <Home />
+            </DefaultLayout>
+          </Route>
+          <Route exact path="/contact">
+            <p>Contact works</p>
+          </Route>
+
+          <Route exact path="/login">
+            <DefaultLayout>
+              <Login />
+            </DefaultLayout>
+          </Route>
+
+
+          <Route exact path="/dashboard"> // <-- NEW
+            <DashboardLayout>
+              <Dashboard />
+            </DashboardLayout>
+          </Route> 
+          
+          
+        </Switch>
+      </Router>
+    </div>
+  );
+}
+
+export default App;
+```
+
+
