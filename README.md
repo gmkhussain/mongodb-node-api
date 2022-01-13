@@ -213,8 +213,8 @@ router.post('/', async (req, res) => {
 
 // Updating One
 router.patch('users/:id', getUser, async (req, res) => {
-  if (req.body.name != null) {
-    res.user.name = req.body.name
+  if (req.body.username != null) {
+    res.user.username = req.body.username
   }
   if (req.body.email != null) {
     res.user.email = req.body.email
@@ -485,6 +485,93 @@ app.listen(4000, () => console.log('Server Started -> localhost:4000'))
 
 
 
+
+
+## Root API
+
+#### server.js
+```js
+require('dotenv').config()
+
+const express = require('express')
+const app = express()
+const mongoose = require('mongoose')
+
+const cors = require('cors') // Access Control Origin Header error using Axios
+
+
+
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('Connected to Database'))
+
+
+
+
+/* Access Control Origin Header error using Axios */
+app.use(
+    cors({
+        origin: "*",
+    })
+);
+  
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
+/* Access Control Origin Header error using Axios */
+
+
+
+
+app.use(express.json())
+
+
+const rootRouter = require('./src/root/root.route') // <-- NEW
+app.use('/', rootRouter )
+
+const usersRouter = require('./src/users/users.route')
+app.use('/users', usersRouter)
+
+const authRouter = require('./src/auth/auth.route')
+app.use('/auth', authRouter)
+
+const settingRouter = require('./src/settings/settings.route')
+app.use('/settings', settingRouter)
+
+// API URL: localhost:4000
+app.listen(4000, () => console.log('Server Started -> localhost:4000'))
+```
+
+
+
+
+
+
+
+
+
+
+#### root.route.js
+```js
+const jwt = require('jsonwebtoken')
+
+require('dotenv').config()
+
+const express = require('express')
+const router = express.Router()
+
+// Fetch All Users for testing...
+router.get('/', async (req, res) => {
+
+    res.json("Works fine...")
+
+})
+
+
+module.exports = router
+```
 
 
 
