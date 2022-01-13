@@ -39,7 +39,17 @@ const Settings = () => {
 
     
 
-  
+    let onChangeInputFile = ( e ) => {
+    
+        console.log(e.target.files[0]);
+
+        // let file = e.target.files[0];
+
+        // setSettingsData({
+        //   ...settingsData,
+        //   [e.target.name] : file
+        // });
+    }
 
 
     const getSettingsData = async () => {
@@ -135,16 +145,16 @@ const Settings = () => {
                                             />
                                 </td>
                             </tr>
-                            {/*<tr>
+                            <tr>
                                 <td>Site Logo</td>
                                 <td>
-                                    
                                     <input
                                         type="file"
                                         onChange={ (e)=>onChangeInputFile(e) } />
                                 </td>
                             </tr>
                            
+                           {/*
                             <tr>
                                 <td>Headings Color</td>
                                 <td>
