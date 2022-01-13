@@ -12,7 +12,7 @@ const Login = () => {
             username: null,
             password: null,
             loggedIn: false,
-            token: null
+            token: null,
         })
 
 
@@ -59,22 +59,46 @@ const Login = () => {
             <section className="login-page">
                <div className="container">
                   
-                   <p>Login</p>
-                   
-                   { loggedIn ? <Redirect to="/dashboard" /> : "Please login"}
-                   
-                    <form onSubmit={ onSubmitForm }>
-                        
-                        <label>Username <mark>{ username }</mark></label>
-                        <input  name="username" type="text"
-                                onKeyUp={e => setLoginInfo({ ...loginInfo, username: e.target.value})} />
 
-                        <label>Password <mark>{ password }</mark></label>
-                        <input  name="password" type="password" autoComplete="true"
-                                onKeyUp={e => setLoginInfo({ ...loginInfo, password: e.target.value})} />
+                    <div className="login-form col-md-4 offset-md-4">
                         
-                        <button type="submit">loginRequest</button>
-                    </form>
+                        <h4>
+                            { loggedIn ? <Redirect to="/dashboard" /> : "login"}
+                        </h4>
+
+                        <form onSubmit={ onSubmitForm }>
+
+                            <div class="mb-3">
+                                <label className="form-label">Username <mark>{ username }</mark></label>
+                                <input  name="username"
+                                        type="text"
+                                        className="form-control"
+                                        onKeyUp={e => setLoginInfo({ ...loginInfo, username: e.target.value})}
+                                        />
+                                <div class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label className="form-label">Password <mark>{ password }</mark></label>
+                                <input
+                                        name="password"
+                                        type="password"
+                                        className="form-control"
+                                        autoComplete="true"
+                                        onKeyUp={e => setLoginInfo({ ...loginInfo, password: e.target.value})}
+                                        />
+                            </div>
+
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Login</button>
+                            
+                        </form>
+                        
+                    </div>
 
                     { localStorage.getItem('token') }
                    
