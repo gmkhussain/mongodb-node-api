@@ -5,7 +5,8 @@ const Sidebar = () => {
     return (
         <aside className='col-md-3'>
             Sidebar works
-            <Link to='settings'>Settings</Link>
+            <Link to='dashboard/users'>Users</Link>
+            <Link to='dashboard/settings'>Settings</Link>
         </aside>
         )
 }
