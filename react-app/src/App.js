@@ -22,6 +22,7 @@ import Settings from './views/backend/pages/Settings';
 import BackendUsersListing from './views/backend/pages/Users/UserListing'
 import BackendAddUser from  './views/backend/pages/Users/AddUser'
 import BackendUserDetails from './views/backend/pages/Users/UserDetails';
+import SignUp from './views/frontend/pages/Signup';
 
 function App() {
 
@@ -41,6 +42,12 @@ function App() {
           <Route exact path="/login">
             <DefaultLayout>
               <Login />
+            </DefaultLayout>
+          </Route>
+
+          <Route exact path="/signup">
+            <DefaultLayout>
+              <SignUp />
             </DefaultLayout>
           </Route>
 

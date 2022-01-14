@@ -8,23 +8,28 @@ const BackendUserDetails = ( ) => {
     
     const { id } = useParams();
 
-    const [pageInfo, setPageInfo] = useState({
-        userInfo: {}
-    })
+    // const [pageInfo, setPageInfo] = useState({
+    //     userInfo: {}
+    // })
+
+    // User = pageInfo : for on page use
+    
+
 
     const [userInfo, setUserInfo] = useState({
-        username: "amoos",
-        email: "amoos@yopmail.com",
-        contact_number: "12121",
-        location: "...",
+        username: '',
+        email: '',
+        contact_number: '',
+        location: '',
     })
+    
 
 
     const getUserInfo = ( _id ) => {
         axios.get(`${API_BASE_URL}/users/${ _id }`).then( res=> {
-            
-            setPageInfo( res.data );
-            console.log("pageInfo", pageInfo)
+
+            setUserInfo( res.data );
+            console.log("userInfo", userInfo)
 
         }).catch(err=>{
             console.log("Err", err )
@@ -70,13 +75,7 @@ const BackendUserDetails = ( ) => {
 
 
 
-
-
-
-
-    
-
-    const user  = pageInfo;
+    const user  = userInfo;
 
     return (
         <div>
@@ -87,7 +86,7 @@ const BackendUserDetails = ( ) => {
                 </div>
             </div>
 
-            <div className="row">
+            {/* <div className="row">
 
                 <div className="card col-md-3">
                     <div className="card-img-top">
@@ -98,7 +97,7 @@ const BackendUserDetails = ( ) => {
                         Email: {user.email}
                     </div>
                 </div>
-            </div>
+            </div> */}
 
 
 
@@ -117,38 +116,48 @@ const BackendUserDetails = ( ) => {
                         <label>Username</label>
                         <input 
                             className="form-control"
-                            type="text" name="username" disabled />
+                            type="text"
+                            name="username"
+                            value={user.username}
+                            disabled />
                     </div>
                     <div className="form-group">
                         <label>Email</label>
                         <input 
                             className="form-control"
-                            type="email" name="email"
-                            onChange={updateInput}
+                            type="email"
+                            name="email"
+                            value={user.email}
+                            onKeyUp={updateInput}
                             />
                     </div>
                     <div className="form-group">
                         <label>Contact Number</label>
                         <input 
                             className="form-control"
-                            type="text" name="contact_number"
-                            onChange={updateInput}
+                            type="text"
+                            name="contact_number"
+                            value={user.contact_number}
+                            onKeyUp={updateInput}
                             />
                     </div>
                     <div className="form-group">
                         <label>Location</label>
                         <input 
                             className="form-control"
-                            type="text" name="location"
-                            onChange={updateInput}
+                            type="text"
+                            name="location"
+                            value={user.location}
+                            onKeyUp={updateInput}
                             />
                     </div>
 
-                    <button type="submit">Save</button>
+                    <div className="form-group">
+                        <button className="btn btn-primary" type="submit">Save</button>
+                    </div>
                 </form>
             </div>
-     
-            
+
         </div>
     )
     

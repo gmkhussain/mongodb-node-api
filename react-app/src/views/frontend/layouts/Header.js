@@ -31,7 +31,7 @@ const Home = () => {
                               <Link to="/" className="nav-link">Home</Link>
                            </li>
                            <li className="nav-item">
-                              <Link to="/singup" className="nav-link">Sign Up</Link>
+                              <Link to="/signup" className="nav-link">Sign Up</Link>
                            </li>
                         </ul>
 
