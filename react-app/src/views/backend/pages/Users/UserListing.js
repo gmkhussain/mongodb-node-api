@@ -45,6 +45,7 @@ const BackendUsersListing = () => {
                     <p>Users</p>
 
                     
+                    <Link to="/add-user">Add User (Page)</Link>
                     <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#addUserPanel" aria-controls="offcanvasRight">Add User</button>
 
                     <div className="offcanvas offcanvas-end" tabIndex="-1" id="addUserPanel">

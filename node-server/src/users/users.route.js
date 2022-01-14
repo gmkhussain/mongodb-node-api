@@ -70,7 +70,11 @@ router.post('/signup', async (req, res) => {
 // Updating One
 router.patch('/:id', getUser, async (req, res) => {
   if (req.body.username != null) {
-    res.user.username = req.body.username
+    res.user.username = req.body.username,
+    res.user.email = req.body.email,
+    res.user.password = req.body.password,
+    res.user.contact_number = req.body.contact_number
+    res.user.location = req.body.location
   }
   try {
     const updatedUser = await res.user.save()
