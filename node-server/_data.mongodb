@@ -12,7 +12,7 @@ use(database);
 // use('node-api');
 
 
-
+db.users.drop();
 // Insert a few documents into the users collection.
 db.users.insertMany([
     {
@@ -21,9 +21,11 @@ db.users.insertMany([
         'password': "123",
         'contact_number': "123456789",
         'email_verfiy': new Date('2014-03-01T08:00:00Z'),
+        'image': '',
         'location': 'Tokoy, Japan',
         'created_at': new Date('2014-03-01T08:00:00Z'),
-        'updated_at': new Date('2014-03-01T08:00:00Z')
+        'updated_at': new Date('2014-03-01T08:00:00Z'),
+        'status': '0'
     }
 ]);
 
@@ -61,4 +63,4 @@ db.settings.insertMany([
 
 
 // For `Image Uploader`
-db.createCollection('files');
+// db.createCollection('files');

@@ -49,7 +49,14 @@ router.post('/signup', async (req, res) => {
   const users = new User({
     username: req.body.username,
     email: req.body.email,
-    password: req.body.password
+    email_verfiy: '',
+    password: req.body.password,
+    contact_number: req.body.contact_number,
+    location: req.body.location,
+    image: req.body.image,
+    created_at: req.body.created_at,
+    updated_at: req.body.updated_at,
+    status: '1'
   })
 
   // return res.status.json(users);

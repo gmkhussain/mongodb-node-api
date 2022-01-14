@@ -9,6 +9,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  email_verfiy: {
+    type: String,
+  },
   password: {
     type: String,
   },
@@ -18,7 +21,16 @@ const userSchema = new mongoose.Schema({
   location: {
     type: String,
   },
+  image: {
+    type: String,
+  },
+  created_at: {
+    type: String
+  },
   updated_at: {
+    type: String
+  },
+  status: {
     type: String
   }
 })
