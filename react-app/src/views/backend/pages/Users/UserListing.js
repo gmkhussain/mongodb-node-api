@@ -44,19 +44,21 @@ const BackendUsersListing = () => {
 
                     <p>Users</p>
 
-                    <Link to="/add-user">Add New User</Link>
+                    
+                    <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#addUserPanel" aria-controls="offcanvasRight">Add User</button>
 
-                    <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button>
-
-                    <div className="offcanvas offcanvas-end" tabIndex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div className="offcanvas offcanvas-end" tabIndex="-1" id="addUserPanel">
                         <div className="offcanvas-header">
-                            <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+                            <h5>Offcanvas right</h5>
                             <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                         </div>
                         <div className="offcanvas-body">
                             <BackendAddUser />
                         </div>
                     </div>
+
+
+                   
 
 
                     <table className="table">
@@ -84,7 +86,7 @@ const BackendUsersListing = () => {
                                                 { user.image }
                                             </i>
                                             <span>{ user.username }</span>
-                                        </Link>
+                                        </Link> 
                                     </td>
                                     <td> { user.email } </td>
                                 </tr>

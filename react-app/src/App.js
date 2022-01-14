@@ -21,7 +21,7 @@ import Dashboard from './views/backend/pages/Dashboard';
 import Settings from './views/backend/pages/Settings';
 import BackendUsersListing from './views/backend/pages/Users/UserListing'
 import BackendAddUser from  './views/backend/pages/Users/AddUser'
-
+import BackendUserDetails from './views/backend/pages/Users/UserDetails';
 
 function App() {
 
@@ -66,6 +66,12 @@ function App() {
           <Route exact path="/add-user">
             <DashboardLayout>
               <BackendAddUser />
+            </DashboardLayout>
+          </Route>
+
+          <Route path="/dashboard/users/:id">
+            <DashboardLayout>
+              <BackendUserDetails />
             </DashboardLayout>
           </Route>
           
