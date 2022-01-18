@@ -7,20 +7,13 @@ import { API_BASE_URL } from '../../../../config/config'
 const BackendUserDetails = ( ) => {
     
     const { id } = useParams();
-
-    // const [pageInfo, setPageInfo] = useState({
-    //     userInfo: {}
-    // })
-
-    // User = pageInfo : for on page use
     
-
-
     const [userInfo, setUserInfo] = useState({
-        username: '',
-        email: '',
-        contact_number: '',
-        location: '',
+        username: " ",
+        email: " ",
+        image: " ",
+        contact_number: " ",
+        location: " ",
     })
     
 
@@ -39,7 +32,6 @@ const BackendUserDetails = ( ) => {
 
 
 
-
     let updateInput = ( { target: { name, value } } ) => {
         setUserInfo({
             ...userInfo,
@@ -51,6 +43,17 @@ const BackendUserDetails = ( ) => {
     }
 
 
+
+    let updateFileInput = ( e ) => {
+        setUserInfo({
+            image: e.target.files[0]
+        })
+
+        console.log( userInfo )
+    }
+
+    
+
     
     const updateUserInfo = ( _id ) => {
 
@@ -59,8 +62,29 @@ const BackendUserDetails = ( ) => {
         }).catch( err=> {
             console.log("Err", err )
         })
-
     }
+
+
+
+
+    const updateUserImage = ( e ) => {
+        e.preventDefault()
+
+        const formData = new FormData();
+        formData.append('image', userInfo.image );
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data; boundary=---------------------------293582696224464'
+            }
+        };
+
+        axios.post(`${API_BASE_URL}/updateuserimage`, formData, config ).then(res=>{
+            console.log( "updateUserImage!", formData )
+        }).catch( err=> {
+            console.log("updateUserImage Err", err )
+        })
+    }
+
 
     const onSubmitUserInfo = (e) => {
         e.preventDefault()
@@ -75,7 +99,7 @@ const BackendUserDetails = ( ) => {
 
 
 
-    const user  = userInfo;
+    const { contact_number }  = userInfo;
 
     return (
         <div>
@@ -105,20 +129,30 @@ const BackendUserDetails = ( ) => {
 
         <h4>Edit</h4>
             <div className="col-md-6">
-                <form onSubmit={onSubmitUserInfo}> 
-                    <div className="form-group">
-                        <label>Image</label>
+            
+                <form onSubmit={updateUserImage} encType="multipart/form-data"> 
+                    
+                    <label>Image</label>
                         <input 
                             className="form-control"
-                            type="file" name="image" />
+                            type="file"
+                            name="image"
+                            onChange={updateFileInput}
+                            />
+
+                        <div className="form-group">
+                        <button className="btn btn-primary" type="submit">Save</button>
                     </div>
+                </form>
+
+                <form onSubmit={onSubmitUserInfo}> 
+{/*                 
                     <div className="form-group">
                         <label>Username</label>
                         <input 
                             className="form-control"
                             type="text"
                             name="username"
-                            value={user.username}
                             disabled />
                     </div>
                     <div className="form-group">
@@ -127,8 +161,7 @@ const BackendUserDetails = ( ) => {
                             className="form-control"
                             type="email"
                             name="email"
-                            value={user.email}
-                            onKeyUp={updateInput}
+                            disabled
                             />
                     </div>
                     <div className="form-group">
@@ -137,20 +170,20 @@ const BackendUserDetails = ( ) => {
                             className="form-control"
                             type="text"
                             name="contact_number"
-                            value={user.contact_number}
-                            onKeyUp={updateInput}
+                            value={contact_number}
+                            onChange={updateInput}
                             />
-                    </div>
-                    <div className="form-group">
+                    </div>  */}
+                    {/* <div className="form-group">
                         <label>Location</label>
                         <input 
                             className="form-control"
                             type="text"
                             name="location"
-                            value={user.location}
-                            onKeyUp={updateInput}
+                            value={userInfo.location}
+                            onChange={updateInput}
                             />
-                    </div>
+                    </div> */}
 
                     <div className="form-group">
                         <button className="btn btn-primary" type="submit">Save</button>

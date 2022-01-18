@@ -36,19 +36,35 @@ const Settings = () => {
     }
 
 
+ 
 
     
-
     let onChangeInputFile = ( e ) => {
-    
-        console.log(e.target.files[0]);
+        setSettingsData({
+            ...settingsData,
+            site_logo: e.target.files[0]
+        })
+        console.log( settingsData )
+    }
 
-        // let file = e.target.files[0];
 
-        // setSettingsData({
-        //   ...settingsData,
-        //   [e.target.name] : file
-        // });
+
+    const requestUpdateSiteLogo = async ( e ) => {
+        e.preventDefault()
+
+        const formData = new FormData();
+        formData.append('site_logo', settingsData.site_logo );
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data; boundary=---------------------------293582696224464'
+            }
+        };
+
+        axios.post(`${API_BASE_URL}/settings/site_logo`, formData, config ).then( res=> {
+            console.log("Logo updated")
+        } ).catch( err=> {
+            console.log("Err", err )
+        })
     }
 
 
@@ -82,19 +98,19 @@ const Settings = () => {
 
         event.preventDefault()
         
-
-        let SETTING_ID = '61de8478174d0467612f5e23';
+        let SETTING_ID = '61e1a4996f324cf0f878955b';
 
         axios.patch(`${API_BASE_URL}/settings/${SETTING_ID}`, settingsData ).then( res => {
             
             console.log("SAVED !")
-
+            
         }).catch( err=> {
             console.log( "Err", err )
         })
         
 
     }
+
 
 
 
@@ -124,55 +140,59 @@ const Settings = () => {
                    <p>Settings</p>
                    { loading ? " loading..." : " Loaded" }
 
-                <form  onSubmit={ saveSettings }>
-                    <table className="table">
-                        <tbody>
-                            <tr>
-                                <td>Sitename:</td>
-                                <td>
-                                    <div>{ site_name }</div>
-                                    <input name="site_name" id="site_name" type="text" value={site_name}
-                                            onChange={ updateInput }
-                                            />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>site_desc:</td>
-                                <td>
-                                    <div>{ site_desc }</div>
-                                    <input name="site_desc" id="site_desc" type="text" value={site_desc}
-                                            onChange={ updateInput }
-                                            />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Site Logo</td>
-                                <td>
-                                    <input
-                                        type="file"
-                                        onChange={ (e)=>onChangeInputFile(e) } />
-                                </td>
-                            </tr>
-                           
-                           {/*
-                            <tr>
-                                <td>Headings Color</td>
-                                <td>
-                                    <div>{ headings.color }</div>
-                                    <input  type="text" value={headings.color}
-                                            onChange={updateSiteName}
-                                            />
-                                </td>
-                            </tr> */}
+ 
+                    <form onSubmit={requestUpdateSiteLogo} encType="multipart/form-data"> 
+                        <div className="from-group">
+                            <label>Site Logo</label>
+                            <input
+                                className="form-control"
+                                type="file"
+                                name="site_logo"
+                                onChange={onChangeInputFile} />
+                        </div>
+                        <button type="submit">Upload Logo</button>
+                    </form>
+        
+
+                    <form onSubmit={ saveSettings }>
+                        <table className="table">
+                            <tbody>
+                                <tr>
+                                    <td>Sitename:</td>
+                                    <td>
+                                        <div>{ site_name }</div>
+                                        <input name="site_name" id="site_name" type="text" value={site_name}
+                                                onChange={ updateInput }
+                                                />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>site_desc:</td>
+                                    <td>
+                                        <div>{ site_desc }</div>
+                                        <input name="site_desc" id="site_desc" type="text" value={site_desc}
+                                                onChange={ updateInput }
+                                                />
+                                    </td>
+                                </tr>
                             
-                        </tbody>
-                    </table>
+                            
+                            {/*
+                                <tr>
+                                    <td>Headings Color</td>
+                                    <td>
+                                        <div>{ headings.color }</div>
+                                        <input  type="text" value={headings.color}
+                                                onChange={updateSiteName}
+                                                />
+                                    </td>
+                                </tr> */}
+                            </tbody>
+                        </table>
 
-                    <button type="submit">SAVE</button>
-                </form>
-
-
-                   
+                        <button type="submit">SAVE</button>
+                    </form>
+ 
 
                </div>
             </section>

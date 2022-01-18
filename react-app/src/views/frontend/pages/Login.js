@@ -68,17 +68,17 @@ const Login = () => {
 
                         <form onSubmit={ onSubmitForm }>
 
-                            <div class="mb-3">
+                            <div className="mb-3">
                                 <label className="form-label">Username <mark>{ username }</mark></label>
                                 <input  name="username"
                                         type="text"
                                         className="form-control"
                                         onKeyUp={e => setLoginInfo({ ...loginInfo, username: e.target.value})}
                                         />
-                                <div class="form-text">We'll never share your email with anyone else.</div>
+                                <div className="form-text">We'll never share your email with anyone else.</div>
                             </div>
 
-                            <div class="mb-3">
+                            <div className="mb-3">
                                 <label className="form-label">Password <mark>{ password }</mark></label>
                                 <input
                                         name="password"
@@ -89,12 +89,12 @@ const Login = () => {
                                         />
                             </div>
 
-                            <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                            <div className="mb-3 form-check">
+                                <input type="checkbox" className="form-check-input" id="exampleCheck1" />
+                                <label className="form-check-label" forhtml="exampleCheck1">Check me out</label>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Login</button>
+                            <button type="submit" className="btn btn-primary">Login</button>
                             
                         </form>
                         
