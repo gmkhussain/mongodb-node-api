@@ -2,27 +2,10 @@ const express = require('express')
 const router = express.Router()
 const Setting = require('./settings.model')
 
-var fs = require('fs');
-var path = require('path');
+ 
 
-
-
-
-
-
-// var multer = require('multer');
-  
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-  
-// var upload = multer({ storage: storage });
-
+// for site_logo
+const multer = require("multer")
 
 
 
@@ -41,6 +24,10 @@ router.get('/', async (req, res) => {
 
 
 
+
+
+
+
 // Getting One
 router.get('/:id', getSetting, (req, res) => {
   res.json(res.setting)
@@ -48,6 +35,11 @@ router.get('/:id', getSetting, (req, res) => {
 
 
 
+
+
+
+// const siteLogoRouter = require('./src/settings/logo.route.js')
+// app.use('/settings/update-logo', siteLogoRouter)
 
 
 // Updating One
@@ -68,6 +60,56 @@ router.patch('/:id', getSetting, async (req, res) => {
     res.status(400).json({ message: err.message })
   }
 })
+
+
+
+
+
+
+
+
+
+
+
+// Site Logo :: NOTE Upload manage from differnt file
+var fileStorage = multer.diskStorage({
+  destination: ( req, file, cb) => {
+    cb(null, "./uploads/logos");
+  },
+  filename: ( req, file, cb ) => {
+    cb( null, Date.now() +"-"+ file.originalname );
+  }
+});
+
+var upload = multer( { storage: fileStorage } );
+
+
+
+
+router.post("/site_logo", upload.single("site_logo"), (req, res) => {
+
+    try {    
+      if (req.file) {
+
+        console.log("HHHHHHHHHHH")
+     
+        res.send({
+          status: true,
+          message: "File Uploaded!",
+        });
+      } else {
+        res.status(400).send({
+          status: false,
+          data: "File Not Found :(",
+        });
+      }
+    } catch (err) {
+      res.status(500).send(err);
+    }
+
+});
+
+
 
 
 

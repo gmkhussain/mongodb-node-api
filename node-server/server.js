@@ -50,8 +50,15 @@ app.use('/users', usersRouter)
 const authRouter = require('./src/auth/auth.route')
 app.use('/auth', authRouter)
 
+
+
 const settingRouter = require('./src/settings/settings.route')
 app.use('/settings', settingRouter)
+
+const userImageRouter = require('./src/users/image.route')
+app.use('/updateuserimage', userImageRouter)
+
+
 
 // API URL: localhost:4000
 app.listen(4000, () => console.log('Server Started -> localhost:4000'))

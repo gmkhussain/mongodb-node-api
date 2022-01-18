@@ -9,7 +9,8 @@ app.set("view engine","ejs")
     
 // var upload = multer({ dest: "Upload_folder_name" })
 // If you do not want to use diskStorage then uncomment it
-    
+let image_path;
+
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
         // Uploads is the Upload_folder_name
@@ -17,7 +18,9 @@ let storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
       cb(null, file.fieldname + "-" + Date.now()+".jpg")
+      image_path = "/uploads/"+file.fieldname + "-" + Date.now()+".jpg"
     }
+
   })
 
 // Define the maximum size for uploading
@@ -42,11 +45,12 @@ let upload = multer({
 
         cb("Error: File upload only supports the "
                 + "following filetypes - " + filetypes);
-      } 
+      }
 
 // mypic is the name of file attribute
 }).single("mypic");
-  
+
+
 app.get("/",function(req,res){
     res.render("_file_uploader.ejs");
 })
@@ -67,10 +71,12 @@ app.post("/uploadProfilePicture",function (req, res, next) {
         else {
   
             // SUCCESS, image successfully uploaded
-            res.send("Success, Image uploaded!")
+            res.send("Success, Image uploaded!" + image_path )
         }
     })
 })
+
+
     
 // Take any port number of your choice which
 // is not taken by any other process
