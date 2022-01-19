@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 
 import axios from 'axios'
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 import { API_BASE_URL } from '../../../config/config'
 
 const Login = () => {
 
-    
+        const history = useHistory();
+
         const [loginInfo, setLoginInfo] = useState({
-            username: null,
-            password: null,
+            username: 'abc',
+            password: '123',
             loggedIn: false,
             token: null,
+            loginMsg: ''
         })
 
 
@@ -42,18 +44,24 @@ const Login = () => {
                     setLoginInfo({
                         token: localStorage.getItem('token'),
                         loggedIn: true,
+                        loginMsg: ''
                     })
+
+                    history.push('/dashboard')
 
                 }
             ).catch( err => {
                     // Incase failed
                     console.log( "Err", err )
+                    setLoginInfo({
+                        loginMsg: 'Please login with correct credentials'
+                    })
                 }
             )
         }
 
 
-        const { username, password, loggedIn } = loginInfo
+        const { username, password, loggedIn, loginMsg } = loginInfo
 
         return (
             <section className="login-page">
@@ -63,7 +71,7 @@ const Login = () => {
                     <div className="login-form col-md-4 offset-md-4">
                         
                         <h4>
-                            { loggedIn ? <Redirect to="/dashboard" /> : "login"}
+                           Login
                         </h4>
 
                         <form onSubmit={ onSubmitForm }>
@@ -73,6 +81,7 @@ const Login = () => {
                                 <input  name="username"
                                         type="text"
                                         className="form-control"
+                                        defaultValue={username}
                                         onKeyUp={e => setLoginInfo({ ...loginInfo, username: e.target.value})}
                                         />
                                 <div className="form-text">We'll never share your email with anyone else.</div>
@@ -85,6 +94,7 @@ const Login = () => {
                                         type="password"
                                         className="form-control"
                                         autoComplete="true"
+                                        defaultValue={password}
                                         onKeyUp={e => setLoginInfo({ ...loginInfo, password: e.target.value})}
                                         />
                             </div>
@@ -96,6 +106,11 @@ const Login = () => {
 
                             <button type="submit" className="btn btn-primary">Login</button>
                             
+                            {
+                                loginMsg? <div class="alert alert-danger">{loginMsg}</div> : " "
+                            }
+                            
+
                         </form>
                         
                     </div>

@@ -1,15 +1,19 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 // import axios from 'axios'
 // import { API_BASE_URL } from '../../../config/config'
 
 
 const Home = () => {
 
+      const history = useHistory();
+      
       const logoutRequest =()=> {
-         // axios.get(`${API_BASE_URL}/logout`)
+         
          localStorage.removeItem('token')
          window.location.reload(false);
+
+         history.push('/');
       }
 
         return (
@@ -35,18 +39,34 @@ const Home = () => {
                         </ul>
 
                         <ul className="navbar-nav my-auto mb-2 mb-lg-0">
-                           <li className="nav-item">
+                           
                               {
                                  localStorage.getItem('token')
                               ?
-                                 <button  onClick={logoutRequest}
-                                          className="nav-link">Logout</button>
+                              <>
+                              
+                              <li className="nav-item dropdown">
+                                 <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    User
+                                 </Link>
+                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><Link to="/dashboard" className="dropdown-item">Dashboard</Link></li>
+                                    <li className="nav-item">
+                                       <Link  onClick={logoutRequest}
+                                                className="nav-link">Logout</Link>
+                                    </li>
+                                 </ul>
+                              </li>
+                              </>
                               :
+                              <li className="nav-item">
                                  <Link to="/login" className="nav-link">Login</Link>
+                              </li>
                               }
-                           </li>
+
                         </ul>
 
+                        
                      </div>
                   </div>
                </nav>
