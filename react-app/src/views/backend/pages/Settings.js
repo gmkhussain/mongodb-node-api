@@ -109,7 +109,7 @@ const Settings = () => {
 
         event.preventDefault()
         
-        let SETTING_ID = '61e1a4996f324cf0f878955b';
+        let SETTING_ID = process.env.REACT_APP_SITE_SETTING_ID;
 
         axios.patch(`${API_BASE_URL}/settings/${SETTING_ID}`, settingsData ).then( res => {
             

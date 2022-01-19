@@ -46,13 +46,13 @@ const Home = () => {
                               <>
                               
                               <li className="nav-item dropdown">
-                                 <Link className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 <Link to="#" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     User
                                  </Link>
                                  <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><Link to="/dashboard" className="dropdown-item">Dashboard</Link></li>
                                     <li className="nav-item">
-                                       <Link  onClick={logoutRequest}
+                                       <Link to="#" onClick={logoutRequest}
                                                 className="nav-link">Logout</Link>
                                     </li>
                                  </ul>
