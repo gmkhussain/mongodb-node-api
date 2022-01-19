@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 const Home = () => {
 
       const logoutRequest =()=> {
-         // axios.get(`${API_BASE_URL}/logout`)
          localStorage.removeItem('token')
          window.location.reload(false);
       }

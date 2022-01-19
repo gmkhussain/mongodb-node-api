@@ -11,6 +11,7 @@ const Settings = () => {
         loading: false,
     })
 
+    
     const [settingsData, setSettingsData] = useState({
         site_name: 'na',
         site_desc: 'na',
@@ -22,6 +23,10 @@ const Settings = () => {
     });
 
 
+    const [ previewImage, setPreviewImage] = useState({
+        src: "",
+        alt: ""
+    })
 
 
    
@@ -44,7 +49,13 @@ const Settings = () => {
             ...settingsData,
             site_logo: e.target.files[0]
         })
-        console.log( settingsData )
+
+        setPreviewImage({
+            src: URL.createObjectURL(e.target.files[0]),
+            alt: e.target.files[0].name
+        });    
+    
+        console.log( "previewImage >", previewImage )
     }
 
 
@@ -137,10 +148,15 @@ const Settings = () => {
             <section className="settings-page">
                <div className="container">
                   
-                   <p>Settings</p>
-                   { loading ? " loading..." : " Loaded" }
+                <p>Settings</p>
+                   
+                { loading ? " loading..." : " Loaded" }
 
+                <div className="setting-form col-md-4">
  
+                   
+                    
+
                     <form onSubmit={requestUpdateSiteLogo} encType="multipart/form-data"> 
                         <div className="from-group">
                             <label>Site Logo</label>
@@ -150,32 +166,44 @@ const Settings = () => {
                                 name="site_logo"
                                 onChange={onChangeInputFile} />
                         </div>
-                        <button type="submit">Upload Logo</button>
+
+                        {
+                            (previewImage.src === "" )
+                                ?
+                            "Select Image"
+                                : 
+                            <div className="preview__image"> 
+                                <img src={previewImage.src} alt={previewImage.alt} />
+                            </div>
+                        }
+                            
+                        <div className="form-group mt-4">
+                            <button className="btn btn-primary" type="submit">Upload Logo</button>
+                        </div>
                     </form>
         
 
                     <form onSubmit={ saveSettings }>
-                        <table className="table">
-                            <tbody>
-                                <tr>
-                                    <td>Sitename:</td>
-                                    <td>
-                                        <div>{ site_name }</div>
-                                        <input name="site_name" id="site_name" type="text" value={site_name}
-                                                onChange={ updateInput }
-                                                />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>site_desc:</td>
-                                    <td>
-                                        <div>{ site_desc }</div>
-                                        <input name="site_desc" id="site_desc" type="text" value={site_desc}
-                                                onChange={ updateInput }
-                                                />
-                                    </td>
-                                </tr>
-                            
+                        <div className="form-group">
+                            <label>Sitename:</label>
+                            <input  className="form-control"
+                                    name="site_name"
+                                    id="site_name"
+                                    type="text"
+                                    value={site_name}
+                                    onChange={ updateInput }
+                                    />
+                        </div>
+                        <div className="form-group">
+                            <label>site_desc:</label>
+                            <input  className="form-control"
+                                    name="site_desc"
+                                    id="site_desc"
+                                    type="text"
+                                    value={site_desc}
+                                    onChange={ updateInput }
+                                    />
+                        </div>
                             
                             {/*
                                 <tr>
@@ -187,11 +215,12 @@ const Settings = () => {
                                                 />
                                     </td>
                                 </tr> */}
-                            </tbody>
-                        </table>
-
-                        <button type="submit">SAVE</button>
+                        <div className="form-group mt-4">
+                            <button className="btn btn-primary" type="submit">SAVE</button>
+                        </div>
                     </form>
+
+                </div>
  
 
                </div>
