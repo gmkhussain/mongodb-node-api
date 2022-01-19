@@ -12,6 +12,9 @@ const settingSchema = new mongoose.Schema({
   site_logo: {
       data: Buffer,
       contentType: String
+  },
+  site_logo_url: {
+    type: String
   }
 })
 

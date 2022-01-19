@@ -42,24 +42,6 @@ router.get('/:id', getSetting, (req, res) => {
 // app.use('/settings/update-logo', siteLogoRouter)
 
 
-// Updating One
-router.patch('/:id', getSetting, async (req, res) => {
-  if (req.body.site_name != null) {
-    res.setting.site_name = req.body.site_name
-  }
-  if( req.body.site_desc ) {
-    res.setting.site_desc = req.body.site_desc
-  }
-  if(req.body.site_logo) {
-    res.setting.site_logo = req.body.site_logo
-  }
-  try {
-    const updatedSetting = await res.setting.save()
-    res.json(updatedSetting)
-  } catch (err) {
-    res.status(400).json({ message: err.message })
-  }
-})
 
 
 
@@ -88,7 +70,8 @@ var upload = multer( { storage: fileStorage } );
 
 router.post("/site_logo", upload.single("site_logo"), (req, res) => {
 
-    try {    
+
+    try {
       if (req.file) {
 
         console.log("HHHHHHHHHHH")
@@ -114,6 +97,29 @@ router.post("/site_logo", upload.single("site_logo"), (req, res) => {
 
 
 
+
+// Updating One
+router.patch('/:id', upload.single("site_logo"), getSetting, async (req, res) => {
+
+  if (req.file) {
+    console.log("File hai..")
+  }
+
+  if (req.body.site_name != null) {
+    res.setting.site_name = req.body.site_name
+  }
+  if( req.body.site_desc ) {
+    res.setting.site_desc = req.body.site_desc
+  }
+  
+  
+  try {
+    const updatedSetting = await res.setting.save()
+    res.json(updatedSetting)
+  } catch (err) {
+    res.status(400).json({ message: err.message })
+  }
+})
 
 
 async function getSetting(req, res, next) {

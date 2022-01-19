@@ -155,17 +155,16 @@ const Settings = () => {
                 <div className="setting-form col-md-4">
  
                    
-                    
 
                     <form onSubmit={requestUpdateSiteLogo} encType="multipart/form-data"> 
-                        <div className="from-group">
+                        {/* <div className="from-group">
                             <label>Site Logo</label>
                             <input
                                 className="form-control"
                                 type="file"
                                 name="site_logo"
                                 onChange={onChangeInputFile} />
-                        </div>
+                        </div> */}
 
                         {
                             (previewImage.src === "" )
@@ -175,7 +174,7 @@ const Settings = () => {
                             <div className="preview__image"> 
                                 <img src={previewImage.src} alt={previewImage.alt} />
                             </div>
-                        }
+                            }
                             
                         <div className="form-group mt-4">
                             <button className="btn btn-primary" type="submit">Upload Logo</button>
@@ -184,6 +183,15 @@ const Settings = () => {
         
 
                     <form onSubmit={ saveSettings }>
+                        <div className="from-group">
+                            <label>Site Logo</label>
+                            <input
+                                className="form-control"
+                                type="file"
+                                name="site_logo"
+                                onChange={onChangeInputFile} />
+                        </div>
+
                         <div className="form-group">
                             <label>Sitename:</label>
                             <input  className="form-control"
