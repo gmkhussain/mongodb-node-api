@@ -1,3 +1,22 @@
+# [Node](#node)
+- [ ] Duplicate email / username
+- [x] Password generate with Hash
+- [x] Image Upload
+- [ ] Image Upload on profile
+- [ ] Reset Password API
+
+
+
+# [React](#react-app)
+- [x] Dyamic User URls
+- [ ] 404 Pages
+- [ ] Image Preview
+- [ ] Services
+- [ ] Redux
+
+
+
+
 ## MongoDB for VS Code
 
 - ```https://code.visualstudio.com/docs/azure/mongodb```
@@ -696,7 +715,8 @@ module.exports = router
 
 
 
-# React App: Create
+# React App
+#### Create App
 - ```npx create-react-app react-app```
 - ```cd react-app```
 - ```npm start```
@@ -1299,7 +1319,6 @@ function App() {
               <Dashboard />
             </DashboardLayout>
           </Route> 
-          
           
         </Switch>
       </Router>

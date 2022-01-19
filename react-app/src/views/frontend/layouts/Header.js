@@ -1,9 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-// import axios from 'axios'
-// import { API_BASE_URL } from '../../../config/config'
-
 
 const Home = () => {
 
@@ -12,6 +9,13 @@ const Home = () => {
          localStorage.removeItem('token')
          window.location.reload(false);
       }
+
+
+      const sendMail = ( ) => {
+         const mailto = `mailto:ask@me.now?subject='Test Subject'&body='Test Body'`
+         window.location.href = mailto;
+      }
+
 
         return (
             <header>
@@ -29,6 +33,9 @@ const Home = () => {
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                            <li className="nav-item">
                               <Link to="/" className="nav-link">Home</Link>
+                           </li>
+                           <li>
+                              <Link to="#" onClick={ sendMail }>Email</Link>
                            </li>
                            <li className="nav-item">
                               <Link to="/signup" className="nav-link">Sign Up</Link>
