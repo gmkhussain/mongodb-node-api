@@ -102,8 +102,11 @@ router.post("/site_logo", upload.single("site_logo"), (req, res) => {
 router.patch('/:id', upload.single("site_logo"), getSetting, async (req, res) => {
 
   if (req.file) {
-    console.log("File hai..")
+    console.log("File founded")
+    // console.log(req)
+    res.setting.site_logo_url = req.file.path // save file location
   }
+  
 
   if (req.body.site_name != null) {
     res.setting.site_name = req.body.site_name

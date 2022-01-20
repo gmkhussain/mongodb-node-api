@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-import { API_BASE_URL } from '../../../config/config'
+import { API_BASE_URL, HEADER_MULTIPART_FORM } from '../../../config/config'
 
 
 const Settings = () => {
@@ -11,6 +11,8 @@ const Settings = () => {
         loading: false,
     })
 
+
+    
     
     const [settingsData, setSettingsData] = useState({
         site_name: 'na',
@@ -55,6 +57,8 @@ const Settings = () => {
             alt: e.target.files[0].name
         });    
     
+
+
         console.log( "previewImage >", previewImage )
     }
 
@@ -63,15 +67,12 @@ const Settings = () => {
     const requestUpdateSiteLogo = async ( e ) => {
         e.preventDefault()
 
-        const formData = new FormData();
-        formData.append('site_logo', settingsData.site_logo );
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data; boundary=---------------------------293582696224464'
-            }
-        };
-
-        axios.post(`${API_BASE_URL}/settings/site_logo`, formData, config ).then( res=> {
+        const settingFormData = new FormData();
+        // Image file update in settingFormData
+        settingFormData.append('site_logo', settingsData.site_logo );
+        settingFormData.append('site_name', "NEW" );
+        
+        axios.post(`${API_BASE_URL}/settings/site_logo`, settingFormData, HEADER_MULTIPART_FORM ).then( res=> {
             console.log("Logo updated")
         } ).catch( err=> {
             console.log("Err", err )
@@ -80,6 +81,7 @@ const Settings = () => {
 
 
     const getSettingsData = async () => {
+
          
         await axios.get(`${API_BASE_URL}/settings`).then( res => {
              
@@ -111,7 +113,15 @@ const Settings = () => {
         
         let SETTING_ID = process.env.REACT_APP_SITE_SETTING_ID;
 
-        axios.patch(`${API_BASE_URL}/settings/${SETTING_ID}`, settingsData ).then( res => {
+
+        const settingFormData = new FormData();
+        // Image file update in settingFormData
+        settingFormData.append('site_logo', settingsData.site_logo );
+        settingFormData.append('site_name', settingsData.site_name );
+        settingFormData.append('site_desc', settingsData.site_desc );
+
+
+        axios.patch(`${API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
             
             console.log("SAVED !")
             
@@ -153,7 +163,6 @@ const Settings = () => {
                 { loading ? " loading..." : " Loaded" }
 
                 <div className="setting-form col-md-4">
- 
                    
 
                     <form onSubmit={requestUpdateSiteLogo} encType="multipart/form-data"> 
