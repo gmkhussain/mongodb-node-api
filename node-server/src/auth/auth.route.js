@@ -5,6 +5,8 @@ require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const NewUser = require('./auth.model')
+
+const UserLogin = require('./login.model')
   
 
 
@@ -58,7 +60,7 @@ router.delete('/logout', (req, res) => {
 router.post('/login', (req, res) => {
 
   // Authenticate User  
-  return NewUser.findOne({
+  return UserLogin.findOne({
     username: req.body.username,
     password: req.body.password
   }, (err, user) => {

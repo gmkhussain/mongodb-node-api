@@ -107,9 +107,9 @@ const Login = () => {
                             <button type="submit" className="btn btn-primary">Login</button>
                             
                             {
-                                loginMsg? <div class="alert alert-danger">{loginMsg}</div> : " "
+                                loginMsg? <div className="alert alert-danger">{loginMsg}</div> : " "
                             }
-                            
+
 
                         </form>
                         
