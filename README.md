@@ -1,6 +1,15 @@
 # [Node](#node)
-- [ ] Duplicate email / username
-- [x] Password generate with Hash
+- [x] SignUp
+- - [x] Duplicate email / username
+- - [x] Password generate with Hash
+- [x] Login
+- [ ] Logout
+
+- [x] Users List
+- [ ] User Add ( singup in dashboard )
+- [x] User Edit
+- [x] User Delete
+
 - [x] Image Upload
 - [ ] Image Upload on profile
 - [ ] Reset Password API

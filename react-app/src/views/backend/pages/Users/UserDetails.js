@@ -9,9 +9,9 @@ const BackendUserDetails = ( ) => {
     const { id } = useParams();
     
     const [userInfo, setUserInfo] = useState({
-        username: " ",
-        email: " ",
-        image: " ",
+        // username: " ",
+        // email: " ",
+        // image: " ",
         contact_number: " ",
         location: " ",
     })
@@ -56,6 +56,7 @@ const BackendUserDetails = ( ) => {
 
     
     const updateUserInfo = ( _id ) => {
+        console.log("_id > ", _id)
 
         axios.patch(`${API_BASE_URL}/users/${ _id }`, userInfo ).then(res=>{
             console.log( "Updated!", userInfo )
@@ -99,7 +100,7 @@ const BackendUserDetails = ( ) => {
 
 
 
-    const { contact_number }  = userInfo;
+    const { username, email, contact_number, location }  = userInfo;
 
     return (
         <div>
@@ -146,13 +147,14 @@ const BackendUserDetails = ( ) => {
                 </form>
 
                 <form onSubmit={onSubmitUserInfo}> 
-{/*                 
+
                     <div className="form-group">
                         <label>Username</label>
                         <input 
                             className="form-control"
                             type="text"
                             name="username"
+                            value={username}
                             disabled />
                     </div>
                     <div className="form-group">
@@ -161,6 +163,7 @@ const BackendUserDetails = ( ) => {
                             className="form-control"
                             type="email"
                             name="email"
+                            value={email}
                             disabled
                             />
                     </div>
@@ -173,17 +176,17 @@ const BackendUserDetails = ( ) => {
                             value={contact_number}
                             onChange={updateInput}
                             />
-                    </div>  */}
-                    {/* <div className="form-group">
+                    </div>  
+                    <div className="form-group">
                         <label>Location</label>
                         <input 
                             className="form-control"
                             type="text"
                             name="location"
-                            value={userInfo.location}
+                            value={location}
                             onChange={updateInput}
                             />
-                    </div> */}
+                    </div>
 
                     <div className="form-group">
                         <button className="btn btn-primary" type="submit">Save</button>

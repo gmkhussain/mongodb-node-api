@@ -1,0 +1,1 @@
+export default currentDateTime = new Date().toISOString();

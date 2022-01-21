@@ -4,8 +4,8 @@ const User = require('./users.model')
 
 
 // For Upload Image
-const path = require("path")
-const multer = require("multer")
+// const path = require("path")
+// const multer = require("multer")
 
 
 // Getting all
@@ -80,17 +80,12 @@ router.post('/signup', async (req, res) => {
 // Updating One
 router.patch('/:id', getUser, async (req, res) => {
 
-  if (req.body.username != null) {
-    res.user.username = req.body.username,
-    res.user.email = req.body.email,
-    res.user.password = req.body.password,
+  if (req.body.contact_number != null) {
     res.user.contact_number = req.body.contact_number
-    res.user.location = req.body.location
   }
 
-  let image_path;
-  if( req.body.image != null ) {
-    
+  if (req.body.location != null) {
+    res.user.location = req.body.location    
   }
 
 
