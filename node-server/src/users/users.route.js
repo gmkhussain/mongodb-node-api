@@ -22,9 +22,9 @@ router.get('/', async (req, res) => {
   const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 0;
   const page = req.query.page ? parseInt(req.query.page) : 0;
 
-    
+  res.setHeader('access-control-expose-headers', '*' );
   res.setHeader('total', (await User.find()).length );
-  res.setHeader('total-pages', Math.ceil( 
+  res.setHeader('total_pages', Math.ceil( 
                                   ( (await User.find()).length ) / pageSize )
                                 );
 

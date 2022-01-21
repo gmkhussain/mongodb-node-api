@@ -15,19 +15,23 @@ const BackendUsersListing = () => {
         users: []
     })
 
-    const [ paginate, setPagenate] = useState( {
+    const [ paginateInfo, setPagenateInfo] = useState( {
         page_size: 2,
         current_page: 1,
+        total_pages: 1
     })
 
 
     const getUser = ( paginate ) => {
         axios.get(`${API_BASE_URL}/users?pageSize=${paginate.page_size}&page=${paginate.current_page}`).then(res=>{
-            console.log("Res", res )
+            
+            // console.log("Res", res )
+            // console.log( "paginate >", paginateInfo )
 
-            setUsersData( {
-                users: res.data
-            } )
+            setUsersData( { users: res.data } )
+            setPagenateInfo( { total_pages: 0 })
+
+            console.log( res.headers )
 
         }).catch( err =>{
             console.log("Err", err )
@@ -41,23 +45,37 @@ const BackendUsersListing = () => {
     const newPaginate =(e)=> {
         e.preventDefault()
 
-        setPagenate( { ...paginate, current_page: 2 } )
-        console.log("paginate", paginate)
-        getUser(paginate.page_size, paginate.current_page)
+        setPagenateInfo( { ...paginateInfo, current_page: 2 } )
+        console.log("paginate", paginateInfo)
+        getUser(paginateInfo.page_size, paginateInfo.current_page)
 
     }
 
 
     useEffect( ()=> {
-        getUser( paginate )
+        getUser( paginateInfo )
     }, [])
 
 
+    // useEffect( ()=> {
+    //     let pagiList = [];
+    //     for (var i = 0; i < total_pages; i++) {
+    //         pagiList.push(<span> {i+1} </span>);
+    //     }
+        
+    //     console.log(pagiList)
+
+    // }, [paginateInfo])
     
 
     
 
     const { users } = usersData;
+    const { total_pages } = paginateInfo;
+
+    
+
+
 
         return (
             <section className="dashboard-page">

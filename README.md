@@ -8,7 +8,7 @@
 - [x] Users List
 - - [-] Pagination
 - - - [x] Page Size, Current Page
-- - - [ ] Total Pages
+- - - [x] Total Pages
 - - - [ ] Sort
 - [ ] User Add ( singup in dashboard )
 - [x] User Edit

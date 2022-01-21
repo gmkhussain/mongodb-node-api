@@ -17,3 +17,17 @@
 
     </Link>
 ```
+
+
+
+
+## header response not accessible
+
+Set ```access-control-expose-headers', '*'``
+
+```js
+router.get('/', async (req, res) => {
+//...
+  res.setHeader('access-control-expose-headers', '*' );
+//...
+```
