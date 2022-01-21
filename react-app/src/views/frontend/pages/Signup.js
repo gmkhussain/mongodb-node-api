@@ -6,7 +6,7 @@ import { API_BASE_URL } from '../../../config/config'
 
 const SignUp = () => {
 
-    const today = new Date('05 October 2011 14:48 UTC');
+    // const today = new Date('05 October 2011 14:48 UTC');
 
     const [signupInfo, setSingupInfo] = useState({
         username: "_",
@@ -16,8 +16,8 @@ const SignUp = () => {
         email_verfiy: "",
         image: "",
         location: "",
-        created_at: today.toISOString(),
-        updated_at: today.toISOString(),
+        // created_at: today.toISOString(), // Dates Handled on API Side
+        // updated_at: today.toISOString(),
         status: '0'
     })
 
@@ -111,15 +111,6 @@ const SignUp = () => {
                                         type="file"
                                         name="image"
                                         value=''
-                                        onChange={updateInput}
-                                        />
-                            </div> 
-
-                            <div className="form-group">
-                                <input  className="form-control"
-                                        type="text"
-                                        name="created_at"
-                                        value={ today.toISOString() }
                                         onChange={updateInput}
                                         />
                             </div>

@@ -1,1 +1,3 @@
-export default currentDateTime = new Date().toISOString();
+const currentDateTime = new Date().toISOString();
+
+module.exports = currentDateTime;

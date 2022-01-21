@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('./users.model')
 
+const currentDateTime = require('../util/_date')
 
 // For Upload Image
 // const path = require("path")
@@ -57,8 +58,8 @@ router.post('/signup', async (req, res) => {
     contact_number: req.body.contact_number,
     location: req.body.location,
     image: req.body.image,
-    created_at: req.body.created_at,
-    updated_at: req.body.updated_at,
+    created_at: currentDateTime,
+    updated_at: currentDateTime,
     status: '1'
   })
 
@@ -88,6 +89,8 @@ router.patch('/:id', getUser, async (req, res) => {
     res.user.location = req.body.location    
   }
 
+  // Date / Time / Now
+  res.user.updated_at = currentDateTime;
 
   try {
     const updatedUser = await res.user.save()
