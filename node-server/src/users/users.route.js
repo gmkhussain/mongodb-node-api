@@ -4,16 +4,26 @@ const User = require('./users.model')
 
 const currentDateTime = require('../util/_date')
 
-// For Upload Image
-// const path = require("path")
-// const multer = require("multer")
 
+
+
+
+// User List API with Pagination
+async function getUserWithPagination(pageSize=1, page=1) {
+  const users = await User.find({}).limit(pageSize).skip(pageSize * page);;
+  console.log('Users:::', users);
+  return users;
+}
 
 // Getting all
 router.get('/', async (req, res) => {
+ 
+  const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 0;
+  const page = req.query.page ? parseInt(req.query.page) : 0;
+
   try {
-    const users = await User.find()
-    res.json(users)
+    const usersList = await getUserWithPagination(pageSize, page);
+    res.json( usersList )
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
