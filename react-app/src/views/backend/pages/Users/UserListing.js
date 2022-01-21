@@ -15,9 +15,14 @@ const BackendUsersListing = () => {
         users: []
     })
 
+    const [ paginate, setPagenate] = useState( {
+        page_size: 2,
+        current_page: 1,
+    })
 
-    const getUser = () => {
-        axios.get(`${API_BASE_URL}/users`).then(res=>{
+
+    const getUser = ( paginate ) => {
+        axios.get(`${API_BASE_URL}/users?pageSize=${paginate.page_size}&page=${paginate.current_page}`).then(res=>{
             console.log("Res", res )
 
             setUsersData( {
@@ -31,10 +36,26 @@ const BackendUsersListing = () => {
     }
 
 
+
+    // intial paginate
+    const newPaginate =(e)=> {
+        e.preventDefault()
+
+        setPagenate( { ...paginate, current_page: 2 } )
+        console.log("paginate", paginate)
+        getUser(paginate.page_size, paginate.current_page)
+
+    }
+
+
     useEffect( ()=> {
-        getUser()
+        getUser( paginate )
     }, [])
 
+
+    
+
+    
 
     const { users } = usersData;
 
@@ -44,6 +65,7 @@ const BackendUsersListing = () => {
 
                     <p>Users</p>
 
+                    <button onClick={ newPaginate }> next </button>
                     
                     <Link to="/add-user">Add User (Page)</Link>
                     <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#addUserPanel" aria-controls="offcanvasRight">Add User</button>

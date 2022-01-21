@@ -10,16 +10,24 @@ const currentDateTime = require('../util/_date')
 
 // User List API with Pagination
 async function getUserWithPagination(pageSize=1, page=1) {
+
   const users = await User.find({}).limit(pageSize).skip(pageSize * page);;
-  console.log('Users:::', users);
+  // console.log('Users:::', users);
   return users;
 }
 
 // Getting all
 router.get('/', async (req, res) => {
- 
+
   const pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 0;
   const page = req.query.page ? parseInt(req.query.page) : 0;
+
+    
+  res.setHeader('total', (await User.find()).length );
+  res.setHeader('total-pages', Math.ceil( 
+                                  ( (await User.find()).length ) / pageSize )
+                                );
+
 
   try {
     const usersList = await getUserWithPagination(pageSize, page);
