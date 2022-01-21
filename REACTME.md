@@ -21,7 +21,7 @@
 
 
 
-## header response not accessible
+## Header response not accessible
 
 Set ```access-control-expose-headers', '*'``
 

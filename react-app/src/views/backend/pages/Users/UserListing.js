@@ -18,20 +18,15 @@ const BackendUsersListing = () => {
     const [ paginateInfo, setPagenateInfo] = useState( {
         page_size: 2,
         current_page: 1,
-        total_pages: 1
+        total_pages: 0
     })
 
 
     const getUser = ( paginate ) => {
         axios.get(`${API_BASE_URL}/users?pageSize=${paginate.page_size}&page=${paginate.current_page}`).then(res=>{
             
-            // console.log("Res", res )
-            // console.log( "paginate >", paginateInfo )
-
             setUsersData( { users: res.data } )
-            setPagenateInfo( { total_pages: 0 })
-
-            console.log( res.headers )
+            setPagenateInfo( { ...paginateInfo, total_pages: res.headers.total_pages })
 
         }).catch( err =>{
             console.log("Err", err )
@@ -42,13 +37,15 @@ const BackendUsersListing = () => {
 
 
     // intial paginate
-    const newPaginate =(e)=> {
-        e.preventDefault()
+    const gotoPageNumber =( pn )=> {
+        
+        setPagenateInfo( { ...paginateInfo, current_page: pn } )
+        console.log("paginate", pn , paginateInfo)
 
-        setPagenateInfo( { ...paginateInfo, current_page: 2 } )
-        console.log("paginate", paginateInfo)
-        getUser(paginateInfo.page_size, paginateInfo.current_page)
+        let goto = {...paginateInfo, current_page: pn };
 
+        getUser( goto );
+        
     }
 
 
@@ -57,24 +54,17 @@ const BackendUsersListing = () => {
     }, [])
 
 
-    // useEffect( ()=> {
-    //     let pagiList = [];
-    //     for (var i = 0; i < total_pages; i++) {
-    //         pagiList.push(<span> {i+1} </span>);
-    //     }
-        
-    //     console.log(pagiList)
-
-    // }, [paginateInfo])
-    
-
     
 
     const { users } = usersData;
     const { total_pages } = paginateInfo;
 
+    // Generating pagination Nav
+    let pagiNav = [];
+    for ( let i = 0; i < total_pages; i++) {
+        pagiNav.push(<span> {i+1} </span>);
+    }
     
-
 
 
         return (
@@ -82,8 +72,6 @@ const BackendUsersListing = () => {
                <div className="container">
 
                     <p>Users</p>
-
-                    <button onClick={ newPaginate }> next </button>
                     
                     <Link to="/add-user">Add User (Page)</Link>
                     <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#addUserPanel" aria-controls="offcanvasRight">Add User</button>
@@ -134,6 +122,26 @@ const BackendUsersListing = () => {
                             )) }
                         </tbody>
                     </table>
+
+
+                    <nav aria-label="Page navigation">
+                        <ul className="pagination">
+                          {
+                            pagiNav.map( (p, idx) => ( 
+                                <li 
+                                    className={`page-item ${(paginateInfo.current_page === idx+1) ? "active" : " " }`}
+                                    key={idx}>
+                                    <button 
+                                        className="page-link"
+                                        onClick={ () => { gotoPageNumber( idx+1 ) } }>
+                                            {idx+1} 
+                                    </button>
+                                </li>
+                            ) )
+                          }
+                        </ul>
+                    </nav>
+                    
                </div>
             </section>
           )
