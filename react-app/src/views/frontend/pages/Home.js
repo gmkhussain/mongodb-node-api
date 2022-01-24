@@ -6,17 +6,17 @@ import { API_BASE_URL } from '../../../config/config'
 
 const Home = () => {
 
-   const [usersData, setUsersData] = useState({
-      users: [],
+   const [homePage, setHomePage] = useState({
+      data: [],
       loading: false
    });
 
    const getUsers = () => {
       
-      axios.get(`${API_BASE_URL}/users`).then( res=> {
+      axios.get(`${API_BASE_URL}/pages/${process.env.REACT_APP_PAGE_HOME_ID}`).then( res=> {
          
-         console.log("Res", res )
-         setUsersData({ users: res.data, loading: false })
+         console.log("Home", res )
+         setHomePage({ data: res.data, loading: false })
 
       }).catch( err=> {
          console.log("Err", err )
@@ -31,36 +31,23 @@ const Home = () => {
 
 
 
-   const {  users } = usersData;
+    const { data } = homePage;
 
         return (
             <section className="home-page">
                <div className="container">
-                  Home works
-                  <table className="table" border="1">
-                  <thead>
-                     <tr>
-                        <th>ID</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Contact Number</th>
-                        <th>Location</th>
-                        </tr>
-                  </thead>
-                  <tbody>
-                        {
-                           users.map( ( user )=> (
-                              <tr className="user-box" key={user._id}>
-                                 <td> { user._id } </td>
-                                 <td> { user.username } </td>
-                                 <td> { user.email } </td>
-                                 <td> { user.contact_number } </td>
-                                 <td> { user.location } </td>
-                              </tr>
-                           ))
-                        }
-                  </tbody>
-                  </table>
+
+                  { data.length !== 0 ? ( // if data found
+                     <>
+                        <h4>{ data.title }</h4>
+                        <p>{ data.content }</p>
+                     </>
+                  ) : (
+                     <>
+                        <p>Try again!</p>
+                     </>
+                  ) }
+                  
                </div>
             </section>
           )

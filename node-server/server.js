@@ -59,6 +59,9 @@ const userImageRouter = require('./src/users/image.route')
 app.use('/updateuserimage', userImageRouter)
 
 
+const pagesRouter = require('./src/pages/pages.route')
+app.use('/pages', pagesRouter)
+
 
 // API URL: localhost:4000
 app.listen(4000, () => console.log('Server Started -> localhost:4000'))

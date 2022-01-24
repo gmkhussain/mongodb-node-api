@@ -13,6 +13,7 @@ import DefaultLayout from './views/frontend/layouts/DefaultLayout';
 // Pages
 import Home from './views/frontend/pages/Home'
 import Login from './views/frontend/pages/Login'
+import SignUp from './views/frontend/pages/Signup';
 
 // Admin Layouts
 import DashboardLayout from './views/backend/layouts/DashboardLayout';
@@ -22,7 +23,9 @@ import Settings from './views/backend/pages/Settings';
 import BackendUsersListing from './views/backend/pages/Users/UserListing'
 import BackendAddUser from  './views/backend/pages/Users/AddUser'
 import BackendUserDetails from './views/backend/pages/Users/UserDetails';
-import SignUp from './views/frontend/pages/Signup';
+
+import BackendPagesListing from './views/backend/pages/Pages/PageListing'
+
 
 function App() {
 
@@ -79,6 +82,14 @@ function App() {
           <Route path="/dashboard/users/:id">
             <DashboardLayout>
               <BackendUserDetails />
+            </DashboardLayout>
+          </Route>
+
+
+
+          <Route exact path="/dashboard/pages">
+            <DashboardLayout>
+              <BackendPagesListing />
             </DashboardLayout>
           </Route>
           

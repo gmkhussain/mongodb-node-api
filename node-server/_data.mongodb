@@ -1,18 +1,15 @@
 // MongoDB Playground
 
 const database = 'node-api';
+// The current database to use.
+use(database);
+
 
 db.users.drop();
 // Create a new collection.
 db.createCollection('users');
 
-// // The current database to use.
-use(database);
 
-// use('node-api');
-
-
-db.users.drop();
 // Insert a few documents into the users collection.
 db.users.insertMany([
     {
@@ -45,7 +42,7 @@ db.settings.insertMany([
             'ver1': " ",
             'ver2': " "
         },
-        'site_logo_url': 'uploads\\file-name.jpg'
+        'site_logo_url': "uploads\\file-name.jpg",
         'headings': {
             'font': 'Arial',
             'color': '#000000'
@@ -63,5 +60,41 @@ db.settings.insertMany([
 
 
 
-// For `Image Uploader`
-// db.createCollection('files');
+
+
+
+
+
+
+
+db.pages.drop();
+db.createCollection('pages');
+db.pages.insertMany([
+    {
+        'title': "Home",
+        'description': "This is home",
+        'content': 'Home Content!',
+        'slug': "home",
+        'parent_id': '',
+        'status': "1",
+    },
+    {
+        'title': "Contact",
+        'description': "This is contact",
+        'content': 'Contact Content!',
+        'slug': "contact",
+        'parent_id': '',
+        'status': "1",
+    },
+    {
+        'title': "Services",
+        'description': "This is Services",
+        'content': 'Services Content!',
+        'slug': "services",
+        'parent_id': '',
+        'status': "1",
+    }
+]);
+
+// // For `Image Uploader`
+// // db.createCollection('files');

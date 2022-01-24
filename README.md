@@ -1,3 +1,6 @@
+# [MongoDB](#mongodb)
+- [x] Setup
+
 # [Node](#node)
 - [x] SignUp
 - - [x] Duplicate email / username
@@ -6,7 +9,7 @@
 - [ ] Logout
 
 - [x] Users List
-- - [-] Pagination
+- - [x] Pagination
 - - - [x] Page Size, Current Page
 - - - [x] Total Pages
 - - - [ ] Sort
@@ -21,14 +24,36 @@
 
 
 # [React](#react-app)
-- [x] Dyamic User URls
-- [ ] 404 Pages
-- [ ] Image Preview
-- [ ] Services
-- [ ] Redux
-- [ ] Protect ( Auth ) Routes / Urls
+- [x] Create App
+- [x] Routes
+- - [x] Layouts ( Public/Dashboard )
+- - [x] Public Static Routes
+- - [x] Public Dynamic Routes
+- - [ ] 404 Pages
+- - [ ] Protect ( Auth ) Routes / Urls
+- - [x] Pages (static)
+- - [ ] APIs
+- - - [ ] OnPage Services
+- - - [ ] Global Services
+- - - [ ] Fetch
+- - - [ ] Add
+- - - [ ] Edit
+- - - [ ] Delete
+- - [ ] Redux
+
+- - [x] Singup
+- - [x] Login
+
+- - [ ] Dashboard
+- - [ ] Image Preview
 
 
+
+
+
+
+
+# MongoDB
 
 ## MongoDB for VS Code
 
