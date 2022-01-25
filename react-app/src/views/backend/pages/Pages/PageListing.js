@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import axios from 'axios'
 
@@ -22,11 +22,12 @@ const BackendPageListing = () => {
     })
 
     const getPageLists = ( paginate ) => {
-        axios.get(`${API_BASE_URL}/pages?pageSize${paginate.page_size}&page=${paginate.current_page}`).then( res=> {
+
+        axios.get( `${API_BASE_URL}/pages?pageSize=${paginate.page_size}&page=${paginate.current_page}` ).then( res=> {
            
            setPageInfo({ ...pageInfo, pages: res.data })
-           console.log(res.headers)
-           setPagenateInfo({ ...paginateInfo, total_pages: res.headers.total_pages=='Infinity' ? 0 : res.headers.total_pages })
+           console.log(res)
+           setPagenateInfo({ ...paginateInfo, total_pages: res.headers.total_pages==='Infinity' ? 0 : res.headers.total_pages })
            
         }).catch( err=> {
             console.log("Err", err )
@@ -39,30 +40,39 @@ const BackendPageListing = () => {
     }, [])
 
 
+
+    const gotoNewPage = ( pn ) => {
+        
+        setPagenateInfo({
+           ...paginateInfo,
+           current_page: pn
+        })
+
+        console.log("pn", pn)
+        console.log("paginateInfo", paginateInfo)
+
+        let goto = {...paginateInfo, current_page: pn }; // to avoid SetState not updated
+
+        getPageLists(goto)
+    }
+
     
 
     const { pages } = pageInfo;
     const { total_pages } = paginateInfo;
 
-
     const pagiNav = [];
 
-    // for( let i = 0; i = 1; i++ ) {
-    //     console.log( i )
-    //     pagiNav.push(i+1)
-    // }
+    for( let i = 0; i < total_pages; i++ ) {
+        console.log( pagiNav )
+        pagiNav.push(i)
+    }
 
         return (
             <section className="dashboard-page">
                 <div className="container">
-                    {paginateInfo.total_pages}
-                    {/* {
-                        pagiNav.map( pagi => ( 
-                            <div>
-                             [p]
-                            </div>
-                        ) )
-                    } */}
+                    
+                    <p>Total pages: {paginateInfo.total_pages}</p>
 
                     <table className='table'>
                         <thead>
@@ -84,6 +94,34 @@ const BackendPageListing = () => {
                         ))}
                         </tbody>
                     </table>
+
+
+
+                    
+                    <nav>
+                        <ul className="pagination">
+                            <li className="page-item">
+                                <a className="page-link" to="#">Previous</a>
+                            </li>
+                            {
+                                pagiNav.map( pagi => ( 
+                                    <React.Fragment key={pagi}>
+                                        <li className="page-item">
+                                            <Link className="page-link" to="#"
+                                                  onClick={ ()=>{ gotoNewPage(pagi) } }>
+                                                {pagi}
+                                            </Link>
+                                        </li>
+                                    </React.Fragment>
+                                ) )
+                            }
+                            <li className="page-item">
+                                <Link className="page-link" to="#">Next</Link>
+                            </li>
+                        </ul>
+                    </nav>
+
+                  
 
                 </div>
             </section>
