@@ -106,15 +106,24 @@ router.patch('/:id', upload.single("site_logo"), getSetting, async (req, res) =>
     // console.log(req)
     res.setting.site_logo_url = req.file.path // save file location
   }
-  
+
+  console.log(res.setting)
 
   if (req.body.site_name != null) {
     res.setting.site_name = req.body.site_name
   }
-  if( req.body.site_desc ) {
+  if( req.body.site_desc != null ) {
     res.setting.site_desc = req.body.site_desc
   }
   
+  if( req.body.headings_color != null ) {
+    res.setting.headings_color = req.body.headings_color
+  }
+  
+  if( req.body.headings_font != null ) {
+    res.setting.headings_font = req.body.headings_font
+  }
+
   
   try {
     const updatedSetting = await res.setting.save()

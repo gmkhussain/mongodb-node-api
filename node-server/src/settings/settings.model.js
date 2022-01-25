@@ -15,6 +15,12 @@ const settingSchema = new mongoose.Schema({
   },
   site_logo_url: {
     type: String
+  },
+  headings_color: {
+    type: String
+  },
+  headings_font: {
+    type: String
   }
 })
 

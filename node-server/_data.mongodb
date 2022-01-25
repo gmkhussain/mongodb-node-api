@@ -43,10 +43,8 @@ db.settings.insertMany([
             'ver2': " "
         },
         'site_logo_url': "uploads\\file-name.jpg",
-        'headings': {
-            'font': 'Arial',
-            'color': '#000000'
-        },
+        'headings_font': "Arial",
+        'headings_color': "#000000",
         'content': {
             'font': 'Arial',
             'color': '#000000'

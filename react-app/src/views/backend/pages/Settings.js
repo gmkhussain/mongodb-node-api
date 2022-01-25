@@ -12,16 +12,12 @@ const Settings = () => {
     })
 
 
-    
-    
     const [settingsData, setSettingsData] = useState({
         site_name: 'na',
         site_desc: 'na',
         site_logo: undefined,
-        // headings: {
-        //     font: " ",
-        //     color: " "
-        // }
+        headings_font: " ",
+        headings_color: " "
     });
 
 
@@ -120,6 +116,9 @@ const Settings = () => {
         settingFormData.append('site_name', settingsData.site_name );
         settingFormData.append('site_desc', settingsData.site_desc );
 
+        settingFormData.append('headings_color', settingsData.headings_color );
+        settingFormData.append('headings_font', settingsData.headings_font );
+
 
         axios.patch(`${API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
             
@@ -152,8 +151,9 @@ const Settings = () => {
 
 
     const { loading } = pageInfo;
-    const { site_name, site_desc, site_logo } = settingsData;
+    const { site_name, site_desc, site_logo, headings_color, headings_font } = settingsData;
 
+    
         return (
             <section className="settings-page">
                <div className="container">
@@ -221,17 +221,30 @@ const Settings = () => {
                                     onChange={ updateInput }
                                     />
                         </div>
-                            
-                            {/*
-                                <tr>
-                                    <td>Headings Color</td>
-                                    <td>
-                                        <div>{ headings.color }</div>
-                                        <input  type="text" value={headings.color}
-                                                onChange={updateSiteName}
-                                                />
-                                    </td>
-                                </tr> */}
+
+                        <div className="form-group">
+                            <label>headings_color:</label>
+                            <input  className="form-control"
+                                    name="headings_color"
+                                    id="headings_color"
+                                    type="text"
+                                    value={headings_color}
+                                    onChange={ updateInput }
+                                    />
+                        </div>
+
+                        
+                        <div className="form-group">
+                            <label>headings_font:</label>
+                            <input  className="form-control"
+                                    name="headings_font"
+                                    id="headings_font"
+                                    type="text"
+                                    value={headings_font}
+                                    onChange={ updateInput }
+                                    />
+                        </div>
+
                         <div className="form-group mt-4">
                             <button className="btn btn-primary" type="submit">SAVE</button>
                         </div>
