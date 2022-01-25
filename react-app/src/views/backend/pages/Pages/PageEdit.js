@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from "axios";
 import { API_BASE_URL } from '../../../../config/config'
 
-const BackendPageDetails = ( ) => {
+const BackendPageEdit = ( ) => {
     
     const { id } = useParams();
     
@@ -15,18 +15,41 @@ const BackendPageDetails = ( ) => {
     
 
 
-    const getPageInfo = ( _id ) => {
-        axios.get(`${API_BASE_URL}/pages/${ _id }`).then( res=> {
+    const getPageData = () => {
+        axios.get(`${API_BASE_URL}/pages/${id}`).then( res=> {
+            console.log("Res", res)
 
-            setPageInfo( res.data );
-            console.log("pageInfo", pageInfo)
+            setPageInfo(res.data)
 
-        }).catch(err=>{
-            console.log("Err", err )
+        }).catch( err=>{
+            console.log("Err", err)
         })
     }
 
+    useEffect( ()=> {
+        getPageData()
+    }, [])
 
+
+
+
+
+
+    // Update Page Data
+    const onSubmitUpdate =(e)=> {
+        e.preventDefault();
+
+        updatePageData()
+    }
+
+    const updatePageData = () => {
+
+        axios.patch(`${API_BASE_URL}/pages/${id}`, pageInfo ).then(res=>{
+            console.log("Res", res)
+        }).catch(err=>{
+            console.log("Err", err)
+        })
+    }
 
 
     let updateInput = ( { target: { name, value } } ) => {
@@ -39,42 +62,17 @@ const BackendPageDetails = ( ) => {
         console.log( pageInfo )
     }
 
-    
-
-    
-    const updatePageInfo = ( _id ) => {
-        console.log("_id > ", _id)
-
-        axios.patch(`${API_BASE_URL}/pages/${ _id }`, pageInfo ).then(res=>{
-            console.log( "Updated!", pageInfo )
-        }).catch( err=> {
-            console.log("Err", err )
-        })
-    }
 
 
 
-    const onSubmitUserInfo = (e) => {
-        e.preventDefault()
-        updatePageInfo( id )
-    }
-    
-
-    useEffect(() => {
-        getPageInfo( id )
-    }, [id]);
-
-
-
-
-    const { titl, content }  = pageInfo;
+    const { title, content } = pageInfo;
 
     return (
         <div>
             
             <div className="row">
                 <div className="col-md-12">
-                    <Link to="/dashboard/users" className="btn btn-default"> Back </Link>
+                    <Link to="/dashboard/pages" className="btn btn-default"> Back </Link>
                 </div>
             </div>
 
@@ -82,8 +80,7 @@ const BackendPageDetails = ( ) => {
             <h4>Edit</h4>
             <div className="col-md-6">
             
-                <form onSubmit={onSubmitUserInfo}> 
-
+                <form onSubmit={onSubmitUpdate}>
                     <div className="form-group">
                         <label>Title</label>
                         <input 
@@ -105,11 +102,11 @@ const BackendPageDetails = ( ) => {
                             />
                     </div>
 
-                    <div className="form-group">
-                        <button className="btn btn-primary" type="submit">Save</button>
+                    <div className="form-group mt-2">
+                        <button className="btn btn-primary" type="submit">Update</button>
                     </div>
-
                 </form>
+
             </div>
 
         </div>
@@ -117,4 +114,4 @@ const BackendPageDetails = ( ) => {
     
 }
 
-export default BackendUserDetails;
+export default BackendPageEdit;

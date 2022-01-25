@@ -90,6 +90,9 @@ const BackendPageListing = () => {
                                 <td>
                                     {page.content}
                                 </td>
+                                <td>
+                                    <Link to={`pages/${page._id}`}>Edit</Link>
+                                </td>
                             </tr>
                         ))}
                         </tbody>

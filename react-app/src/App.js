@@ -25,7 +25,7 @@ import BackendAddUser from  './views/backend/pages/Users/AddUser'
 import BackendUserDetails from './views/backend/pages/Users/UserDetails';
 
 import BackendPagesListing from './views/backend/pages/Pages/PageListing'
-
+import BackendPageEdit from './views/backend/pages/Pages/PageEdit'
 
 function App() {
 
@@ -92,6 +92,14 @@ function App() {
               <BackendPagesListing />
             </DashboardLayout>
           </Route>
+
+          
+          <Route exact path="/dashboard/pages/:id">
+            <DashboardLayout>
+              <BackendPageEdit />
+            </DashboardLayout>
+          </Route>
+
           
         </Switch>
       </Router>
