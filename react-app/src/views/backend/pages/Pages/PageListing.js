@@ -15,11 +15,19 @@ const BackendPageListing = () => {
     })
 
 
-    const getPageLists = () => {
-        axios.get(`${API_BASE_URL}/pages`).then( res=> {
+    const [ paginateInfo, setPagenateInfo] = useState( {
+        page_size: 2,
+        current_page: 0,
+        total_pages: null
+    })
+
+    const getPageLists = ( paginate ) => {
+        axios.get(`${API_BASE_URL}/pages?pageSize${paginate.page_size}&page=${paginate.current_page}`).then( res=> {
            
            setPageInfo({ ...pageInfo, pages: res.data })
-
+           console.log(res.headers)
+           setPagenateInfo({ ...paginateInfo, total_pages: res.headers.total_pages=='Infinity' ? 0 : res.headers.total_pages })
+           
         }).catch( err=> {
             console.log("Err", err )
         })
@@ -27,16 +35,34 @@ const BackendPageListing = () => {
 
 
     useEffect(()=>{
-        getPageLists()
+        getPageLists(paginateInfo)
     }, [])
 
 
+    
 
     const { pages } = pageInfo;
+    const { total_pages } = paginateInfo;
+
+
+    const pagiNav = [];
+
+    // for( let i = 0; i = 1; i++ ) {
+    //     console.log( i )
+    //     pagiNav.push(i+1)
+    // }
 
         return (
             <section className="dashboard-page">
                 <div className="container">
+                    {paginateInfo.total_pages}
+                    {/* {
+                        pagiNav.map( pagi => ( 
+                            <div>
+                             [p]
+                            </div>
+                        ) )
+                    } */}
 
                     <table className='table'>
                         <thead>
@@ -55,8 +81,7 @@ const BackendPageListing = () => {
                                     {page.content}
                                 </td>
                             </tr>
-                            )
-                            )}
+                        ))}
                         </tbody>
                     </table>
 

@@ -17,7 +17,7 @@ const BackendUsersListing = () => {
 
     const [ paginateInfo, setPagenateInfo] = useState( {
         page_size: 2,
-        current_page: 1,
+        current_page: 0,
         total_pages: 0
     })
 
@@ -133,8 +133,8 @@ const BackendUsersListing = () => {
                                     key={idx}>
                                     <button 
                                         className="page-link"
-                                        onClick={ () => { gotoPageNumber( idx+1 ) } }>
-                                            {idx+1} 
+                                        onClick={ () => { gotoPageNumber( idx ) } }>
+                                            {idx} 
                                     </button>
                                 </li>
                             ) )
