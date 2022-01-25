@@ -9,7 +9,7 @@ const currentDateTime = require('../util/_date')
 
 
 // List API with Pagination
-async function pagesWithPagination(pageSize=2, page=1) {
+async function pagesWithPagination(pageSize=2, page=0) { // 0 = First Page
   const pages = await Page.find({}).limit(pageSize).skip(pageSize * page);;
   // console.log('Page:::', pages);
   return pages;

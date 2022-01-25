@@ -9,8 +9,7 @@ const currentDateTime = require('../util/_date')
 
 
 // User List API with Pagination
-async function getUserWithPagination(pageSize=1, page=1) {
-
+async function getUserWithPagination(pageSize=1, page=0) { // 0 = First Page
   const users = await User.find({}).limit(pageSize).skip(pageSize * page);;
   // console.log('Users:::', users);
   return users;
