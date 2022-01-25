@@ -9,7 +9,7 @@ const currentDateTime = require('../util/_date')
 
 
 // List API with Pagination
-async function pagesWithPagination(pageSize=1, page=1) {
+async function pagesWithPagination(pageSize=2, page=1) {
   const pages = await Page.find({}).limit(pageSize).skip(pageSize * page);;
   // console.log('Page:::', pages);
   return pages;
@@ -22,11 +22,6 @@ router.get('/', async (req, res) => {
   const page = req.query.page ? parseInt(req.query.page) : 0;
 
   res.setHeader('access-control-expose-headers', '*' );
-  res.setHeader('total', (await Page.find()).length );
-  res.setHeader('total_pages', Math.ceil( 
-                                  ( (await Page.find()).length ) / pageSize )
-                                );
-
 
   try {
     const pagesList = await pagesWithPagination(pageSize, page);
@@ -67,7 +62,7 @@ router.get('/:id', getPage, (req, res) => {
 // Creating Page
 router.post('/create', async (req, res) => {
   
-  const users = new Page({
+  const page = new Page({
     title: req.body.title,
     content: req.body.content,
     status: '1'
@@ -91,13 +86,12 @@ router.post('/create', async (req, res) => {
 router.patch('/:id', getPage, async (req, res) => {
 
   if (req.body.title != null) {
-    res.user.title = req.body.title
+    res.page.title = req.body.title
   }
 
   if (req.body.content != null) {
-    res.user.content = req.body.content
+    res.page.content = req.body.content
   }
-
 
   try {
     const updatedPage = await res.page.save()
@@ -129,8 +123,9 @@ router.delete('/:id', getPage, async (req, res) => {
 
 async function getPage(req, res, next) {
   let page
+
   try {
-    page = await Page.findById(req.params.slug)
+    page = await Page.findById(req.params.id)
     if (page == null) {
       return res.status(404).json({ message: 'Cannot find page' })
     }

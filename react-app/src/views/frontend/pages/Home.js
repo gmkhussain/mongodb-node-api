@@ -14,7 +14,7 @@ const Home = () => {
    const getUsers = () => {
       
       axios.get(`${API_BASE_URL}/pages/${process.env.REACT_APP_PAGE_HOME_ID}`).then( res=> {
-         
+
          console.log("Home", res )
          setHomePage({ data: res.data, loading: false })
 
