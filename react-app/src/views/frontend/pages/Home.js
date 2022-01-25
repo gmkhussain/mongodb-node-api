@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
-
 import { API_BASE_URL } from '../../../config/config'
+import Theme, { STYLES } from '../theme/Theme'
 
 const Home = () => {
+
+   console.log("Theme", STYLES )
 
    const [homePage, setHomePage] = useState({
       data: [],
@@ -39,7 +41,7 @@ const Home = () => {
 
                   { data.length !== 0 ? ( // if data found
                      <>
-                        <h4>{ data.title }</h4>
+                        <h4 style={STYLES}>{ data.title }</h4>
                         <p>{ data.content }</p>
                      </>
                   ) : (
