@@ -31,6 +31,9 @@ db.users.insertMany([
 
 
 
+
+
+// Settings
 db.settings.drop();
 db.createCollection('settings');
 
@@ -43,16 +46,37 @@ db.settings.insertMany([
             'ver2': " "
         },
         'site_logo_url': "uploads\\file-name.jpg",
+        'site_logo_inactive_url': "uploads\\file-name.jpg",
+        'favicon_url': "uploads\\favicon-name.jpg",
+
+        'cursor_icon_svg': '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="book-open" class="svg-inline--fa fa-book-open fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="#4477ed" d="M542.22 32.05c-54.8 3.11-163.72 14.43-230.96 55.59-4.64 2.84-7.27 7.89-7.27 13.17v363.87c0 11.55 12.63 18.85 23.28 13.49 69.18-34.82 169.23-44.32 218.7-46.92 16.89-.89 30.02-14.43 30.02-30.66V62.75c.01-17.71-15.35-31.74-33.77-30.7zM264.73 87.64C197.5 46.48 88.58 35.17 33.78 32.05 15.36 31.01 0 45.04 0 62.75V400.6c0 16.24 13.13 29.78 30.02 30.66 49.49 2.6 149.59 12.11 218.77 46.95 10.62 5.35 23.21-1.94 23.21-13.46V100.63c0-5.29-2.62-10.14-7.27-12.99z"></path></svg>',
+        'cursor_circle_size': '140px',
+        'cursor_circle_color': '#FFFFFF',
+        'cursor_circle_text': 'Hello',
+        'cursor_blend_mode': true,
+        'background_color': '#000000',
+        'background_image_url': "uploads\\file-name.jpg",
+
         'headings_font': "Arial",
+        'headings_weight': '200',
         'headings_color': "#000000",
-        'content': {
-            'font': 'Arial',
-            'color': '#000000'
-        },
+
+        'headings_font_mobile': "Arial",
+        'headings_weight_mobile': '200',
+        'headings_color_mobile': "#000000",
+
+        'body_font': "Arial",
+        'body_weight': '200',
+        'body_color': "#000000",
+
         'links': {
             'font': 'Arial',
             'color': '#000000'
-        }
+        },
+
+        'intro_shape_svg_1': '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle" class="svg-inline--fa fa-circle fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path></svg>',
+        
+        'intro_shape_svg_2': '<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="fan" class="svg-inline--fa fa-fan fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M352.57 128c-28.09 0-54.09 4.52-77.06 12.86l12.41-123.11C289 7.31 279.81-1.18 269.33.13 189.63 10.13 128 77.64 128 159.43c0 28.09 4.52 54.09 12.86 77.06L17.75 224.08C7.31 223-1.18 232.19.13 242.67c10 79.7 77.51 141.33 159.3 141.33 28.09 0 54.09-4.52 77.06-12.86l-12.41 123.11c-1.05 10.43 8.11 18.93 18.59 17.62 79.7-10 141.33-77.51 141.33-159.3 0-28.09-4.52-54.09-12.86-77.06l123.11 12.41c10.44 1.05 18.93-8.11 17.62-18.59-10-79.7-77.51-141.33-159.3-141.33zM256 288a32 32 0 1 1 32-32 32 32 0 0 1-32 32z"></path></svg>',
     }
 ]);
 
@@ -64,7 +88,7 @@ db.settings.insertMany([
 
 
 
-
+// Pages
 db.pages.drop();
 db.createCollection('pages');
 db.pages.insertMany([
@@ -90,6 +114,32 @@ db.pages.insertMany([
         'content': 'Services Content!',
         'slug': "services",
         'parent_id': '',
+        'status': "1",
+    }
+]);
+
+
+
+
+
+
+
+
+
+
+
+// Services
+db.services.drop();
+db.createCollection('services');
+db.services.insertMany([
+    {
+        'title': "Talent management",
+        'content': 'Home Content!',
+        'status': "1",
+    },
+    {
+        'title': "Contact",
+        'content': 'Home Content!',
         'status': "1",
     }
 ]);

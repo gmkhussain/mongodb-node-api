@@ -46,8 +46,8 @@
 
 - - [ ] Dashboard
 - - [ ] Image Preview
-
-
+- - [ ] Theme (style)
+- - - [ ] API fetch once
 
 
 
