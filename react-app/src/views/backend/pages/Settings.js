@@ -140,6 +140,7 @@ const Settings = () => {
         settingFormData.append('site_desc', settingsData.site_desc );
 
         // Image file update in settingFormData
+        settingFormData.append('site_logo', settingsData.site_logo );
         settingFormData.append('site_logo_url', settingsData.site_logo_url );
         settingFormData.append('site_logo_inactive_url', settingsData.
         site_logo_inactive_url );

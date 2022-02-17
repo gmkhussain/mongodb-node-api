@@ -1,5 +1,7 @@
 # [MongoDB](#mongodb)
 - [x] Setup
+- [x] Environment Variables
+- [x] VSCode Plugin
 
 # [Node](#node)
 - [x] SignUp
