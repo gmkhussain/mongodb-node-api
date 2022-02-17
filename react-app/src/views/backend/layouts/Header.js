@@ -7,22 +7,30 @@ import { Link, useHistory } from 'react-router-dom'
 const Home = () => {
 
       const history = useHistory();
-      
       const logoutRequest =()=> {
          
-         localStorage.removeItem('token')
-         window.location.reload(false);
+         localStorage.removeItem('token');
+         
 
-         history.push('/');
+         setTimeout( ()=> {
+            window.location.reload(false);
+        
+            history.push('/');
+
+         }, 1000 )
       }
 
         return (
             <header>
 
-               <nav className="navbar navbar-expand-lg navbar-light bg-light">
+               <nav className="navbar navbar-expand-lg navbar-dark">
                   <div className="container-fluid">
                      
-                     <Link to="#" className="navbar-brand">Navbar</Link>
+                     <Link to="#" className='AppLauncher'>
+                        ::
+                     </Link>
+
+                     <Link to="#" className="navbar-brand">Login</Link>
 
                      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
@@ -38,7 +46,7 @@ const Home = () => {
                            </li>
                         </ul>
 
-                        <ul className="navbar-nav my-auto mb-2 mb-lg-0">
+                        <ul className="navbar-nav my-auto mb-2 mb-lg-0 navbar-right">
                            
                               {
                                  localStorage.getItem('token')
@@ -53,7 +61,7 @@ const Home = () => {
                                     <li><Link to="/dashboard" className="dropdown-item">Dashboard</Link></li>
                                     <li className="nav-item">
                                        <Link to="#" onClick={logoutRequest}
-                                                className="nav-link">Logout</Link>
+                                                className="dropdown-item">Logout</Link>
                                     </li>
                                  </ul>
                               </li>

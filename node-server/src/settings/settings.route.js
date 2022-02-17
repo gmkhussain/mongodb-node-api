@@ -109,6 +109,7 @@ router.patch('/:id', upload.single("site_logo"), getSetting, async (req, res) =>
 
   console.log(res.setting)
 
+  // Site Info
   if (req.body.site_name != null) {
     res.setting.site_name = req.body.site_name
   }
@@ -116,13 +117,103 @@ router.patch('/:id', upload.single("site_logo"), getSetting, async (req, res) =>
     res.setting.site_desc = req.body.site_desc
   }
   
-  if( req.body.headings_color != null ) {
-    res.setting.headings_color = req.body.headings_color
+  // Logos
+  if( req.body.site_logo_url != null ) {
+    res.setting.site_logo_url = req.body.site_logo_url
   }
-  
+  if( req.body.site_logo_inactive_url != null ) {
+    res.setting.site_logo_inactive_url = req.body.site_logo_inactive_url
+  }
+  if( req.body.favicon_url != null ) {
+    res.setting.favicon_url = req.body.favicon_url
+  }
+
+   
+  // Intro
+  if( req.body.intro_shape_svg_1 != null ) {
+    res.setting.intro_shape_svg_1 = req.body.intro_shape_svg_1
+  }
+  if( req.body.intro_shape_svg_2 != null ) {
+    res.setting.intro_shape_svg_2 = req.body.intro_shape_svg_2
+  }
+
+
+  // Cursor
+  if( req.body.cursor_icon_svg != null ) {
+    res.setting.cursor_icon_svg = req.body.cursor_icon_svg
+  }
+
+  if( req.body.cursor_circle_size != null ) {
+    res.setting.cursor_circle_size = req.body.cursor_circle_size
+  }
+
+  if( req.body.cursor_circle_color != null ) {
+    res.setting.cursor_circle_color = req.body.cursor_circle_color
+  }
+
+  if( req.body.cursor_circle_text != null ) {
+    res.setting.cursor_circle_text = req.body.cursor_circle_text
+  }
+
+  if( req.body.cursor_blend_mode != null ) {
+    res.setting.cursor_blend_mode = req.body.cursor_blend_mode
+  }
+
+
+
+  // Background
+  if( req.body.background_color != null ) {
+    res.setting.background_color = req.body.background_color
+  }
+
+  if( req.body.background_image_url != null ) {
+    res.setting.background_image_url = req.body.background_image_url
+  }
+
+
+
+  // Heading
   if( req.body.headings_font != null ) {
     res.setting.headings_font = req.body.headings_font
   }
+
+  if( req.body.headings_weight != null ) {
+    res.setting.headings_weight = req.body.headings_weight
+  }
+  
+  if( req.body.headings_color != null ) {
+    res.setting.headings_color = req.body.headings_color
+  }
+
+
+  // Body
+  if( req.body.body_font != null ) {
+    res.setting.body_font = req.body.body_font
+  }
+
+  if( req.body.body_weight != null ) {
+    res.setting.body_weight = req.body.body_weight
+  }
+  
+  if( req.body.body_color != null ) {
+    res.setting.body_color = req.body.body_color
+  }
+
+
+
+   // Links
+   if( req.body.links_font != null ) {
+    res.setting.links_font = req.body.links_font
+  }
+
+  if( req.body.links_weight != null ) {
+    res.setting.links_weight = req.body.links_weight
+  }
+  
+  if( req.body.links_color != null ) {
+    res.setting.links_color = req.body.links_color
+  }
+
 
   
   try {

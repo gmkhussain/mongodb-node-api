@@ -8,10 +8,12 @@ const DashboardLayout = ({ children }) => {
     <React.Fragment>
         <Header />
         <main className="wrapper">
-           <div className='row'>
-                <Sidebar />
-                <div className='col-md-9'>
-                    {children}
+            <div className='container-fluid'>
+                <div className='row'>
+                    <Sidebar />
+                    <div className='col-md-9'>
+                        {children}
+                    </div>
                 </div>
             </div>
         </main>

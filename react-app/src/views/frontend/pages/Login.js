@@ -10,7 +10,7 @@ const Login = () => {
         const history = useHistory();
 
         const [loginInfo, setLoginInfo] = useState({
-            username: 'abc',
+            username: 'admin',
             password: '123',
             loggedIn: false,
             token: null,
@@ -63,13 +63,14 @@ const Login = () => {
 
         const { username, password, loggedIn, loginMsg } = loginInfo
 
+        const _token = localStorage.getItem('token');
+
         return (
             <section className="login-page">
                <div className="container">
                   
 
                     <div className="login-form col-md-4 offset-md-4">
-                        
                         <h4>
                            Login
                         </h4>
@@ -110,12 +111,13 @@ const Login = () => {
                                 loginMsg? <div className="alert alert-danger">{loginMsg}</div> : " "
                             }
 
-
                         </form>
                         
                     </div>
-
-                    { localStorage.getItem('token') }
+ 
+                    {/* { 
+                        _token ? history.push('/dashboard') : "Please login"
+                    } */}
                    
                </div>
             </section>

@@ -10,6 +10,7 @@ import './App.css';
 
 // Layouts
 import DefaultLayout from './views/frontend/layouts/DefaultLayout';
+import PlainLayout from './views/frontend/layouts/PlainLayout';
 // Pages
 import Home from './views/frontend/pages/Home'
 import Login from './views/frontend/pages/Login'
@@ -33,19 +34,24 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-          <Route exact path="/">
+          {/* <Route exact path="/">
             <DefaultLayout>
               <Home />
             </DefaultLayout>
-          </Route>
+          </Route> */}
           <Route exact path="/contact">
             <p>Contact works</p>
           </Route>
 
-          <Route exact path="/login">
-            <DefaultLayout>
+          <Route exact path="/">
+            <PlainLayout>
               <Login />
-            </DefaultLayout>
+            </PlainLayout>
+          </Route>
+          <Route exact path="/login">
+            <PlainLayout>
+              <Login />
+            </PlainLayout>
           </Route>
 
           <Route exact path="/signup">

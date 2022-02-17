@@ -1,6 +1,6 @@
 // MongoDB Playground
 
-const database = 'node-api';
+const database = 'nakiska';
 // The current database to use.
 use(database);
 
@@ -13,9 +13,10 @@ db.createCollection('users');
 // Insert a few documents into the users collection.
 db.users.insertMany([
     {
-        'username': 'abc',
-        'email': 'alex@domain.com',
+        'username': 'admin',
+        'email': 'admin@gmail.com',
         'password': "123",
+        'role': 'admin',
         'contact_number': "123456789",
         'email_verfiy': new Date('2014-03-01T08:00:00Z'),
         'image': '',

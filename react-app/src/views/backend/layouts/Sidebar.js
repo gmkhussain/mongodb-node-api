@@ -1,25 +1,29 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const Sidebar = () => {
     return (
-        <aside className='col-md-3'>
+        <aside className='col-md-3 p-0'>
             <ol className="list-group">
                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                    <Link to='/dashboard/users' className="ms-2 me-auto">
+                    <NavLink   to='/dashboard/users'  
+                            className={({ isActive }) => (isActive ? 'active' : 'inactive') }
+                            >
                         <div className="fw-bold">Users</div>
-                    </Link>
+                    </NavLink>
                     <span className="badge bg-primary rounded-pill">14</span>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                    <Link to='/dashboard/pages' className="ms-2 me-auto">
+                    <NavLink   to='/dashboard/pages' 
+                            className={({ isActive }) => (isActive ? 'active' : 'inactive') }
+                            >
                         <div className="fw-bold">Pages</div>
-                    </Link>
+                    </NavLink>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                    <Link to='/dashboard/settings' className="ms-2 me-auto">
+                    <NavLink to='/dashboard/settings' className="ms-2 me-auto">
                         <div className="fw-bold">Settings</div>
-                    </Link>
+                    </NavLink>
                 </li>
             </ol>
         </aside>
