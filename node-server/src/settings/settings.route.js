@@ -68,13 +68,13 @@ var upload = multer( { storage: fileStorage } );
 
 
 
-router.post("/site_logo", upload.single("site_logo"), (req, res) => {
+router.post("/site_logo", upload.single("site_logo_url"), (req, res) => {
 
 
     try {
       if (req.file) {
 
-        console.log("HHHHHHHHHHH")
+        console.log("Upload from setting")
      
         res.send({
           status: true,
@@ -99,15 +99,22 @@ router.post("/site_logo", upload.single("site_logo"), (req, res) => {
 
 
 // Updating One
-router.patch('/:id', upload.single("site_logo"), getSetting, async (req, res) => {
+router.patch('/:id', upload.single("site_logo_url"), getSetting, async (req, res) => {
 
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
+  console.clear()
+
+  console.log( "<->", req.body.site_name )
+  console.log( "<->", req.body.site_logo_url )
   if (req.file) {
     console.log("🌈 Image Uploaded")
     // console.log(req)
     res.setting.site_logo_url = req.file.path // save file location
   }
 
-  console.log(res.setting)
+  // console.log(res.setting)
 
   // Site Info
   if (req.body.site_name != null) {
@@ -118,9 +125,9 @@ router.patch('/:id', upload.single("site_logo"), getSetting, async (req, res) =>
   }
   
   // Logos
-  if( req.body.site_logo_url != null ) {
-    res.setting.site_logo_url = req.body.site_logo_url
-  }
+  // if( req.body.site_logo_url != null ) {
+  //   res.setting.site_logo_url = req.body.site_logo_url
+  // }
   if( req.body.site_logo_inactive_url != null ) {
     res.setting.site_logo_inactive_url = req.body.site_logo_inactive_url
   }
@@ -223,6 +230,9 @@ router.patch('/:id', upload.single("site_logo"), getSetting, async (req, res) =>
     res.status(400).json({ message: err.message })
   }
 })
+
+
+
 
 
 async function getSetting(req, res, next) {

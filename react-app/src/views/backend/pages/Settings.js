@@ -15,6 +15,7 @@ const Settings = () => {
     const [settingsData, setSettingsData] = useState({
         site_name: 'na',
         site_desc: 'na',
+        site_logo: undefined, // For Form Only
         site_logo_url: undefined,
         site_logo_inactive_url: undefined,
         favicon_url: undefined,
@@ -69,7 +70,7 @@ const Settings = () => {
     let onChangeInputFile = ( e ) => {
         setSettingsData({
             ...settingsData,
-            site_logo: e.target.files[0]
+            site_logo_url: e.target.files[0]
         })
 
         setPreviewImage({
@@ -78,8 +79,8 @@ const Settings = () => {
         });    
     
 
-
         console.log( "previewImage >", previewImage )
+        console.log("onChangeInputFile", settingsData )
     }
 
 
@@ -140,31 +141,30 @@ const Settings = () => {
         settingFormData.append('site_desc', settingsData.site_desc );
 
         // Image file update in settingFormData
-        settingFormData.append('site_logo', settingsData.site_logo );
         settingFormData.append('site_logo_url', settingsData.site_logo_url );
-        settingFormData.append('site_logo_inactive_url', settingsData.
-        site_logo_inactive_url );
-        settingFormData.append('favicon_url', settingsData.
-        favicon_url );
+        // settingFormData.append('site_logo_inactive_url', settingsData.
+        // site_logo_inactive_url );
+        // settingFormData.append('favicon_url', settingsData.
+        // favicon_url );
 
 
         // Intro
         settingFormData.append('intro_shape_svg_1', settingsData.intro_shape_svg_1 );
-        settingFormData.append('intro_shape_svg_1', settingsData.intro_shape_svg_1 );
+        settingFormData.append('intro_shape_svg_2', settingsData.intro_shape_svg_2 );
 
 
-        // Cursor
-        settingFormData.append('cursor_icon_svg', settingsData.cursor_icon_svg );
-        settingFormData.append('cursor_circle_size', settingsData.cursor_circle_size );
-        settingFormData.append('cursor_circle_color', settingsData.cursor_circle_color );
-        settingFormData.append('cursor_circle_text', settingsData.cursor_circle_text );
+        // // Cursor
+        // settingFormData.append('cursor_icon_svg', settingsData.cursor_icon_svg );
+        // settingFormData.append('cursor_circle_size', settingsData.cursor_circle_size );
+        // settingFormData.append('cursor_circle_color', settingsData.cursor_circle_color );
+        // settingFormData.append('cursor_circle_text', settingsData.cursor_circle_text );
 
-        settingFormData.append('cursor_blend_mode', settingsData.cursor_blend_mode );
+        // settingFormData.append('cursor_blend_mode', settingsData.cursor_blend_mode );
 
 
-        //Background
-        settingFormData.append('background_color', settingsData.background_color );
-        settingFormData.append('background_image_url', settingsData.background_image_url );
+        // //Background
+        // settingFormData.append('background_color', settingsData.background_color );
+        // settingFormData.append('background_image_url', settingsData.background_image_url );
 
 
         // Headings
@@ -256,18 +256,18 @@ const Settings = () => {
                    
                 { loading ? " loading..." : " Loaded" }
 
-                <div className="setting-form col-md-4">
-                   
+                <div className="setting-form col-md-12">
+            
 
-                    <form onSubmit={requestUpdateSiteLogo} encType="multipart/form-data"> 
-                        {/* <div className="from-group">
+                    {/* <form onSubmit={requestUpdateSiteLogo} encType="multipart/form-data"> 
+                        <div className="from-group">
                             <label>Site Logo</label>
                             <input
                                 className="form-control"
                                 type="file"
                                 name="site_logo"
                                 onChange={onChangeInputFile} />
-                        </div> */}
+                        </div> *
 
                         {
                             (previewImage.src === "" )
@@ -277,325 +277,358 @@ const Settings = () => {
                             <div className="preview__image"> 
                                 <img src={previewImage.src} alt={previewImage.alt} />
                             </div>
-                            }
+                        }
                             
                         <div className="form-group mt-4">
                             <button className="btn btn-primary" type="submit">Upload Logo</button>
                         </div>
-                    </form>
+                    </form> */}
         
                     <hr />
 
-                    <form onSubmit={ saveSettings }>
-                        
-                        <h4>Intro</h4>
-                        
-                        <div className="form-group">
-                            <label>intro_shape_svg_1:</label>
-                            <input  className="form-control"
-                                    name="intro_shape_svg_1"
-                                    id="intro_shape_svg_1"
-                                    type="text"
-                                    value={intro_shape_svg_1}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
+                    <form className='row' onSubmit={ saveSettings } encType="multipart/form-data">
 
                         
-                        <div className="form-group">
-                            <label>intro_shape_svg_2:</label>
-                            <input  className="form-control"
-                                    name="intro_shape_svg_2"
-                                    id="intro_shape_svg_2"
-                                    type="text"
-                                    value={intro_shape_svg_2}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-                        
-
-
-                         <h4>Site Info</h4>
-
-                        <div className="form-group">
-                            <label>Sitename:</label>
-                            <input  className="form-control"
-                                    name="site_name"
-                                    id="site_name"
-                                    type="text"
-                                    value={site_name}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-                        <div className="form-group">
-                            <label>site_desc:</label>
-                            <input  className="form-control"
-                                    name="site_desc"
-                                    id="site_desc"
-                                    type="text"
-                                    value={site_desc}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-                            <hr />
-
-                        <div className="from-group">
-                            <label>Site Logo Active</label>
-                            <input
-                                className="form-control"
-                                type="file"
-                                name="site_logo"
-                                onChange={onChangeInputFile} />
-                        </div>
-
-                        <div className="from-group">
-                            <label>Site Logo Inactive</label>
-                            <input
-                                className="form-control"
-                                type="file"
-                                name="site_logo_inactive"
-                                onChange={onChangeInputFile} />
-                        </div>
-
-                        <hr />
-
-                        <div className="from-group">
-                            <label>Site Logo</label>
-                            <input
-                                className="form-control"
-                                type="file"
-                                name="site_logo"
-                                onChange={onChangeInputFile} />
-                        </div>
-
-
-
-                        <hr />
-
-                        <div className="from-group">
-                            <label>favicon</label>
-                            <input
-                                className="form-control"
-                                type="file"
-                                name="favicon"
-                                onChange={onChangeInputFile} />
-                        </div>
-
-
-                        <h4>Cursor</h4>
-
-                        <div className="from-group">
-                            <label>cursor_icon_svg</label>
-                            <input
-                                className="form-control"
-                                type="file"
-                                name="cursor_icon_svg"
-                                onChange={onChangeInputFile} />
-                        </div>
-
-
-                        <div className="form-group">
-                            <label>cursor_circle_size:</label>
-                            <input  className="form-control"
-                                    name="cursor_circle_size"
-                                    id="cursor_circle_size"
-                                    type="text"
-                                    value={cursor_circle_size}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-
-                        <div className="form-group">
-                            <label>cursor_circle_color:</label>
-                            <input  className="form-control"
-                                    name="cursor_circle_color"
-                                    id="cursor_circle_color"
-                                    type="text"
-                                    value={cursor_circle_color}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-                        
-                        <div className="form-group">
-                            <label>cursor_circle_text:</label>
-                            <input  className="form-control"
-                                    name="cursor_circle_text"
-                                    id="cursor_circle_text"
-                                    type="text"
-                                    value={cursor_circle_text}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-                        <div className="form-group">
-                            <label>cursor_blend_mode:</label>
-                            <input  className="form-control"
-                                    name="cursor_blend_mode"
-                                    id="cursor_blend_mode"
-                                    type="checkbox"
-                                    value={cursor_blend_mode}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-
-
-                        <h4>Page</h4>
-
-                        <div className="form-group">
-                            <label>background_color:</label>
-                            <input  className="form-control"
-                                    name="background_color"
-                                    id="background_color"
-                                    type="color"
-                                    value={cursor_blend_mode}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-
-                        <div className="from-group">
-                            <label>background_image_url</label>
-                            <input
-                                className="form-control"
-                                type="file"
-                                name="background_image_url"
-                                onChange={onChangeInputFile} />
-                        </div>
-
-
-
-                        
-                        <h4>Content</h4>
-
-                        <div className="form-group">
-                            <label>headings_font:</label>
-                            <input  className="form-control"
-                                    name="headings_font"
-                                    id="headings_font"
-                                    type="text"
-                                    value={headings_font}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-                        <div className="form-group">
-                            <label>headings_weight:</label>
-                            <input  className="form-control"
-                                    name="headings_weight"
-                                    id="headings_weight"
-                                    type="text"
-                                    value={headings_weight}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-                        <div className="form-group">
-                            <label>headings_color:</label>
-                            <input  className="form-control"
-                                    name="headings_color"
-                                    id="headings_color"
-                                    type="text"
-                                    value={headings_color}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-
-                        <h4>body_font</h4>
-                        
-                        <div className="form-group">
-                            <label>body_font:</label>
-                            <input  className="form-control"
-                                    name="body_font"
-                                    id="body_font"
-                                    type="text"
-                                    value={body_font}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-                        
-                                 
-                        <div className="form-group">
-                            <label>body_weight:</label>
-                            <input  className="form-control"
-                                    name="body_weight"
-                                    id="body_weight"
-                                    type="text"
-                                    value={body_weight}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-                                 
-
-                        <div className="form-group">
-                            <label>body_color:</label>
-                            <input  className="form-control"
-                                    name="body_color"
-                                    id="body_color"
-                                    type="text"
-                                    value={body_color}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-
-
-
-
-
-                        <h4>Links</h4>
-                        
-                        <div className="form-group">
-                            <label>links_font:</label>
-                            <input  className="form-control"
-                                    name="links_font"
-                                    id="links_font"
-                                    type="text"
-                                    value={links_font}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-                        
-                                 
-                        <div className="form-group">
-                            <label>links_weight:</label>
-                            <input  className="form-control"
-                                    name="links_weight"
-                                    id="links_weight"
-                                    type="text"
-                                    value={links_weight}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-                                 
-                                 
-                        <div className="form-group">
-                            <label>links_color:</label>
-                            <input  className="form-control"
-                                    name="links_color"
-                                    id="links_color"
-                                    type="text"
-                                    value={links_color}
-                                    onChange={ updateInput }
-                                    />
-                        </div>
-
-
-
 
                         <div className="form-group mt-4">
-                            <button className="btn btn-primary" type="submit">SAVE</button>
+                            <button className="btn btn-primary" type="submit">SAVE CHANGES</button>
                         </div>
+                        
+                        <div className='card col-md-4'>
+                            <h4>Intro</h4>
+                            
+                            <div className="form-group">
+                                <label>intro_shape_svg_1:</label>
+                                <input  className="form-control"
+                                        name="intro_shape_svg_1"
+                                        id="intro_shape_svg_1"
+                                        type="text"
+                                        value={intro_shape_svg_1}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+
+                            
+                            <div className="form-group">
+                                <label>intro_shape_svg_2:</label>
+                                <input  className="form-control"
+                                        name="intro_shape_svg_2"
+                                        id="intro_shape_svg_2"
+                                        type="text"
+                                        value={intro_shape_svg_2}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+                        </div>
+                        
+                        
+                        <div className='card col-md-8'>
+                            <h4>Logos</h4>
+                            
+                            <div className='row'>
+                                <div className='col-md-6'>
+                                    <div className="from-group">
+                                        <label>Site Logo Active</label>
+                                        <img src={site_logo_url} />
+                                        <input
+                                            className="form-control"
+                                            type="file"
+                                            name="site_logo_url"
+                                            onChange={onChangeInputFile} />
+
+                                            {   (previewImage.src === "" )
+                                                    ?
+                                                "Select Image"
+                                                    : 
+                                                <div className="preview__image"> 
+                                                    <img src={previewImage.src} alt={previewImage.alt} />
+                                                </div>
+                                            }
+                                    </div>
+
+                                    <div className="from-group">
+                                        <label>Site Logo Inactive</label>
+                                        <input
+                                            className="form-control"
+                                            type="file"
+                                            name="site_logo_inactive"
+                                            onChange={onChangeInputFile} />
+                                    </div>
+                                </div>
+                                <div className='col-md-6'>
+
+                                        <div className="from-group">
+                                            <label>Site Logo</label>
+                                            <input
+                                                className="form-control"
+                                                type="file"
+                                                name="site_logo"
+                                                onChange={onChangeInputFile} />
+                                        </div> 
+
+                                        <div className="from-group">
+                                            <label>favicon</label>
+                                            <input
+                                                className="form-control"
+                                                type="file"
+                                                name="favicon"
+                                                onChange={onChangeInputFile} />
+                                        </div>
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        
+
+                        <div className='card col-md-4'>
+                            <h4>Site Info</h4>
+
+                            <div className="form-group">
+                                <label>Sitename:</label>
+                                <input  className="form-control"
+                                        name="site_name"
+                                        id="site_name"
+                                        type="text"
+                                        value={site_name}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+
+                            <div className="form-group">
+                                <label>site_desc:</label>
+                                <input  className="form-control"
+                                        name="site_desc"
+                                        id="site_desc"
+                                        type="text"
+                                        value={site_desc}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+
+                        </div>
+
+
+                        <div className='card col-md-4'>
+
+                            <h4>Cursor</h4>
+
+                            <div className="from-group">
+                                <label>cursor_icon_svg</label>
+                                <input
+                                    className="form-control"
+                                    type="file"
+                                    name="cursor_icon_svg"
+                                    onChange={onChangeInputFile} />
+                            </div>
+
+
+                            <div className="form-group">
+                                <label>cursor_circle_size:</label>
+                                <input  className="form-control"
+                                        name="cursor_circle_size"
+                                        id="cursor_circle_size"
+                                        type="text"
+                                        value={cursor_circle_size}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+
+
+                            <div className="form-group">
+                                <label>cursor_circle_color:</label>
+                                <input  className="form-control"
+                                        name="cursor_circle_color"
+                                        id="cursor_circle_color"
+                                        type="text"
+                                        value={cursor_circle_color}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+
+                            
+                            <div className="form-group">
+                                <label>cursor_circle_text:</label>
+                                <input  className="form-control"
+                                        name="cursor_circle_text"
+                                        id="cursor_circle_text"
+                                        type="text"
+                                        value={cursor_circle_text}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor='cursor_blend_mode'>cursor_blend_mode:</label>
+                                <input  
+                                        name="cursor_blend_mode"
+                                        id="cursor_blend_mode"
+                                        type="checkbox"
+                                        value={cursor_blend_mode}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+                        </div>
+
+                    
+                        <div className='card col-md-4'>
+
+                            <h4>Page</h4>
+
+                            <div className="form-group">
+                                <label>background_color:</label>
+                                <input  className="form-control"
+                                        name="background_color"
+                                        id="background_color"
+                                        type="color"
+                                        value={cursor_blend_mode}
+                                        onChange={ updateInput }
+                                        />
+                            </div>
+
+
+                            <div className="from-group">
+                                <label>background_image_url</label>
+                                <input
+                                    className="form-control"
+                                    type="file"
+                                    name="background_image_url"
+                                    onChange={onChangeInputFile} />
+                            </div>
+                        </div>
+
+
+                        <div className='card col-md-12'>
+                            <div className='row'>
+
+                                <h4>Content</h4>
+
+                                <div className='col col-md-4'>
+                                    <h4>heading_font</h4>
+
+                                        <div className="form-group">
+                                            <label>headings_font:</label>
+                                            <input  className="form-control"
+                                                    name="headings_font"
+                                                    id="headings_font"
+                                                    type="text"
+                                                    value={headings_font}
+                                                    onChange={ updateInput }
+                                                    />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>headings_weight:</label>
+                                            <input  className="form-control"
+                                                    name="headings_weight"
+                                                    id="headings_weight"
+                                                    type="text"
+                                                    value={headings_weight}
+                                                    onChange={ updateInput }
+                                                    />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label>headings_color:</label>
+                                            <input  className="form-control"
+                                                    name="headings_color"
+                                                    id="headings_color"
+                                                    type="text"
+                                                    value={headings_color}
+                                                    onChange={ updateInput }
+                                                    />
+                                        </div>
+                                </div>
+
+                            
+                                <div className='col col-md-4'>
+
+                                    <h4>body_font</h4>
+                                    
+                                    <div className="form-group">
+                                        <label>body_font:</label>
+                                        <input  className="form-control"
+                                                name="body_font"
+                                                id="body_font"
+                                                type="text"
+                                                value={body_font}
+                                                onChange={ updateInput }
+                                                />
+                                    </div>
+                                    
+                                            
+                                    <div className="form-group">
+                                        <label>body_weight:</label>
+                                        <input  className="form-control"
+                                                name="body_weight"
+                                                id="body_weight"
+                                                type="text"
+                                                value={body_weight}
+                                                onChange={ updateInput }
+                                                />
+                                    </div>
+                                            
+
+                                    <div className="form-group">
+                                        <label>body_color:</label>
+                                        <input  className="form-control"
+                                                name="body_color"
+                                                id="body_color"
+                                                type="text"
+                                                value={body_color}
+                                                onChange={ updateInput }
+                                                />
+                                    </div>
+                                
+                                </div>
+
+
+
+
+                                <div className='col col-md-4'>
+                                    <h4>Links</h4>
+                                    
+                                    <div className="form-group">
+                                        <label>links_font:</label>
+                                        <input  className="form-control"
+                                                name="links_font"
+                                                id="links_font"
+                                                type="text"
+                                                value={links_font}
+                                                onChange={ updateInput }
+                                                />
+                                    </div>
+                                    
+                                            
+                                    <div className="form-group">
+                                        <label>links_weight:</label>
+                                        <input  className="form-control"
+                                                name="links_weight"
+                                                id="links_weight"
+                                                type="text"
+                                                value={links_weight}
+                                                onChange={ updateInput }
+                                                />
+                                    </div>
+                                            
+                                            
+                                    <div className="form-group">
+                                        <label>links_color:</label>
+                                        <input  className="form-control"
+                                                name="links_color"
+                                                id="links_color"
+                                                type="text"
+                                                value={links_color}
+                                                onChange={ updateInput }
+                                                />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+ 
                     </form>
-
-
-
-
 
 
                 </div>

@@ -16,7 +16,7 @@ const BackendPageListing = () => {
 
 
     const [ paginateInfo, setPagenateInfo] = useState( {
-        page_size: 2,
+        page_size: 4,
         current_page: 0,
         total_pages: null
     })
@@ -100,31 +100,32 @@ const BackendPageListing = () => {
 
 
 
+                    { ( pagiNav == 0 ) ? <></> : 
                     
-                    <nav>
-                        <ul className="pagination">
-                            <li className="page-item">
-                                <a className="page-link" to="#">Previous</a>
-                            </li>
-                            {
-                                pagiNav.map( pagi => ( 
-                                    <React.Fragment key={pagi}>
-                                        <li className="page-item">
-                                            <Link className="page-link" to="#"
-                                                  onClick={ ()=>{ gotoNewPage(pagi) } }>
-                                                {pagi}
-                                            </Link>
-                                        </li>
-                                    </React.Fragment>
-                                ) )
-                            }
-                            <li className="page-item">
-                                <Link className="page-link" to="#">Next</Link>
-                            </li>
-                        </ul>
-                    </nav>
-
-                  
+                        <nav>
+                            <ul className="pagination">
+                                <li className="page-item">
+                                    <a className="page-link" to="#">Previous</a>
+                                </li>
+                                {
+                                    pagiNav.map( pagi => ( 
+                                        <React.Fragment key={pagi}>
+                                            <li className="page-item">
+                                                <Link className="page-link" to="#"
+                                                        onClick={ ()=>{ gotoNewPage(pagi) } }>
+                                                    {pagi}
+                                                </Link>
+                                            </li>
+                                        </React.Fragment>
+                                    ) )
+                                }
+                                <li className="page-item">
+                                    <Link className="page-link" to="#">Next</Link>
+                                </li>
+                            </ul>
+                        </nav>
+                    }
+                    
 
                 </div>
             </section>
