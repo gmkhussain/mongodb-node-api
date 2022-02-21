@@ -142,8 +142,8 @@ const Settings = () => {
 
         // Image file update in settingFormData
         settingFormData.append('site_logo_url', settingsData.site_logo_url );
-        // settingFormData.append('site_logo_inactive_url', settingsData.
-        // site_logo_inactive_url );
+        settingFormData.append('site_logo_inactive_url', settingsData.
+        site_logo_inactive_url );
         // settingFormData.append('favicon_url', settingsData.
         // favicon_url );
 
@@ -155,16 +155,16 @@ const Settings = () => {
 
         // // Cursor
         // settingFormData.append('cursor_icon_svg', settingsData.cursor_icon_svg );
-        // settingFormData.append('cursor_circle_size', settingsData.cursor_circle_size );
-        // settingFormData.append('cursor_circle_color', settingsData.cursor_circle_color );
-        // settingFormData.append('cursor_circle_text', settingsData.cursor_circle_text );
+        settingFormData.append('cursor_circle_size', settingsData.cursor_circle_size );
+        settingFormData.append('cursor_circle_color', settingsData.cursor_circle_color );
+        settingFormData.append('cursor_circle_text', settingsData.cursor_circle_text );
 
-        // settingFormData.append('cursor_blend_mode', settingsData.cursor_blend_mode );
+        settingFormData.append('cursor_blend_mode', settingsData.cursor_blend_mode );
 
 
-        // //Background
-        // settingFormData.append('background_color', settingsData.background_color );
-        // settingFormData.append('background_image_url', settingsData.background_image_url );
+        //Background
+        settingFormData.append('background_color', settingsData.background_color );
+        settingFormData.append('background_image_url', settingsData.background_image_url );
 
 
         // Headings
@@ -219,12 +219,13 @@ const Settings = () => {
             site_name,
             site_desc,
             site_logo_url,
-            site_logo_url_inactive,
+            site_logo_inactive_url,
             favicon_url,
 
             intro_shape_svg_1,
             intro_shape_svg_2,
 
+            cursor_icon_svg,
             cursor_circle_size,
             cursor_circle_color,
             cursor_circle_text,
@@ -296,29 +297,44 @@ const Settings = () => {
                         
                         <div className='card col-md-4'>
                             <h4>Intro</h4>
+
                             
-                            <div className="form-group">
-                                <label>intro_shape_svg_1:</label>
-                                <input  className="form-control"
+                            
+                            <div className="input-group">
+                                <span class="form-control">
+                                    <label>intro_shape_svg_1</label>
+                                    <input  className="form-control"
                                         name="intro_shape_svg_1"
                                         id="intro_shape_svg_1"
                                         type="text"
                                         value={intro_shape_svg_1}
                                         onChange={ updateInput }
                                         />
+                                </span>
+                                <span class="input-group-text">
+                                    <span className='image_preview' dangerouslySetInnerHTML={{__html: intro_shape_svg_1}}></span>
+                                </span>
                             </div>
 
                             
-                            <div className="form-group">
-                                <label>intro_shape_svg_2:</label>
-                                <input  className="form-control"
+                            <div className="input-group">
+                                <span class="form-control">
+                                    <label>intro_shape_svg_2</label>
+                                    <input  className="form-control"
                                         name="intro_shape_svg_2"
                                         id="intro_shape_svg_2"
                                         type="text"
                                         value={intro_shape_svg_2}
                                         onChange={ updateInput }
                                         />
+                                </span>
+                                <span class="input-group-text">
+                                    <span className='image_preview' dangerouslySetInnerHTML={{__html: intro_shape_svg_2}}></span>
+                                </span>
                             </div>
+
+
+
                         </div>
                         
                         
@@ -327,44 +343,64 @@ const Settings = () => {
                             
                             <div className='row'>
                                 <div className='col-md-6'>
-                                    <div className="from-group">
-                                        <label>Site Logo Active</label>
-                                        <img src={site_logo_url} />
-                                        <input
-                                            className="form-control"
-                                            type="file"
-                                            name="site_logo_url"
-                                            onChange={onChangeInputFile} />
 
+                                    
+                                    <div className="input-group">
+                                        
+                                        <div className="form-control">
+                                            <label>Site Logo Active</label>
+                                            <input
+                                                className="form-control"
+                                                type="file"
+                                                name="site_logo_url"
+                                                onChange={onChangeInputFile} />
+                                        </div>
+                                        <span class="input-group-text">
                                             {   (previewImage.src === "" )
                                                     ?
-                                                "Select Image"
+                                                <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+site_logo_url} />
                                                     : 
                                                 <div className="preview__image"> 
                                                     <img src={previewImage.src} alt={previewImage.alt} />
                                                 </div>
                                             }
+                                        </span>
+                                    </div>
+ 
+ 
+                                    <div className="input-group">
+                                        
+                                        <div className="form-control">
+                                            <label>Site Logo Inactive</label>
+                                            <input
+                                                className="form-control"
+                                                type="file"
+                                                name="site_logo_inactive_url"
+                                                onChange={onChangeInputFile} />
+                                        </div>
+                                        <span class="input-group-text">
+                                            {   (previewImage.src === "" )
+                                                    ?
+                                                <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+site_logo_inactive_url} />
+                                                    : 
+                                                <div className="preview__image"> 
+                                                    <img src={previewImage.src} alt={previewImage.alt} />
+                                                </div>
+                                            }
+                                        </span>
                                     </div>
 
-                                    <div className="from-group">
-                                        <label>Site Logo Inactive</label>
-                                        <input
-                                            className="form-control"
-                                            type="file"
-                                            name="site_logo_inactive"
-                                            onChange={onChangeInputFile} />
-                                    </div>
                                 </div>
                                 <div className='col-md-6'>
 
-                                        <div className="from-group">
+                                        {/* <div className="from-group">
                                             <label>Site Logo</label>
                                             <input
                                                 className="form-control"
                                                 type="file"
                                                 name="site_logo"
                                                 onChange={onChangeInputFile} />
-                                        </div> 
+                                        </div>  */}
 
                                         <div className="from-group">
                                             <label>favicon</label>
@@ -415,13 +451,27 @@ const Settings = () => {
 
                             <h4>Cursor</h4>
 
-                            <div className="from-group">
-                                <label>cursor_icon_svg</label>
-                                <input
-                                    className="form-control"
-                                    type="file"
-                                    name="cursor_icon_svg"
-                                    onChange={onChangeInputFile} />
+                            <div className="input-group">
+                                <span class="form-control">
+                                    <label>intro_shape_svg_2</label>
+                                    <input  className="form-control"
+                                        name="cursor_icon_svg"
+                                        id="cursor_icon_svg"
+                                        type="text"
+                                        value={cursor_icon_svg}
+                                        onChange={ updateInput }
+                                        />
+                                </span>
+                                <span class="input-group-text">
+                                    <span className='image_preview'
+                                        style={
+                                            {
+                                                width: cursor_circle_size,
+                                                height: cursor_circle_size,
+                                            }
+                                        }
+                                    dangerouslySetInnerHTML={{__html: cursor_icon_svg}}></span>
+                                </span>
                             </div>
 
 
@@ -442,7 +492,7 @@ const Settings = () => {
                                 <input  className="form-control"
                                         name="cursor_circle_color"
                                         id="cursor_circle_color"
-                                        type="text"
+                                        type="color"
                                         value={cursor_circle_color}
                                         onChange={ updateInput }
                                         />
@@ -483,7 +533,7 @@ const Settings = () => {
                                         name="background_color"
                                         id="background_color"
                                         type="color"
-                                        value={cursor_blend_mode}
+                                        value={background_color}
                                         onChange={ updateInput }
                                         />
                             </div>
@@ -506,7 +556,13 @@ const Settings = () => {
                                 <h4>Content</h4>
 
                                 <div className='col col-md-4'>
-                                    <h4>heading_font</h4>
+                                    <h4 style={
+                                            {
+                                                fontFamily: headings_font,
+                                                fontWeight: headings_weight,
+                                                color: headings_color
+                                            }                                        
+                                        }>heading_font</h4>
 
                                         <div className="form-group">
                                             <label>headings_font:</label>
@@ -521,13 +577,20 @@ const Settings = () => {
 
                                         <div className="form-group">
                                             <label>headings_weight:</label>
-                                            <input  className="form-control"
+                                            <select className="form-control"
                                                     name="headings_weight"
                                                     id="headings_weight"
                                                     type="text"
                                                     value={headings_weight}
                                                     onChange={ updateInput }
-                                                    />
+                                                    >
+                                                <option value="100">100</option>
+                                                <option value="200">200</option>
+                                                <option value="300">300</option>
+                                                <option value="400">400</option>
+                                                <option value="500">500</option>
+                                                <option value="600">600</option>
+                                            </select>
                                         </div>
 
                                         <div className="form-group">
@@ -535,7 +598,7 @@ const Settings = () => {
                                             <input  className="form-control"
                                                     name="headings_color"
                                                     id="headings_color"
-                                                    type="text"
+                                                    type="color"
                                                     value={headings_color}
                                                     onChange={ updateInput }
                                                     />
@@ -545,7 +608,13 @@ const Settings = () => {
                             
                                 <div className='col col-md-4'>
 
-                                    <h4>body_font</h4>
+                                    <h4 style={
+                                            {
+                                                fontFamily: body_font,
+                                                fontWeight: body_weight,
+                                                color: body_color
+                                            }                                        
+                                        }>body_font</h4>
                                     
                                     <div className="form-group">
                                         <label>body_font:</label>
@@ -561,13 +630,20 @@ const Settings = () => {
                                             
                                     <div className="form-group">
                                         <label>body_weight:</label>
-                                        <input  className="form-control"
+                                        <select  className="form-control"
                                                 name="body_weight"
                                                 id="body_weight"
                                                 type="text"
                                                 value={body_weight}
                                                 onChange={ updateInput }
-                                                />
+                                                >   
+                                                <option value="100">100</option>
+                                                <option value="200">200</option>
+                                                <option value="300">300</option>
+                                                <option value="400">400</option>
+                                                <option value="500">500</option>
+                                                <option value="600">600</option>
+                                        </select>
                                     </div>
                                             
 
@@ -576,7 +652,7 @@ const Settings = () => {
                                         <input  className="form-control"
                                                 name="body_color"
                                                 id="body_color"
-                                                type="text"
+                                                type="color"
                                                 value={body_color}
                                                 onChange={ updateInput }
                                                 />
@@ -588,7 +664,13 @@ const Settings = () => {
 
 
                                 <div className='col col-md-4'>
-                                    <h4>Links</h4>
+                                    <h4 style={
+                                            {
+                                                fontFamily: links_font,
+                                                fontWeight: links_weight,
+                                                color: links_color
+                                            }                                        
+                                        }>Links</h4>
                                     
                                     <div className="form-group">
                                         <label>links_font:</label>
@@ -604,13 +686,20 @@ const Settings = () => {
                                             
                                     <div className="form-group">
                                         <label>links_weight:</label>
-                                        <input  className="form-control"
+                                        <select className="form-control"
                                                 name="links_weight"
                                                 id="links_weight"
                                                 type="text"
                                                 value={links_weight}
                                                 onChange={ updateInput }
-                                                />
+                                                >
+                                                    <option value="100">100</option>
+                                                    <option value="200">200</option>
+                                                    <option value="300">300</option>
+                                                    <option value="400">400</option>
+                                                    <option value="500">500</option>
+                                                    <option value="600">600</option>
+                                        </select>
                                     </div>
                                             
                                             
@@ -619,7 +708,7 @@ const Settings = () => {
                                         <input  className="form-control"
                                                 name="links_color"
                                                 id="links_color"
-                                                type="text"
+                                                type="color"
                                                 value={links_color}
                                                 onChange={ updateInput }
                                                 />
