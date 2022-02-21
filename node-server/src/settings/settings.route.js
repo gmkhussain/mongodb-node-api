@@ -67,54 +67,77 @@ var upload = multer( { storage: fileStorage } );
 
 
 
+// upload.fields([
+//   { name:"site_logo_url", maxCount: 1 },
+//   { name:"site_logo_inactive_url", maxCount: 1 }
+// ] ),
 
-router.post("/site_logo", upload.single("site_logo_url"), (req, res) => {
+// Not in use
+// router.post("/site_logo", upload.single("site_logo_url"), (req, res) => {
 
+//     try {
+//       if (req.file) {
 
-    try {
-      if (req.file) {
-
-        console.log("Upload from setting")
+//         console.log("Upload from setting")
      
-        res.send({
-          status: true,
-          message: "File Uploaded!",
-        });
-      } else {
-        res.status(400).send({
-          status: false,
-          data: "File Not Found :(",
-        });
-      }
-    } catch (err) {
-      res.status(500).send(err);
-    }
+//         res.send({
+//           status: true,
+//           message: "File Uploaded!",
+//         });
+//       } else {
+//         res.status(400).send({
+//           status: false,
+//           data: "File Not Found :(",
+//         });
+//       }
+//     } catch (err) {
+//       res.status(500).send(err);
+//     }
 
-});
-
-
+// });
 
 
 
 
+
+//upload.single("site_logo_url")
+
+// upload.fields([
+//   { name:"site_logo_url", maxCount: 1 },
+//   { name:"site_logo_inactive_url", maxCount: 1 }
+// ] )
 
 // Updating One
-router.patch('/:id', upload.single("site_logo_url"), getSetting, async (req, res) => {
+router.patch('/:id',
+
+  upload.fields([
+    { name:"site_logo_inactive_url" },
+    { name:"site_logo_url"},
+    { name:"favicon_url"},
+  ] )
+
+  , getSetting, async (req, res) => {
 
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
   console.clear()
 
-  console.log( "<->", req.body.site_name )
-  console.log( "<->", req.body.site_logo_url )
-  if (req.file) {
-    console.log("🌈 Image Uploaded")
-    // console.log(req)
-    res.setting.site_logo_url = req.file.path // save file location
+  if(req.files.site_logo_url) {
+    console.log("🌈 Logo 1 Uploaded");
+    res.setting.site_logo_url = req.files.site_logo_url[0].path.replaceAll("\\", "/") // save file location
   }
 
-  // console.log(res.setting)
+  if(req.files.site_logo_inactive_url) {
+    console.log("🌈 Logo 2 Uploaded");
+    res.setting.site_logo_inactive_url = req.files.site_logo_inactive_url[0].path.replaceAll("\\", "/") // save file location
+  }
+
+  if(req.files.favicon_url) {
+    console.log("🌈 favicon Uploaded");
+    res.setting.favicon_url = req.files.favicon_url[0].path.replaceAll("\\", "/") // save file location
+  }
+
 
   // Site Info
   if (req.body.site_name != null) {
@@ -125,12 +148,7 @@ router.patch('/:id', upload.single("site_logo_url"), getSetting, async (req, res
   }
   
   // Logos
-  // if( req.body.site_logo_url != null ) {
-  //   res.setting.site_logo_url = req.body.site_logo_url
-  // }
-  if( req.body.site_logo_inactive_url != null ) {
-    res.setting.site_logo_inactive_url = req.body.site_logo_inactive_url
-  }
+ 
   if( req.body.favicon_url != null ) {
     res.setting.favicon_url = req.body.favicon_url
   }

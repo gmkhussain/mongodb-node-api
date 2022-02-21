@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-
 import axios from 'axios'
+// import SVG, { Props as SVGProps } from 'react-inlinesvg';
 
+// Config
 import { API_BASE_URL, HEADER_MULTIPART_FORM } from '../../../config/config'
+
 
 
 const Settings = () => {
@@ -47,8 +49,9 @@ const Settings = () => {
 
 
     const [ previewImage, setPreviewImage] = useState({
-        src: "",
-        alt: ""
+        site_logo_url: "",
+        site_logo_inactive_url: "",
+        favicon_url: ""
     })
 
 
@@ -68,14 +71,15 @@ const Settings = () => {
 
     
     let onChangeInputFile = ( { target: { name, files } } ) => {
+        console.log(files)
         setSettingsData({
             ...settingsData,
             [name]: files[0]
         })
 
         setPreviewImage({
-            src: URL.createObjectURL(files[0]),
-            alt: files[0].name
+            ...previewImage,
+            [name]: URL.createObjectURL(files[0])
         });    
     
 
@@ -142,10 +146,8 @@ const Settings = () => {
 
         // Image file update in settingFormData
         settingFormData.append('site_logo_url', settingsData.site_logo_url );
-        settingFormData.append('site_logo_inactive_url', settingsData.
-        site_logo_inactive_url );
-        // settingFormData.append('favicon_url', settingsData.
-        // favicon_url );
+        settingFormData.append('site_logo_inactive_url', settingsData.site_logo_inactive_url );
+        settingFormData.append('favicon_url', settingsData.favicon_url );
 
 
         // Intro
@@ -254,36 +256,17 @@ const Settings = () => {
                <div className="container">
                   
                 <p>Settings</p>
+                
                    
                 { loading ? " loading..." : " Loaded" }
 
                 <div className="setting-form col-md-12">
             
-
-                    {/* <form onSubmit={requestUpdateSiteLogo} encType="multipart/form-data"> 
-                        <div className="from-group">
-                            <label>Site Logo</label>
-                            <input
-                                className="form-control"
-                                type="file"
-                                name="site_logo"
-                                onChange={onChangeInputFile} />
-                        </div> *
-
-                        {
-                            (previewImage.src === "" )
-                                ?
-                            "Select Image"
-                                : 
-                            <div className="preview__image"> 
-                                <img src={previewImage.src} alt={previewImage.alt} />
-                            </div>
-                        }
-                            
-                        <div className="form-group mt-4">
-                            <button className="btn btn-primary" type="submit">Upload Logo</button>
-                        </div>
-                    </form> */}
+                    <div class="card">
+                        <h4>Demo Heading</h4>
+                        <p>Demo body content</p>
+                        <a href="#">Demo link content</a>
+                    </div>
         
                     <hr />
 
@@ -295,11 +278,12 @@ const Settings = () => {
                             <button className="btn btn-primary" type="submit">SAVE CHANGES</button>
                         </div>
                         
-                        <div className='card col-md-4'>
+                        <div className='col-md-4'>
+
+                          <div className="card">
+
                             <h4>Intro</h4>
 
-                            
-                            
                             <div className="input-group">
                                 <span className="form-control">
                                     <label>intro_shape_svg_1</label>
@@ -333,122 +317,135 @@ const Settings = () => {
                                 </span>
                             </div>
 
-
+                          </div>
 
                         </div>
                         
                         
-                        <div className='card col-md-8'>
-                            <h4>Logos</h4>
-                            
-                            <div className='row'>
-                                <div className='col-md-6'>
+                        <div className='col-md-8'>
 
-                                    
-                                    <div className="input-group">
+                            <div className="card">
+                                <h4>Logos</h4>
+                                
+                                <div className='row'>
+                                    <div className='col-md-6'>
+
                                         
-                                        <div className="form-control">
-                                            <label>Site Logo Active</label>
-                                            <input
-                                                className="form-control"
-                                                type="file"
-                                                name="site_logo_url"
-                                                onChange={onChangeInputFile} />
+                                        <div className="input-group">
+                                            
+                                            <div className="form-control">
+                                                <label>Site Logo Active</label>
+                                                <input
+                                                    className="form-control"
+                                                    type="file"
+                                                    name="site_logo_url"
+                                                    onChange={onChangeInputFile} />
+                                            </div>
+                                            <span className="input-group-text">
+                                                    
+                                                {   (previewImage.site_logo_url === "" )
+                                                        ?
+                                                    <img className="preview__image" src={`${process.env.REACT_APP_UPLOADS_URL}${site_logo_url}`}
+                                                    />
+                                                        : 
+                                                    <div className="preview__image"> 
+                                                        <img src={previewImage.site_logo_url} />
+                                                    </div>
+                                                }
+                                            </span>
                                         </div>
-                                        <span className="input-group-text">
-                                            {   (previewImage.src === "" )
-                                                    ?
-                                                <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+site_logo_url} />
-                                                    : 
-                                                <div className="preview__image"> 
-                                                    <img src={previewImage.src} alt={previewImage.alt} />
-                                                </div>
-                                            }
-                                        </span>
+    
+    
+                                        <div className="input-group">
+                                            
+                                            <div className="form-control">
+                                                <label>Site Logo Inactive</label>
+                                                <input
+                                                    className="form-control"
+                                                    type="file"
+                                                    name="site_logo_inactive_url"
+                                                    onChange={onChangeInputFile} />
+                                            </div>
+                                            <span className="input-group-text">
+                                                {   ( previewImage.site_logo_inactive_url === "" )
+                                                        ?
+                                                        <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+site_logo_inactive_url} />
+                                                        : 
+                                                    <div className="preview__image"> 
+                                                        <img src={previewImage.site_logo_inactive_url} />
+                                                    </div>
+                                                }
+                                            </span>
+                                        </div>
                                     </div>
- 
- 
-                                    <div className="input-group">
-                                        
-                                        <div className="form-control">
-                                            <label>Site Logo Inactive</label>
-                                            <input
-                                                className="form-control"
-                                                type="file"
-                                                name="site_logo_inactive_url"
-                                                onChange={onChangeInputFile} />
+
+                                    <div className='col-md-6'>
+
+                                        <div className="input-group">
+                                            
+                                            <div className="form-control">
+                                                <label>FavIcon</label>
+                                                <input
+                                                    className="form-control"
+                                                    type="file"
+                                                    name="favicon_url"
+                                                    onChange={onChangeInputFile} />
+                                            </div>
+                                            <span className="input-group-text">
+                                                {   ( previewImage.favicon_url === "" )
+                                                        ?
+                                                        <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+favicon_url} />
+                                                        : 
+                                                    <div className="preview__image"> 
+                                                        <img src={previewImage.favicon_url} />
+                                                    </div>
+                                                }
+                                            </span>
+
                                         </div>
-                                        <span className="input-group-text">
-                                            {   (previewImage.src === "" )
-                                                    ?
-                                                <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+site_logo_inactive_url} />
-                                                    : 
-                                                <div className="preview__image"> 
-                                                    <img src={previewImage.src} alt={previewImage.alt} />
-                                                </div>
-                                            }
-                                        </span>
+
+
                                     </div>
-
-                                </div>
-                                <div className='col-md-6'>
-
-                                        {/* <div className="from-group">
-                                            <label>Site Logo</label>
-                                            <input
-                                                className="form-control"
-                                                type="file"
-                                                name="site_logo"
-                                                onChange={onChangeInputFile} />
-                                        </div>  */}
-
-                                        <div className="from-group">
-                                            <label>favicon</label>
-                                            <input
-                                                className="form-control"
-                                                type="file"
-                                                name="favicon"
-                                                onChange={onChangeInputFile} />
-                                        </div>
-
                                 </div>
                             </div>
-
-
 
                         </div>
                         
 
-                        <div className='card col-md-4'>
-                            <h4>Site Info</h4>
+                        <div className='col-md-4'>
 
-                            <div className="form-group">
-                                <label>Sitename:</label>
-                                <input  className="form-control"
-                                        name="site_name"
-                                        id="site_name"
-                                        type="text"
-                                        value={site_name}
-                                        onChange={ updateInput }
-                                        />
-                            </div>
+                            <div className="card">
+                                <h4>Site Info</h4>
 
-                            <div className="form-group">
-                                <label>site_desc:</label>
-                                <input  className="form-control"
-                                        name="site_desc"
-                                        id="site_desc"
-                                        type="text"
-                                        value={site_desc}
-                                        onChange={ updateInput }
-                                        />
+                                <div className="form-group">
+                                    <label>Sitename:</label>
+                                    <input  className="form-control"
+                                            name="site_name"
+                                            id="site_name"
+                                            type="text"
+                                            value={site_name}
+                                            onChange={ updateInput }
+                                            />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>site_desc:</label>
+                                    <input  className="form-control"
+                                            name="site_desc"
+                                            id="site_desc"
+                                            type="text"
+                                            value={site_desc}
+                                            onChange={ updateInput }
+                                            />
+                                </div>
                             </div>
 
                         </div>
 
 
-                        <div className='card col-md-4'>
+                        <div className='col-md-4'>
 
+                          <div class="card">
                             <h4>Cursor</h4>
 
                             <div className="input-group">
@@ -520,11 +517,13 @@ const Settings = () => {
                                         onChange={ updateInput }
                                         />
                             </div>
+                          </div>
+
                         </div>
 
                     
-                        <div className='card col-md-4'>
-
+                        <div className='col-md-4'>
+                          <div className='card'>
                             <h4>Page</h4>
 
                             <div className="form-group">
@@ -547,10 +546,13 @@ const Settings = () => {
                                     name="background_image_url"
                                     onChange={onChangeInputFile} />
                             </div>
+                          </div>
                         </div>
 
 
-                        <div className='card col-md-12'>
+                        <div className=' col-md-12'>
+
+                          <div className='card'>
                             <div className='row'>
 
                                 <h4>Content</h4>
@@ -715,6 +717,8 @@ const Settings = () => {
                                     </div>
                                 </div>
                             </div>
+                          </div>
+
                         </div>
  
                     </form>
