@@ -67,15 +67,15 @@ const Settings = () => {
  
 
     
-    let onChangeInputFile = ( e ) => {
+    let onChangeInputFile = ( { target: { name, files } } ) => {
         setSettingsData({
             ...settingsData,
-            site_logo_url: e.target.files[0]
+            [name]: files[0]
         })
 
         setPreviewImage({
-            src: URL.createObjectURL(e.target.files[0]),
-            alt: e.target.files[0].name
+            src: URL.createObjectURL(files[0]),
+            alt: files[0].name
         });    
     
 
@@ -301,7 +301,7 @@ const Settings = () => {
                             
                             
                             <div className="input-group">
-                                <span class="form-control">
+                                <span className="form-control">
                                     <label>intro_shape_svg_1</label>
                                     <input  className="form-control"
                                         name="intro_shape_svg_1"
@@ -311,14 +311,14 @@ const Settings = () => {
                                         onChange={ updateInput }
                                         />
                                 </span>
-                                <span class="input-group-text">
+                                <span className="input-group-text">
                                     <span className='image_preview' dangerouslySetInnerHTML={{__html: intro_shape_svg_1}}></span>
                                 </span>
                             </div>
 
                             
                             <div className="input-group">
-                                <span class="form-control">
+                                <span className="form-control">
                                     <label>intro_shape_svg_2</label>
                                     <input  className="form-control"
                                         name="intro_shape_svg_2"
@@ -328,7 +328,7 @@ const Settings = () => {
                                         onChange={ updateInput }
                                         />
                                 </span>
-                                <span class="input-group-text">
+                                <span className="input-group-text">
                                     <span className='image_preview' dangerouslySetInnerHTML={{__html: intro_shape_svg_2}}></span>
                                 </span>
                             </div>
@@ -355,7 +355,7 @@ const Settings = () => {
                                                 name="site_logo_url"
                                                 onChange={onChangeInputFile} />
                                         </div>
-                                        <span class="input-group-text">
+                                        <span className="input-group-text">
                                             {   (previewImage.src === "" )
                                                     ?
                                                 <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+site_logo_url} />
@@ -378,7 +378,7 @@ const Settings = () => {
                                                 name="site_logo_inactive_url"
                                                 onChange={onChangeInputFile} />
                                         </div>
-                                        <span class="input-group-text">
+                                        <span className="input-group-text">
                                             {   (previewImage.src === "" )
                                                     ?
                                                 <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+site_logo_inactive_url} />
@@ -452,7 +452,7 @@ const Settings = () => {
                             <h4>Cursor</h4>
 
                             <div className="input-group">
-                                <span class="form-control">
+                                <span className="form-control">
                                     <label>intro_shape_svg_2</label>
                                     <input  className="form-control"
                                         name="cursor_icon_svg"
@@ -462,7 +462,7 @@ const Settings = () => {
                                         onChange={ updateInput }
                                         />
                                 </span>
-                                <span class="input-group-text">
+                                <span className="input-group-text">
                                     <span className='image_preview'
                                         style={
                                             {
