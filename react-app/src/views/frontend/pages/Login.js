@@ -69,6 +69,7 @@ const Login = () => {
             <section className="login-page">
                <div className="container">
                   
+                   <div class="row">
 
                     <div className="login-form col-md-4 offset-md-4">
                         <h4>
@@ -85,7 +86,7 @@ const Login = () => {
                                         defaultValue={username}
                                         onKeyUp={e => setLoginInfo({ ...loginInfo, username: e.target.value})}
                                         />
-                                <div className="form-text">We'll never share your email with anyone else.</div>
+                                {/* <div className="form-text">We'll never share your email with anyone else.</div> */}
                             </div>
 
                             <div className="mb-3">
@@ -100,15 +101,15 @@ const Login = () => {
                                         />
                             </div>
 
-                            <div className="mb-3 form-check">
+                            {/* <div className="mb-3 form-check">
                                 <input type="checkbox" className="form-check-input" id="RemeberMe" />
                                 <label className="form-check-label" forhtml="RemeberMe">Remember Me</label>
-                            </div>
+                            </div> */}
 
                             <button type="submit" className="btn btn-primary">Login</button>
                             
                             {
-                                loginMsg? <div className="alert alert-danger">{loginMsg}</div> : " "
+                                loginMsg? <div className="alert alert-danger mt-4">{loginMsg}</div> : " "
                             }
 
                         </form>
@@ -118,6 +119,8 @@ const Login = () => {
                     {/* { 
                         _token ? history.push('/dashboard') : "Please login"
                     } */}
+
+                  </div>
                    
                </div>
             </section>

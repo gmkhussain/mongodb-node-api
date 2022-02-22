@@ -128,10 +128,11 @@ const BackendUserDetails = ( ) => {
 
 
 
-        <h4>Edit</h4>
-            <div className="col-md-6">
+        
+            <div className="col-md-6 offset-md-3">
+                <h4>Edit</h4>
             
-                <form onSubmit={updateUserImage} encType="multipart/form-data"> 
+                {/* <form onSubmit={updateUserImage} encType="multipart/form-data"> 
                     
                     <label>Image</label>
                         <input 
@@ -144,7 +145,7 @@ const BackendUserDetails = ( ) => {
                         <div className="form-group">
                         <button className="btn btn-primary" type="submit">Save</button>
                     </div>
-                </form>
+                </form> */}
 
                 <form onSubmit={onSubmitUserInfo}> 
 
@@ -188,7 +189,7 @@ const BackendUserDetails = ( ) => {
                             />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group mt-3">
                         <button className="btn btn-primary" type="submit">Save</button>
                     </div>
                 </form>

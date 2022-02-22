@@ -11,7 +11,7 @@ const DashboardLayout = ({ children }) => {
             <div className='container-fluid'>
                 <div className='row'>
                     <Sidebar />
-                    <div className='col-md-9'>
+                    <div className='col-md-10'>
                         {children}
                     </div>
                 </div>

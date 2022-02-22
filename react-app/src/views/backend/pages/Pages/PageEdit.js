@@ -77,8 +77,9 @@ const BackendPageEdit = ( ) => {
             </div>
 
 
-            <h4>Edit</h4>
-            <div className="col-md-6">
+            <div className="col-md-6 offset-md-3">
+                
+                <h4>Edit</h4>
             
                 <form onSubmit={onSubmitUpdate}>
                     <div className="form-group">
@@ -93,13 +94,13 @@ const BackendPageEdit = ( ) => {
                     </div>  
                     <div className="form-group">
                         <label>Content</label>
-                        <input 
+                        <textarea 
                             className="form-control"
                             type="text"
                             name="content"
                             value={content}
                             onChange={updateInput}
-                            />
+                            ></textarea>
                     </div>
 
                     <div className="form-group mt-2">

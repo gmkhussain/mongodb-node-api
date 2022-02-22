@@ -93,3 +93,53 @@ ol.list-group {
 .settings-page .card .input-group:not(:last-child) {
   margin-bottom: 15px;
 }
+
+html, body, #root {height: 100%;     background: aliceblue; }
+
+.login-form {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+
+
+
+
+
+.list-group-item {
+  background-color: transparent;
+  padding: 0;
+}
+
+.list-group .list-group-item>a.active {
+  margin: 0 !important;
+  border-left: 3px solid #0d6efd;
+  background-color: #ffffff;
+}
+
+.list-group .list-group-item>a {
+  padding: 7px;
+  display: block;
+  width: 100%;
+}
+
+
+
+input[type="color"] {
+  padding: 0;
+  border: 0px solid #ddd;
+  overflow: hidden;
+  border-radius: 5px;
+  min-height: 37px;
+  cursor: pointer;
+}
+
+
+ol.list-group {
+  position: sticky;
+  top: 0;
+}

@@ -72,59 +72,65 @@ const BackendPageListing = () => {
             <section className="dashboard-page">
                 <div className="container">
                     
-                    <p>Total pages: {paginateInfo.total_pages}</p>
+                   <div className='col-md-12 mt-4'>
+                   
+                        <h4>Pages</h4>
+                        <p>Total pages: {paginateInfo.total_pages}</p>
 
-                    <table className='table'>
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Content</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        { pages.map( ( page, index )=>(
-                            <tr key={index}>
-                                <td>
-                                    {page.title}
-                                </td>
-                                <td>
-                                    {page.content}
-                                </td>
-                                <td>
-                                    <Link to={`pages/${page._id}`}>Edit</Link>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                        <table className='table'>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Content</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            { pages.map( ( page, index )=>(
+                                <tr key={index}>
+                                    <td>
+                                        {page.title}
+                                    </td>
+                                    <td>
+                                        {page.content}
+                                    </td>
+                                    <td>
+                                        <Link className='btn-sm btn-primary' to={`pages/${page._id}`}>Edit</Link>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
 
 
 
-                    { ( pagiNav == 0 ) ? <></> : 
-                    
-                        <nav>
-                            <ul className="pagination">
-                                <li className="page-item">
-                                    <a className="page-link" to="#">Previous</a>
-                                </li>
-                                {
-                                    pagiNav.map( pagi => ( 
-                                        <React.Fragment key={pagi}>
-                                            <li className="page-item">
-                                                <Link className="page-link" to="#"
-                                                        onClick={ ()=>{ gotoNewPage(pagi) } }>
-                                                    {pagi}
-                                                </Link>
-                                            </li>
-                                        </React.Fragment>
-                                    ) )
-                                }
-                                <li className="page-item">
-                                    <Link className="page-link" to="#">Next</Link>
-                                </li>
-                            </ul>
-                        </nav>
-                    }
+                        { ( pagiNav == 0 ) ? <></> : 
+
+                            <nav>
+                                <ul className="pagination">
+                                    <li className="page-item">
+                                        <a className="page-link" to="#">Previous</a>
+                                    </li>
+                                    {
+                                        pagiNav.map( pagi => ( 
+                                            <React.Fragment key={pagi}>
+                                                <li className="page-item">
+                                                    <Link className="page-link" to="#"
+                                                            onClick={ ()=>{ gotoNewPage(pagi) } }>
+                                                        {pagi}
+                                                    </Link>
+                                                </li>
+                                            </React.Fragment>
+                                        ) )
+                                    }
+                                    <li className="page-item">
+                                        <Link className="page-link" to="#">Next</Link>
+                                    </li>
+                                </ul>
+                            </nav>
+                        }
+
+                    </div>
+
                     
 
                 </div>

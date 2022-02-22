@@ -3,16 +3,16 @@ import { NavLink } from 'react-router-dom'
 
 const Sidebar = () => {
     return (
-        <aside className='col-md-3 p-0'>
+        <aside className='col-md-2 p-0'>
             <ol className="list-group">
-                <li className="list-group-item d-flex justify-content-between align-items-start">
+                {/* <li className="list-group-item d-flex justify-content-between align-items-start">
                     <NavLink   to='/dashboard/users'  
                             className={({ isActive }) => (isActive ? 'active' : 'inactive') }
                             >
                         <div className="fw-bold">Users</div>
                     </NavLink>
-                    <span className="badge bg-primary rounded-pill">14</span>
-                </li>
+                    
+                </li> */}
                 <li className="list-group-item d-flex justify-content-between align-items-start">
                     <NavLink   to='/dashboard/pages' 
                             className={({ isActive }) => (isActive ? 'active' : 'inactive') }
@@ -21,7 +21,9 @@ const Sidebar = () => {
                     </NavLink>
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-start">
-                    <NavLink to='/dashboard/settings' className="ms-2 me-auto">
+                    <NavLink to='/dashboard/settings'
+                            className={({ isActive }) => (isActive ? 'active' : 'inactive') }
+                            >
                         <div className="fw-bold">Settings</div>
                     </NavLink>
                 </li>

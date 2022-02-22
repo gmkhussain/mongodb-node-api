@@ -255,15 +255,17 @@ const Settings = () => {
             <section className="settings-page">
                <div className="container">
                   
-                <p>Settings</p>
+                
                 
                    
-                { loading ? " loading..." : " Loaded" }
+                { loading ? " loading..." : " " }
 
-                <div className="setting-form col-md-12">
-            
+                <div className="setting-form col-md-12 mt-4">
+
+                    <h4>Settings</h4>
+
                     <div class="card">
-                        <h4>Demo Heading</h4>
+                        <h6>Demo Heading</h6>
                         <p>Demo body content</p>
                         <a href="#">Demo link content</a>
                     </div>
@@ -271,8 +273,6 @@ const Settings = () => {
                     <hr />
 
                     <form className='row' onSubmit={ saveSettings } encType="multipart/form-data">
-
-                        
 
                         <div className="form-group mt-4">
                             <button className="btn btn-primary" type="submit">SAVE CHANGES</button>
@@ -377,11 +377,13 @@ const Settings = () => {
                                                 }
                                             </span>
                                         </div>
-                                    </div>
 
+                                    </div>
                                     <div className='col-md-6'>
 
-                                        <div className="input-group">
+                                        
+
+                                            <div className="input-group">
                                             
                                             <div className="form-control">
                                                 <label>FavIcon</label>
@@ -401,7 +403,6 @@ const Settings = () => {
                                                     </div>
                                                 }
                                             </span>
-
                                         </div>
 
 
