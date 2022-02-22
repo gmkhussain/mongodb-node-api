@@ -60,7 +60,8 @@ main.wrapper>.container-fluid>.row {
 }
 
 aside {
-  box-shadow: 1px 0px 50px 10px #ddd;
+  box-shadow: 1px 0px 50px 10px #e4eef6;
+  background-color: #d3e3f3;
 }
 
 .navbar-right ul.dropdown-menu.show {
@@ -113,18 +114,21 @@ html, body, #root {height: 100%;     background: aliceblue; }
 .list-group-item {
   background-color: transparent;
   padding: 0;
+  border: 0;  
 }
 
 .list-group .list-group-item>a.active {
   margin: 0 !important;
   border-left: 3px solid #0d6efd;
-  background-color: #ffffff;
+  background-color: #eaf3fb;
 }
 
 .list-group .list-group-item>a {
-  padding: 7px;
+  border-left: 3px solid #d3e3f3;
+  padding: 10px;
   display: block;
   width: 100%;
+  color: #000;
 }
 
 
@@ -142,4 +146,52 @@ input[type="color"] {
 ol.list-group {
   position: sticky;
   top: 0;
+}
+
+
+input::-webkit-color-swatch {
+  border: none !important;
+}
+
+
+label.btn {
+  padding: 6px;
+}
+
+
+.file {
+  position: relative;
+}
+
+.file .btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+}
+
+.file input.form-control {
+  position: relative;
+  z-index: 4;
+  opacity: 0;
+}
+
+.file input.form-control:invalid {
+
+}
+
+.file input.form-control:invalid ~ .btn {
+  background-color: green;
+}
+
+
+.pos-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding-top: 6px;
+  background: #f0f8ffdd;
+  padding-bottom: 6px;
+  backdrop-filter: blur(10px) opacity(1);
+  box-shadow: 0px 30px 10px -24px #a9bac9;
 }
