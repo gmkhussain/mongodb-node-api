@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { StateContext } from './../../../context/State' 
 
 import axios from 'axios'
 import { Redirect, useHistory } from "react-router-dom";
@@ -6,6 +7,10 @@ import { Redirect, useHistory } from "react-router-dom";
 import { API_BASE_URL } from '../../../config/config'
 
 const Login = () => {
+
+        // const { setMyContext } = useContext("NEW LOGIN");
+        // const { myContext } = useContext(StateContext)
+        // console.log( myContext )
 
         const history = useHistory();
 
@@ -69,7 +74,7 @@ const Login = () => {
             <section className="login-page">
                <div className="container">
                   
-                   <div class="row">
+                   <div className="row">
 
                     <div className="login-form col-md-4 offset-md-4">
                         <h4>

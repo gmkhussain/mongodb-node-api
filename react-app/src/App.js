@@ -1,4 +1,6 @@
-import React from 'react'
+// React stuff
+import React, { useContext } from 'react'
+import { StateContext } from './context/State' 
 
 // 3rd Party Lib
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
@@ -29,6 +31,10 @@ import BackendPagesListing from './views/backend/pages/Pages/PageListing'
 import BackendPageEdit from './views/backend/pages/Pages/PageEdit'
 
 function App() {
+
+  const { myContext } = useContext(StateContext)
+
+  console.log( "Data from context >", myContext )
 
   return (
     <div className="App">

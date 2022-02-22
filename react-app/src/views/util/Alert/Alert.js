@@ -17,12 +17,12 @@ const Alert = (props) => {
 
     return (
         <>
-            <div class={`alert alert-${props.class}`} role="alert" style={styles.alert}>
+            <div className={`alert alert-${props.class}`} role="alert" style={styles.alert}>
                 
                 <h6>{props.title}</h6>
                 <p>{props.desc}</p>
 
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"
                     style={styles.btn}></button>
             </div>
         </>

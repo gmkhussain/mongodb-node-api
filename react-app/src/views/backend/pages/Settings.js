@@ -7,6 +7,7 @@ import Alert from '../../util/Alert/Alert';
 // Config
 import { API_BASE_URL, HEADER_MULTIPART_FORM } from '../../../config/config'
 
+import Theme, { STYLES } from '../../theme/Theme'
 
 
 const Settings = () => {
@@ -26,15 +27,15 @@ const Settings = () => {
     const [settingsData, setSettingsData] = useState({
         site_name: 'na',
         site_desc: 'na',
-        site_logo: undefined, // For Form Only
-        site_logo_url: undefined,
-        site_logo_inactive_url: undefined,
-        favicon_url: undefined,
+        site_logo: ' ', // For Form Only
+        site_logo_url: '',
+        site_logo_inactive_url: " ",
+        favicon_url: " ",
         
         intro_shape_svg_1: '',
         intro_shape_svg_2: '',
 
-        cursor_icon_svg: undefined,
+        cursor_icon_svg: " ",
         cursor_circle_size: '',
         cursor_circle_color: '',
         cursor_circle_text: '',
@@ -218,6 +219,8 @@ const Settings = () => {
 
     useEffect(()=>{
         getSettingsData()
+
+        console.log("STYLES::::::", Theme.themeInfo )
     }, [])
 
 
@@ -278,8 +281,8 @@ const Settings = () => {
 
                         <h4>Settings</h4>
 
-                        <div class="card">
-                            <h6>Demo Heading</h6>
+                        <div className="card">
+                            <h6 style={ STYLES.HEADING }>Demo Heading</h6>
                             <p>Demo body content</p>
                             <a href="#">Demo link content</a>
                         </div>
@@ -288,7 +291,7 @@ const Settings = () => {
 
                         <form className='row' onSubmit={ saveSettings } encType="multipart/form-data">
                             
-                            { alert?.display ? <Alert class="success" title={alert.title} /> : " " }
+                            { alert?.display ? <Alert className="success" title={alert.title} /> : " " }
                             
                             <div className="form-group pos-sticky mt-4">
                                 <button className="btn btn-primary" type="submit">SAVE CHANGES</button>
@@ -352,7 +355,7 @@ const Settings = () => {
                                                 
                                                 <div className="form-control">
                                                     <label>Logo Active</label>
-                                                    <div class="file">
+                                                    <div className="file">
                                                         <input
                                                             className="form-control"
                                                             type="file"
@@ -381,7 +384,7 @@ const Settings = () => {
                                                 <div className="form-control">
                                                     <label>Logo Inactive</label>
                                                     
-                                                    <div class="file">
+                                                    <div className="file">
                                                         <input
                                                             className="form-control"
                                                             type="file"
@@ -471,7 +474,7 @@ const Settings = () => {
 
                             <div className='col-md-4'>
 
-                            <div class="card">
+                            <div className="card">
                                 <h4>Cursor</h4>
 
                             <div className='row'>
@@ -547,7 +550,7 @@ const Settings = () => {
                                                 onChange={ updateInput }
                                                 role="switch"
                                                 />
-                                        <label class="form-check-label" htmlFor='cursor_blend_mode'>cursor_blend_mode</label>
+                                        <label className="form-check-label" htmlFor='cursor_blend_mode'>cursor_blend_mode</label>
                                         
                                     </div>
                                 </div>
@@ -567,7 +570,7 @@ const Settings = () => {
                                     <div className="input-group">
                                         <div className="form-control">
                                             <label>Background Image Url</label>
-                                            <div class="file">
+                                            <div className="file">
                                                 <input
                                                     className="form-control"
                                                     type="file"
@@ -609,28 +612,160 @@ const Settings = () => {
 
                             <div className=' col-md-12'>
 
-                            <div className='card'>
-                                <div className='row'>
+                                <div className='card'>
+                                    <div className='row'>
 
-                                    <h4>Content</h4>
+                                        <h4>Content</h4>
 
-                                    <div className='col col-md-4'>
-                                        <h4 style={
-                                                {
-                                                    fontFamily: headings_font,
-                                                    fontWeight: headings_weight,
-                                                    color: headings_color
-                                                }                                        
-                                            }>heading_font</h4>
+                                        <div className='col col-md-4'>
+                                            <h4 style={
+                                                    {
+                                                        fontFamily: headings_font,
+                                                        fontWeight: headings_weight,
+                                                        color: headings_color
+                                                    }                                        
+                                                }>heading_font</h4>
 
-                                        <div class="row">
+                                            <div className="row">
+                                                <div className="form-group col-md-8">
+                                                    <label>Font Family:</label>
+                                                    <input  className="form-control"
+                                                            name="headings_font"
+                                                            id="headings_font"
+                                                            type="text"
+                                                            value={headings_font}
+                                                            onChange={ updateInput }
+                                                            />
+                                                </div>
+
+                                                <div className="form-group col-md-4">
+                                                    <label>Color:</label>
+                                                    <input  className="form-control"
+                                                            name="headings_color"
+                                                            id="headings_color"
+                                                            type="color"
+                                                            value={headings_color}
+                                                            onChange={ updateInput }
+                                                            />
+                                                </div>
+
+                                                <div className="form-group">
+                                                    <label>Weight:</label>
+
+                                                    <div className="btn-group w-100" role="group">
+                                                        {
+                                                            fontWeights.map( (fw, idx ) => (
+                                                                <div key={idx}>
+                                                                    <input type="radio" className="btn-check" name="headings_weight"
+                                                                            id={`headings_weight_${idx}`} value={fw}
+                                                                            onChange={ updateInput }
+                                                                            />
+                                                                    <label className={`btn btn-outline-secondary ${(fw==headings_weight)?' active' : ' '}`} htmlFor={`headings_weight_${idx}`}>{fw}</label>
+                                                                </div>
+                                                            ) )
+                                                        }
+                                                    </div>
+
+                                                    {/* <select className="form-control"
+                                                            name="headings_weight"
+                                                            id="headings_weight"
+                                                            type="text"
+                                                            value={headings_weight}
+                                                            onChange={ updateInput }
+                                                            >
+                                                        <option value="100">100</option>
+                                                        <option value="200">200</option>
+                                                        <option value="300">300</option>
+                                                        <option value="400">400</option>
+                                                        <option value="500">500</option>
+                                                        <option value="600">600</option>
+                                                    </select> */}
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+
+                                    
+                                        <div className='col col-md-4'>
+
+                                            <h4 style={
+                                                    {
+                                                        fontFamily: body_font,
+                                                        fontWeight: body_weight,
+                                                        color: body_color
+                                                    }                                        
+                                                }>body_font</h4>
+                                            
+                                        <div className='row'>
+
                                             <div className="form-group col-md-8">
                                                 <label>Font Family:</label>
                                                 <input  className="form-control"
-                                                        name="headings_font"
-                                                        id="headings_font"
+                                                        name="body_font"
+                                                        id="body_font"
                                                         type="text"
-                                                        value={headings_font}
+                                                        value={body_font}
+                                                        onChange={ updateInput }
+                                                        />
+                                            </div>
+                                            
+                                            <div className="form-group col-md-4">
+                                                <label>Color:</label>
+                                                <input  className="form-control"
+                                                        name="body_color"
+                                                        id="body_color"
+                                                        type="color"
+                                                        value={body_color}
+                                                        onChange={ updateInput }
+                                                        />
+                                            </div>
+
+                                                    
+                                            <div className="form-group">
+                                                <label>Weight:</label>
+
+                                                <div className="btn-group  w-100" role="group">
+                                                    {
+                                                        fontWeights.map( (fw, idx ) => (
+                                                            <div key={idx}>
+                                                                <input  type="radio" className="btn-check" name="body_weight"
+                                                                        id={`body_weight_${idx}`} value={fw}
+                                                                        onChange={ updateInput }
+                                                                        />
+                                                                <label className={`btn btn-outline-secondary ${(fw==body_weight)?' active' : ' '}`} htmlFor={`body_weight_${idx}`}>{fw}</label>
+                                                            </div>
+                                                        ) )
+                                                    }
+                                                </div>
+
+                                            </div>
+                                            
+                                        </div>          
+
+                                        
+                                        
+                                        </div>
+
+
+
+
+                                        <div className='col col-md-4'>
+                                            <h4 style={
+                                                    {
+                                                        fontFamily: links_font,
+                                                        fontWeight: links_weight,
+                                                        color: links_color
+                                                    }                                        
+                                                }>Links</h4>
+                                        <div className='row'>
+
+                                            <div className="form-group  col-md-8">
+                                                <label>Font Family:</label>
+                                                <input  className="form-control"
+                                                        name="links_font"
+                                                        id="links_font"
+                                                        type="text"
+                                                        value={links_font}
                                                         onChange={ updateInput }
                                                         />
                                             </div>
@@ -638,175 +773,41 @@ const Settings = () => {
                                             <div className="form-group col-md-4">
                                                 <label>Color:</label>
                                                 <input  className="form-control"
-                                                        name="headings_color"
-                                                        id="headings_color"
+                                                        name="links_color"
+                                                        id="links_color"
                                                         type="color"
-                                                        value={headings_color}
+                                                        value={links_color}
                                                         onChange={ updateInput }
                                                         />
                                             </div>
-
+                                            
+                                                    
                                             <div className="form-group">
                                                 <label>Weight:</label>
-
-                                                <div class="btn-group  w-100" role="group">
+                                                
+                                                <div className="btn-group  w-100" role="group">
                                                     {
                                                         fontWeights.map( (fw, idx ) => (
-                                                            <>
-                                                    <input  type="radio" class="btn-check" name="headings_weight"
-                                                            id={`headings_weight_${idx}`} autocomplete="off" value={fw}
+                                                            <div key={idx}>
+                                                    <input  type="radio" className="btn-check" name="links_weight"
+                                                            id={`links_weight_${idx}`} value={fw}
                                                             onChange={ updateInput }
                                                             />
-                                                    <label className={`btn btn-outline-secondary ${(fw==headings_weight)?' active' : ' '}`} htmlFor={`headings_weight_${idx}`}>{fw}</label>
+                                                    <label  className={`btn btn-outline-secondary ${(fw==links_weight)?' active' : ' '}`}
+                                                            htmlFor={`links_weight_${idx}`}>{fw}</label>
 
-                                                            </>
+                                                            </div>
                                                         ) )
                                                     }
                                                 </div>
 
-                                                {/* <select className="form-control"
-                                                        name="headings_weight"
-                                                        id="headings_weight"
-                                                        type="text"
-                                                        value={headings_weight}
-                                                        onChange={ updateInput }
-                                                        >
-                                                    <option value="100">100</option>
-                                                    <option value="200">200</option>
-                                                    <option value="300">300</option>
-                                                    <option value="400">400</option>
-                                                    <option value="500">500</option>
-                                                    <option value="600">600</option>
-                                                </select> */}
                                             </div>
-                                        </div>
+                                        </div>         
+                                                    
                                         
-                                    </div>
-
-                                
-                                    <div className='col col-md-4'>
-
-                                        <h4 style={
-                                                {
-                                                    fontFamily: body_font,
-                                                    fontWeight: body_weight,
-                                                    color: body_color
-                                                }                                        
-                                            }>body_font</h4>
-                                        
-                                    <div className='row'>
-
-                                        <div className="form-group col-md-8">
-                                            <label>Font Family:</label>
-                                            <input  className="form-control"
-                                                    name="body_font"
-                                                    id="body_font"
-                                                    type="text"
-                                                    value={body_font}
-                                                    onChange={ updateInput }
-                                                    />
                                         </div>
-                                        
-                                        <div className="form-group col-md-4">
-                                            <label>Color:</label>
-                                            <input  className="form-control"
-                                                    name="body_color"
-                                                    id="body_color"
-                                                    type="color"
-                                                    value={body_color}
-                                                    onChange={ updateInput }
-                                                    />
-                                        </div>
-
-                                                
-                                        <div className="form-group">
-                                            <label>Weight:</label>
-
-                                            <div class="btn-group  w-100" role="group">
-                                                {
-                                                    fontWeights.map( (fw, idx ) => (
-                                                        <>
-                                                <input  type="radio" class="btn-check" name="body_weight"
-                                                        id={`body_weight_${idx}`} autocomplete="off" value={fw}
-                                                        onChange={ updateInput }
-                                                        />
-                                                <label className={`btn btn-outline-secondary ${(fw==body_weight)?' active' : ' '}`} htmlFor={`body_weight_${idx}`}>{fw}</label>
-
-                                                        </>
-                                                    ) )
-                                                }
-                                            </div>
-
-                                        </div>
-                                        
-                                    </div>          
-
-                                    
-                                    
-                                    </div>
-
-
-
-
-                                    <div className='col col-md-4'>
-                                        <h4 style={
-                                                {
-                                                    fontFamily: links_font,
-                                                    fontWeight: links_weight,
-                                                    color: links_color
-                                                }                                        
-                                            }>Links</h4>
-                                    <div className='row'>
-
-                                        <div className="form-group  col-md-8">
-                                            <label>Font Family:</label>
-                                            <input  className="form-control"
-                                                    name="links_font"
-                                                    id="links_font"
-                                                    type="text"
-                                                    value={links_font}
-                                                    onChange={ updateInput }
-                                                    />
-                                        </div>
-
-                                        <div className="form-group col-md-4">
-                                            <label>Color:</label>
-                                            <input  className="form-control"
-                                                    name="links_color"
-                                                    id="links_color"
-                                                    type="color"
-                                                    value={links_color}
-                                                    onChange={ updateInput }
-                                                    />
-                                        </div>
-                                        
-                                                
-                                        <div className="form-group">
-                                            <label>Weight:</label>
-                                            
-                                            <div class="btn-group  w-100" role="group">
-                                                {
-                                                    fontWeights.map( (fw, idx ) => (
-                                                        <>
-                                                <input  type="radio" class="btn-check" name="links_weight"
-                                                        id={`links_weight_${idx}`} autocomplete="off" value={fw}
-                                                        onChange={ updateInput }
-                                                        />
-                                                <label  className={`btn btn-outline-secondary ${(fw==links_weight)?' active' : ' '}`}
-                                                        htmlFor={`links_weight_${idx}`}>{fw}</label>
-
-                                                        </>
-                                                    ) )
-                                                }
-                                            </div>
-
-                                        </div>
-                                    </div>         
-                                                
-                                    
                                     </div>
                                 </div>
-                            </div>
 
                             </div>
     
