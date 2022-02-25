@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 // import SVG, { Props as SVGProps } from 'react-inlinesvg';
 import Loader from '../../util/Loader/Loader';
 import Alert from '../../util/Alert/Alert';
+
+import Context from '../../../context/Context'
 
 // Config
 import { API_BASE_URL, HEADER_MULTIPART_FORM } from '../../../config/config'
@@ -11,6 +13,9 @@ import Theme, { STYLES } from '../../theme/Theme'
 
 
 const Settings = () => {
+    
+    let { styles, setStyles } = useContext(Context)
+    // styles.color = 'Home'
 
     const [pageInfo, setPageInfo] = useState({
         loading: false,
@@ -120,11 +125,11 @@ const Settings = () => {
          
         await axios.get(`${API_BASE_URL}/settings`).then( res => {
              
-            console.log( "Res", res.data )
+            // console.log( "Res", res.data )
 
             // store API response into State
             setSettingsData( res.data[0] )
-
+            setStyles( res.data[0] );
             // immediately update the state
             setSettingsData((state) => {
                 console.log("immediately update the state --> setSettingsData", state); 
@@ -220,7 +225,7 @@ const Settings = () => {
     useEffect(()=>{
         getSettingsData()
 
-        console.log("STYLES::::::", Theme.themeInfo )
+        // console.log("STYLES::::::", Theme )
     }, [])
 
 
@@ -272,19 +277,19 @@ const Settings = () => {
                <div className="container">
                   
                 { loading ? <Loader /> : ""  }
-
-                
+ 
 
                 <div className='row'>
 
                     <div className="setting-form col-md-12 mt-4">
-
-                        <h4>Settings</h4>
-
+                        
+                        {JSON.stringify(styles)}
+                        
                         <div className="card">
-                            <h6 style={ STYLES.HEADING }>Demo Heading</h6>
-                            <p>Demo body content</p>
-                            <a href="#">Demo link content</a>
+                            <h5 style={ STYLES.HEADING }>Demo Heading</h5>
+                            <h6 style={{color: styles.headings_color}}>Headings</h6>
+                            <p style={{color: styles.body_color}}>Demo body content</p>
+                            <a style={{color: styles.links_color}} href="#">Demo link content</a>
                         </div>
             
                         <hr />

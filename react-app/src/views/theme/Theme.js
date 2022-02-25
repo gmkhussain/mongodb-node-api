@@ -5,9 +5,9 @@ import { API_BASE_URL } from '../../config/config'
 const Theme = () => {
 
 const [ themeInfo, setThemeInfo ] = useState({
-        HEADING: {},
-        BODY: {},
-        LINK: {}
+        heading: {},
+        body: {},
+        link: {}
     });
 
     const getThemeSetting = () => {
@@ -26,11 +26,14 @@ const [ themeInfo, setThemeInfo ] = useState({
         getThemeSetting()
     }, [])
 
-  
+    return (
+        <div>DD</div>
+    );
+
 
 }
 
-export default Theme
+export default Theme;
 
 export const STYLES = {
     HEADING: {

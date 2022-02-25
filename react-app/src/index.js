@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
 import App from './App';
-import { StateProvider } from './context/State';
 
 import reportWebVitals from './reportWebVitals';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <StateProvider>
-      <App />
-    </StateProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

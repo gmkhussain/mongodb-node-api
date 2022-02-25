@@ -1,14 +1,19 @@
 // React stuff
-import React, { useContext } from 'react'
-import { StateContext } from './context/State' 
+import React, { useContext, useEffect, useState } from 'react'
 
 // 3rd Party Lib
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap"; // <-- JS File
+import axios from 'axios';
 
 // Styles
 import './App.css';
+import { API_BASE_URL } from './config/config'
+
+
+// import Context from './context/Context';
+
 
 // Layouts
 import DefaultLayout from './views/frontend/layouts/DefaultLayout';
@@ -30,91 +35,99 @@ import BackendUserDetails from './views/backend/pages/Users/UserDetails';
 import BackendPagesListing from './views/backend/pages/Pages/PageListing'
 import BackendPageEdit from './views/backend/pages/Pages/PageEdit'
 
+import Context from './context/Context';
+
+
+
+
 function App() {
 
-  const { myContext } = useContext(StateContext)
+  const theme = { headings_color: "green" }
 
-  console.log( "Data from context >", myContext )
-
+  let [ styles, setStyles ] = useState(theme)
+  
+  
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          {/* <Route exact path="/">
-            <DefaultLayout>
-              <Home />
-            </DefaultLayout>
-          </Route> */}
-          <Route exact path="/contact">
-            <p>Contact works</p>
-          </Route>
+      <Context.Provider value={{styles, setStyles}}>
+        <Router>
+          <Switch>
+            {/* <Route exact path="/">
+              <DefaultLayout>
+                <Home />
+              </DefaultLayout>
+            </Route> */}
+            <Route exact path="/contact">
+              <p>Contact works</p>
+            </Route>
 
-          <Route exact path="/">
-            <PlainLayout>
-              <Login />
-            </PlainLayout>
-          </Route>
-          <Route exact path="/login">
-            <PlainLayout>
-              <Login />
-            </PlainLayout>
-          </Route>
+            <Route exact path="/">
+              <PlainLayout>
+                <Login />
+              </PlainLayout>
+            </Route>
+            <Route exact path="/login">
+              <PlainLayout>
+                <Login />
+              </PlainLayout>
+            </Route>
 
-          <Route exact path="/signup">
-            <DefaultLayout>
-              <SignUp />
-            </DefaultLayout>
-          </Route>
-
-
-          <Route exact path="/dashboard">
-            <DashboardLayout>
-              <Dashboard />
-            </DashboardLayout>
-          </Route>
-
-          <Route exact path="/dashboard/settings">
-            <DashboardLayout>
-              <Settings />
-            </DashboardLayout>
-          </Route>
-
-          <Route exact path="/dashboard/users">
-            <DashboardLayout>
-              <BackendUsersListing />
-            </DashboardLayout>
-          </Route>
-
-          <Route exact path="/add-user">
-            <DashboardLayout>
-              <BackendAddUser />
-            </DashboardLayout>
-          </Route>
-
-          <Route path="/dashboard/users/:id">
-            <DashboardLayout>
-              <BackendUserDetails />
-            </DashboardLayout>
-          </Route>
+            <Route exact path="/signup">
+              <DefaultLayout>
+                <SignUp />
+              </DefaultLayout>
+            </Route>
 
 
+            <Route exact path="/dashboard">
+              <DashboardLayout>
+                <Dashboard />
+              </DashboardLayout>
+            </Route>
 
-          <Route exact path="/dashboard/pages">
-            <DashboardLayout>
-              <BackendPagesListing />
-            </DashboardLayout>
-          </Route>
+            <Route exact path="/dashboard/settings">
+              <DashboardLayout>
+                <Settings />
+              </DashboardLayout>
+            </Route>
 
-          
-          <Route exact path="/dashboard/pages/:id">
-            <DashboardLayout>
-              <BackendPageEdit />
-            </DashboardLayout>
-          </Route>
+            <Route exact path="/dashboard/users">
+              <DashboardLayout>
+                <BackendUsersListing />
+              </DashboardLayout>
+            </Route>
 
-          
-        </Switch>
-      </Router>
+            <Route exact path="/add-user">
+              <DashboardLayout>
+                <BackendAddUser />
+              </DashboardLayout>
+            </Route>
+
+            <Route path="/dashboard/users/:id">
+              <DashboardLayout>
+                <BackendUserDetails />
+              </DashboardLayout>
+            </Route>
+
+
+
+            <Route exact path="/dashboard/pages">
+              <DashboardLayout>
+                <BackendPagesListing />
+              </DashboardLayout>
+            </Route>
+
+            
+            <Route exact path="/dashboard/pages/:id">
+              <DashboardLayout>
+                <BackendPageEdit />
+              </DashboardLayout>
+            </Route>
+
+            
+          </Switch>
+        </Router>
+      </Context.Provider>
     </div>
   );
 }
