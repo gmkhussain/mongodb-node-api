@@ -148,6 +148,13 @@ router.patch('/:id',
   }
   
   // Logos
+  if (req.body.site_logo_svg != null) {
+    res.setting.site_logo_svg = req.body.site_logo_svg
+  }
+  if (req.body.site_logo_inactive_svg != null) {
+    res.setting.site_logo_inactive_svg = req.body.site_logo_inactive_svg
+  }
+
  
   if( req.body.favicon_url != null ) {
     res.setting.favicon_url = req.body.favicon_url

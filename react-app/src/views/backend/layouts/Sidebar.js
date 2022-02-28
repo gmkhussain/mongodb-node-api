@@ -25,7 +25,6 @@ const Sidebar = () => {
                 </li> */}
                 <li className="list-group-item d-flex justify-content-between align-items-start">
                     <NavLink to='/dashboard/pages'
-                            style={style_headings}
                             className={({ isActive }) => (isActive ? 'active' : 'inactive') }
                             >
                         <div className="fw-bold">Pages</div>
@@ -33,13 +32,13 @@ const Sidebar = () => {
                 </li>
                 <li className="list-group-item d-flex justify-content-between align-items-start">
                     <NavLink to='/dashboard/settings'
-                            style={style_headings}
                             className={({ isActive }) => (isActive ? 'active' : 'inactive') }
                             >
                         <div className="fw-bold">Settings</div>
                     </NavLink>
                 </li>
             </ol>
+
         </aside>
         )
 }

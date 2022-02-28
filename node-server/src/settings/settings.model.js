@@ -11,6 +11,9 @@ const settingSchema = new mongoose.Schema({
   site_logo_inactive_url: { type: String },
   favicon_url: { type: String },
 
+  site_logo_svg: { type: String },
+  site_logo_inactive_svg: { type: String },
+
   intro_shape_svg_1: { type: String },
   intro_shape_svg_2: { type: String },
 

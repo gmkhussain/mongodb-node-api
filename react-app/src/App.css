@@ -91,6 +91,15 @@ ol.list-group {
   padding: 15px;
 }
 
+.settings-page form .card {
+  min-height: 10px;
+ }
+
+ .settings-page form .card h4 {
+  font-size: 18px;
+  margin-bottom: 0px;
+}
+
 .settings-page .card .input-group:not(:last-child) {
   margin-bottom: 15px;
 }
@@ -140,6 +149,7 @@ input[type="color"] {
   border-radius: 5px;
   min-height: 37px;
   cursor: pointer;
+  box-shadow: 0 0px 1px 1px #ddd;
 }
 
 
