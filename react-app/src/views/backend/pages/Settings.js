@@ -43,6 +43,7 @@ const Settings = () => {
         intro_shape_svg_1: '',
         intro_shape_svg_2: '',
 
+        cursor_icon_url: " ",
         cursor_icon_svg: " ",
         cursor_circle_size: '',
         cursor_circle_color: '',
@@ -179,7 +180,8 @@ const Settings = () => {
         settingFormData.append('intro_shape_svg_2', settingsData.intro_shape_svg_2 );
 
 
-        // // Cursor
+        // Cursor
+        settingFormData.append('cursor_icon_url', settingsData.cursor_icon_url );
         // settingFormData.append('cursor_icon_svg', settingsData.cursor_icon_svg );
         settingFormData.append('cursor_circle_size', settingsData.cursor_circle_size );
         settingFormData.append('cursor_circle_color', settingsData.cursor_circle_color );
@@ -258,6 +260,7 @@ const Settings = () => {
             intro_shape_svg_1,
             intro_shape_svg_2,
 
+            cursor_icon_url,
             cursor_icon_svg,
             cursor_circle_size,
             cursor_circle_color,
@@ -291,18 +294,8 @@ const Settings = () => {
 
                 <div className='row'>
 
-                    <div className="setting-form col-md-12 mt-4">
+                    <div className="setting-form col-md-12 ">
                         
-                        {/* {JSON.stringify(styles)} */}
-                        
-                        <div className="card" style={{ backgroundColor: settingsData.background_color}}>
-                            <h5 style={ STYLES.HEADING }>Preview</h5>
-                            <h6 style={{ fontFamily: settingsData.headings_font, color: settingsData.headings_color }}>Headings</h6>
-                            <p style={{ fontFamily: settingsData.body_font, color: settingsData.body_color}}>Demo body content</p>
-                            <a style={{ fontFamily: settingsData.links_font, color: settingsData.links_color}} href="#">Demo link content</a>
-                        </div>
-            
-                        <hr />
 
                         <form className='row' onSubmit={ saveSettings } encType="multipart/form-data">
                             
@@ -621,6 +614,30 @@ const Settings = () => {
 
                                     <div className='row collapse' id="collapseCursor">
 
+
+
+                                            <div className="input-group">
+                                                
+                                                <div className="form-control">
+                                                    <label>cursor_icon_url</label>
+                                                    <input
+                                                        className="form-control"
+                                                        type="file"
+                                                        name="cursor_icon_url"
+                                                        onChange={onChangeInputFile} />
+                                                </div>
+                                                <span className="input-group-text">
+                                                    {   ( previewImage.cursor_icon_url === "" )
+                                                            ?
+                                                            <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+cursor_icon_url} />
+                                                            : 
+                                                        <div className="preview__image"> 
+                                                            <img src={previewImage.cursor_icon_url} />
+                                                        </div>
+                                                    }
+                                                </span>
+                                            </div>
+
                                         <div className="input-group">
                                             <span className="form-control">
                                                 <label>Icon</label>
@@ -719,7 +736,7 @@ const Settings = () => {
                                             aria-controls="collapseContent"
                                             >Content</h4>
 
-                                      <div className='collapse' id='collapseContent'>
+                                      <div className='collapse row' id='collapseContent'>
 
                                         <div className='col col-md-4'>
                                             <h4 style={
@@ -929,6 +946,17 @@ const Settings = () => {
     
                         </form>
 
+
+                        {/* {JSON.stringify(styles)} */}
+                        
+                        <div className="card" style={{ backgroundColor: settingsData.background_color}}>
+                            <h5 style={ STYLES.HEADING }>Preview</h5>
+                            <h6 style={{ fontFamily: settingsData.headings_font, color: settingsData.headings_color }}>Headings</h6>
+                            <p style={{ fontFamily: settingsData.body_font, color: settingsData.body_color}}>Demo body content</p>
+                            <a style={{ fontFamily: settingsData.links_font, color: settingsData.links_color}} href="#">Demo link content</a>
+                        </div>
+            
+                        <hr />
 
                     </div>
                 </div>

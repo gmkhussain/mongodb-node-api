@@ -114,6 +114,7 @@ router.patch('/:id',
     { name:"site_logo_inactive_url" },
     { name:"site_logo_url"},
     { name:"favicon_url"},
+    { name:"cursor_icon_url"},
   ] )
 
   , getSetting, async (req, res) => {
@@ -138,6 +139,11 @@ router.patch('/:id',
     res.setting.favicon_url = req.files.favicon_url[0].path.replaceAll("\\", "/") // save file location
   }
 
+  if(req.files.cursor_icon_url) {
+    console.log("🌈 Cursor Icon Uploaded");
+    res.setting.cursor_icon_url = req.files.cursor_icon_url[0].path.replaceAll("\\", "/") // save file location
+  }
+  
 
   // Site Info
   if (req.body.site_name != null) {

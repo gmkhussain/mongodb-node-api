@@ -17,6 +17,7 @@ const settingSchema = new mongoose.Schema({
   intro_shape_svg_1: { type: String },
   intro_shape_svg_2: { type: String },
 
+  cursor_icon_url: { type: String },
   cursor_icon_svg: { type: String },
   cursor_circle_size: { type: String },
   cursor_circle_color: { type: String },
