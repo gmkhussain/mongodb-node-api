@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 
 import axios from "axios";
-import { API_BASE_URL } from '../../../../config/config'
+// import { API_BASE_URL } from '../../../../config/config'
 
 const BackendUserDetails = ( ) => {
     
@@ -19,7 +19,7 @@ const BackendUserDetails = ( ) => {
 
 
     const getUserInfo = ( _id ) => {
-        axios.get(`${API_BASE_URL}/users/${ _id }`).then( res=> {
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/users/${ _id }`).then( res=> {
 
             setUserInfo( res.data );
             console.log("userInfo", userInfo)
@@ -58,7 +58,7 @@ const BackendUserDetails = ( ) => {
     const updateUserInfo = ( _id ) => {
         console.log("_id > ", _id)
 
-        axios.patch(`${API_BASE_URL}/users/${ _id }`, userInfo ).then(res=>{
+        axios.patch(`${process.env.REACT_APP_API_BASE_URL}/users/${ _id }`, userInfo ).then(res=>{
             console.log( "Updated!", userInfo )
         }).catch( err=> {
             console.log("Err", err )
@@ -79,7 +79,7 @@ const BackendUserDetails = ( ) => {
             }
         };
 
-        axios.post(`${API_BASE_URL}/updateuserimage`, formData, config ).then(res=>{
+        axios.post(`${process.env.REACT_APP_API_BASE_URL}/updateuserimage`, formData, config ).then(res=>{
             console.log( "updateUserImage!", formData )
         }).catch( err=> {
             console.log("updateUserImage Err", err )

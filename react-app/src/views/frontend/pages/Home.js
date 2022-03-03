@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
-import { API_BASE_URL } from '../../../config/config'
+// import { API_BASE_URL } from '../../../config/config'
 import Theme, { STYLES } from '../theme/Theme'
 
 const Home = () => {
@@ -15,7 +15,7 @@ const Home = () => {
 
    const getUsers = () => {
       
-      axios.get(`${API_BASE_URL}/pages/${process.env.REACT_APP_PAGE_HOME_ID}`).then( res=> {
+      axios.get(`${process.env.REACT_APP_API_BASE_URL}/pages/${process.env.REACT_APP_PAGE_HOME_ID}`).then( res=> {
 
          console.log("Home", res )
          setHomePage({ data: res.data, loading: false })

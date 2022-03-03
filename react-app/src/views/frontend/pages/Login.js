@@ -4,7 +4,7 @@ import { StateContext } from './../../../context/State'
 import axios from 'axios'
 import { Redirect, useHistory } from "react-router-dom";
 
-import { API_BASE_URL } from '../../../config/config'
+// import { API_BASE_URL } from '../../../config/config'
 
 const Login = () => {
 
@@ -39,7 +39,7 @@ const Login = () => {
 
             console.log( " _loginInfo ", _loginInfo )
              
-            axios.post(`${API_BASE_URL}/auth/login`, _loginInfo ).then( res => {
+            axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/login`, _loginInfo ).then( res => {
 
                     // Show data
                     console.log( "Res", res )
@@ -84,7 +84,7 @@ const Login = () => {
                         <form onSubmit={ onSubmitForm }>
 
                             <div className="mb-3">
-                                <label className="form-label">Username <mark>{ username }</mark></label>
+                                <label className="form-label">Username</label>
                                 <input  name="username"
                                         type="text"
                                         className="form-control"
@@ -95,7 +95,7 @@ const Login = () => {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label">Password <mark>{ password }</mark></label>
+                                <label className="form-label">Password</label>
                                 <input
                                         name="password"
                                         type="password"

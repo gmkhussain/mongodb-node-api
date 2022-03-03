@@ -7,7 +7,7 @@ import Alert from '../../util/Alert/Alert';
 import Context from '../../../context/Context'
 
 // Config
-import { API_BASE_URL, HEADER_MULTIPART_FORM } from '../../../config/config'
+import { HEADER_MULTIPART_FORM } from '../../../config/config'
 
 import Theme, { STYLES } from '../../theme/Theme'
 
@@ -116,7 +116,7 @@ const Settings = () => {
         settingFormData.append('site_logo', settingsData.site_logo );
         settingFormData.append('site_name', "NEW" );
         
-        axios.post(`${API_BASE_URL}/settings/site_logo`, settingFormData, HEADER_MULTIPART_FORM ).then( res=> {
+        axios.post(`${process.env.REACT_APP_API_BASE_URL}/settings/site_logo`, settingFormData, HEADER_MULTIPART_FORM ).then( res=> {
             console.log("Logo updated")
         } ).catch( err=> {
             console.log("Err", err )
@@ -127,7 +127,7 @@ const Settings = () => {
     const getSettingsData = async () => {
 
          
-        await axios.get(`${API_BASE_URL}/settings`).then( res => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/settings`).then( res => {
              
             // console.log( "Res", res.data )
 
@@ -213,7 +213,7 @@ const Settings = () => {
         settingFormData.append('links_color', settingsData.links_color );
 
 
-        axios.patch(`${API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
+        axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
             
             console.log("Saved !")
 

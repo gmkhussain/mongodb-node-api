@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 
 import axios from "axios";
-import { API_BASE_URL } from '../../../../config/config'
+// import { API_BASE_URL } from '../../../../config/config'
 
 const BackendPageEdit = ( ) => {
     
@@ -16,7 +16,7 @@ const BackendPageEdit = ( ) => {
 
 
     const getPageData = () => {
-        axios.get(`${API_BASE_URL}/pages/${id}`).then( res=> {
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/pages/${id}`).then( res=> {
             console.log("Res", res)
 
             setPageInfo(res.data)
@@ -44,7 +44,7 @@ const BackendPageEdit = ( ) => {
 
     const updatePageData = () => {
 
-        axios.patch(`${API_BASE_URL}/pages/${id}`, pageInfo ).then(res=>{
+        axios.patch(`${process.env.REACT_APP_API_BASE_URL}/pages/${id}`, pageInfo ).then(res=>{
             console.log("Res", res)
         }).catch(err=>{
             console.log("Err", err)

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import axios from "axios";
-import { API_BASE_URL } from '../../../../config/config'
+// import { API_BASE_URL } from '../../../../config/config'
 
 
 const BackendAddPage = () => {
@@ -12,7 +12,7 @@ const BackendAddPage = () => {
 
     const updateProfile = () => {
 
-        axios.post(`${API_BASE_URL}/users`, pageInfo ).then(res=>{
+        axios.post(`${process.env.REACT_APP_API_BASE_URL}/users`, pageInfo ).then(res=>{
 
         }).catch( err=> {
             console.log("Err", err )

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import axios from 'axios'
 
-import { API_BASE_URL } from '../../../../config/config'
+// import { API_BASE_URL } from '../../../../config/config'
 
 
 import BackendAddUser from './AddUser'
@@ -23,7 +23,7 @@ const BackendUsersListing = () => {
 
 
     const getUser = ( paginate ) => {
-        axios.get(`${API_BASE_URL}/users?pageSize=${paginate.page_size}&page=${paginate.current_page}`).then(res=>{
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/users?pageSize=${paginate.page_size}&page=${paginate.current_page}`).then(res=>{
             
             setUsersData( { users: res.data } )
             setPagenateInfo( { ...paginateInfo, total_pages: res.headers.total_pages })

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import { API_BASE_URL } from '../../../config/config'
+// import { API_BASE_URL } from '../../../config/config'
 
 
 const SignUp = () => {
@@ -42,7 +42,7 @@ const SignUp = () => {
         
         e.preventDefault()
 
-        axios.post(`${API_BASE_URL}/users/signup`, signupInfo).then( res=> {
+        axios.post(`${process.env.REACT_APP_API_BASE_URL}/users/signup`, signupInfo).then( res=> {
             console.log("Res", res )
         }).catch( err=> {
             console.log("Err", err )
