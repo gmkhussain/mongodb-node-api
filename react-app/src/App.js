@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap"; // <-- JS File
 import axios from 'axios';
 
+
 // Styles
 import './App.css';
 // import { API_BASE_URL } from './config/config'
@@ -61,12 +62,10 @@ function App() {
               <p>Contact works</p>
             </Route>
 
-            <Route exact path="/">
-              <PlainLayout>
-                <Login />
-              </PlainLayout>
+            <Route exact path="/logout">
+              <p>Logged out!</p>
             </Route>
-            <Route exact path="/login">
+            <Route exact path="/">
               <PlainLayout>
                 <Login />
               </PlainLayout>

@@ -11,13 +11,8 @@ const Home = () => {
          
          localStorage.removeItem('token');
          
+         history.push('/');
 
-         setTimeout( ()=> {
-            window.location.reload(false);
-        
-            history.push('/');
-
-         }, 1000 )
       }
 
         return (
@@ -57,8 +52,8 @@ const Home = () => {
                                  <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><Link to="/dashboard" className="dropdown-item">Dashboard</Link></li>
                                     <li className="nav-item">
-                                       <Link to="#" onClick={logoutRequest}
-                                                className="dropdown-item">Logout</Link>
+                                       <button onClick={logoutRequest}
+                                                className="dropdown-item">Logout</button>
                                     </li>
                                  </ul>
                               </li>

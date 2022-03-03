@@ -15,8 +15,8 @@ const Login = () => {
         const history = useHistory();
 
         const [loginInfo, setLoginInfo] = useState({
-            username: 'admin',
-            password: '123',
+            username: '',
+            password: '',
             loggedIn: false,
             token: null,
             loginMsg: ''
@@ -52,13 +52,14 @@ const Login = () => {
                         loginMsg: ''
                     })
 
-                    history.push('/dashboard')
+                    history.push('/dashboard/pages')
 
                 }
             ).catch( err => {
                     // Incase failed
                     console.log( "Err", err )
                     setLoginInfo({
+                        ...loginInfo,
                         loginMsg: 'Please login with correct credentials'
                     })
                 }
