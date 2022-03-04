@@ -299,7 +299,7 @@ const Settings = () => {
 
                         <form className='row' onSubmit={ saveSettings } encType="multipart/form-data">
                             
-                            { alert?.display ? <Alert className="success" title={alert.title} /> : " " }
+                            { alert?.display ? <Alert class="success" title={alert.title} /> : " " }
                             
                             <div className="form-group pos-sticky mt-4">
                                 <button className="btn btn-primary" type="submit">SAVE CHANGES</button>
