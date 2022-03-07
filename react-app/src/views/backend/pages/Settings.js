@@ -40,8 +40,13 @@ const Settings = () => {
         site_logo_inactive_url: " ",
         favicon_url: " ",
         
+        video_url_1: " ",
+
         intro_shape_svg_1: '',
         intro_shape_svg_2: '',
+
+        intro_shape_url_1: ' ',
+        intro_shape_url_2: ' ',
 
         cursor_icon_url: " ",
         cursor_icon_svg: " ",
@@ -70,7 +75,12 @@ const Settings = () => {
     const [ previewImage, setPreviewImage] = useState({
         site_logo_url: "",
         site_logo_inactive_url: "",
-        favicon_url: ""
+        favicon_url: "",
+        intro_shape_url_1: "",
+        intro_shape_url_2: "",
+        video_url_1: "",
+        background_image_url: "",
+        cursor_icon_url: " ",
     })
 
 
@@ -175,9 +185,15 @@ const Settings = () => {
         settingFormData.append('site_logo_inactive_svg', settingsData.site_logo_inactive_svg );
 
 
+        settingFormData.append('video_url_1', settingsData.video_url_1 );
+
         // Intro
-        settingFormData.append('intro_shape_svg_1', settingsData.intro_shape_svg_1 );
-        settingFormData.append('intro_shape_svg_2', settingsData.intro_shape_svg_2 );
+        // settingFormData.append('intro_shape_svg_1', settingsData.intro_shape_svg_1 );
+        // settingFormData.append('intro_shape_svg_2', settingsData.intro_shape_svg_2 );
+        
+        settingFormData.append('intro_shape_url_1', settingsData.intro_shape_url_1 );
+        settingFormData.append('intro_shape_url_2', settingsData.intro_shape_url_2 );
+
 
 
         // Cursor
@@ -217,7 +233,7 @@ const Settings = () => {
             
             console.log("Saved !")
 
-            setPageInfo({ loading: false, alert: { display: true, title: "Changes Saved!" } })
+            setPageInfo({ loading: false, alert: { display: true, title: "Changes Saved!", desc: "Your changes have been successfully saved" } })
             
         }).catch( err=> {
             console.log( "Err", err )
@@ -257,8 +273,12 @@ const Settings = () => {
             site_logo_svg,
             site_logo_inactive_svg,
 
+            video_url_1,
+
             intro_shape_svg_1,
             intro_shape_svg_2,
+            intro_shape_url_1,
+            intro_shape_url_2,
 
             cursor_icon_url,
             cursor_icon_svg,
@@ -299,7 +319,7 @@ const Settings = () => {
 
                         <form className='row' onSubmit={ saveSettings } encType="multipart/form-data">
                             
-                            { alert?.display ? <Alert class="success" title={alert.title} /> : " " }
+                            
                             
                             <div className="form-group pos-sticky mt-4">
                                 <button className="btn btn-primary" type="submit">SAVE CHANGES</button>
@@ -308,53 +328,165 @@ const Settings = () => {
                             
                             <div className='col-md-12'>
 
-                            <div className="card">
+                            { alert?.display ? <Alert className="success" title={alert.title} desc={alert.desc} /> : " " }
+
+ 
 
 
-                                <h4
-                                    data-bs-toggle="collapse"
-                                    href="#collapseIntro"
-                                    role="button"
-                                    aria-expanded="false"
-                                    aria-controls="collapseIntro"
-                                    >Intro</h4>
+                                <div className="card">
 
-                              <div className='collapse' id='collapseIntro'>
-                                <div className="input-group">
-                                    <span className="form-control">
-                                        <label>Shape 1</label>
-                                        <textarea  className="form-control"
-                                            name="intro_shape_svg_1"
-                                            id="intro_shape_svg_1"
-                                            type="text"
-                                            value={intro_shape_svg_1}
-                                            onChange={ updateInput }
-                                            ></textarea>
-                                    </span>
-                                    <span className="input-group-text">
-                                        <span className='image_preview' dangerouslySetInnerHTML={{__html: intro_shape_svg_1}}></span>
-                                    </span>
+
+                                    <h4
+                                        data-bs-toggle="collapse"
+                                        href="#collapseIntro"
+                                        role="button"
+                                        aria-expanded="false"
+                                        aria-controls="collapseIntro"
+                                        >Intro</h4>
+
+                                <div className='collapse' id='collapseIntro'>
+                                    
+                                    
+                                        <div className="input-group">
+                                            
+                                            <div className="form-control">
+                                                <label>Intro Shape 1</label>
+                                                <div className="file">
+                                                  <input
+                                                    className="form-control"
+                                                    type="file"
+                                                    name="intro_shape_url_1"
+                                                    onChange={onChangeInputFile} />
+
+                                                    <span className="btn btn-outline-secondary">Choose File</span>
+                                                </div>
+                                            </div>
+                                            <span className="input-group-text">
+                                                {   ( previewImage.intro_shape_url_1 === "" )
+                                                        ?
+                                                        <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+intro_shape_url_1} />
+                                                        : 
+                                                    <div className="preview__image"> 
+                                                        <img src={previewImage.intro_shape_url_1} />
+                                                    </div>
+                                                }
+                                            </span>
+                                        </div>
+
+
+                                        
+                                        <div className="input-group">
+                                            
+                                            <div className="form-control">
+                                                <label>Intro Shape 1</label>
+                                                <div className="file">
+                                                  <input
+                                                    className="form-control"
+                                                    type="file"
+                                                    name="intro_shape_url_2"
+                                                    onChange={onChangeInputFile} />
+                                                    
+                                                    <span className="btn btn-outline-secondary">Choose File</span>
+                                                </div>
+                                            </div>
+                                            <span className="input-group-text">
+                                                {   ( previewImage.intro_shape_url_2 === "" )
+                                                        ?
+                                                        <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+intro_shape_url_2} />
+                                                        : 
+                                                    <div className="preview__image"> 
+                                                        <img src={previewImage.intro_shape_url_2} />
+                                                    </div>
+                                                }
+                                            </span>
+                                        </div>
+
+
+                                    {/* <div className="input-group">
+                                        <span className="form-control">
+                                            <label>Shape 1</label>
+                                            <textarea  className="form-control"
+                                                name="intro_shape_svg_1"
+                                                id="intro_shape_svg_1"
+                                                type="text"
+                                                value={intro_shape_svg_1}
+                                                onChange={ updateInput }
+                                                ></textarea>
+                                        </span>
+                                        <span className="input-group-text">
+                                            <span className='image_preview' dangerouslySetInnerHTML={{__html: intro_shape_svg_1}}></span>
+                                        </span>
+                                    </div>
+
+                                    
+                                    <div className="input-group">
+                                        <span className="form-control">
+                                            <label>Shape 2</label>
+                                            <textarea className="form-control"
+                                                name="intro_shape_svg_2"
+                                                id="intro_shape_svg_2"
+                                                type="text"
+                                                value={intro_shape_svg_2}
+                                                onChange={ updateInput }
+                                                ></textarea>
+                                        </span>
+                                        <span className="input-group-text">
+                                            <span className='image_preview' dangerouslySetInnerHTML={{__html: intro_shape_svg_2}}></span>
+                                        </span>
+                                    </div>
+                                    */}
+
+
                                 </div>
 
-                                
-                                <div className="input-group">
-                                    <span className="form-control">
-                                        <label>Shape 2</label>
-                                        <textarea className="form-control"
-                                            name="intro_shape_svg_2"
-                                            id="intro_shape_svg_2"
-                                            type="text"
-                                            value={intro_shape_svg_2}
-                                            onChange={ updateInput }
-                                            ></textarea>
-                                    </span>
-                                    <span className="input-group-text">
-                                        <span className='image_preview' dangerouslySetInnerHTML={{__html: intro_shape_svg_2}}></span>
-                                    </span>
                                 </div>
-                              </div>
 
-                            </div>
+                                <div className="card">
+
+                                    <h4
+                                            data-bs-toggle="collapse"
+                                            href="#collapseVideo"
+                                            role="button"
+                                            aria-expanded="false"
+                                            aria-controls="collapseVideo"
+                                            >Video</h4>
+
+                                        <div className='collapse' id='collapseVideo'>
+
+
+                                        <div className="input-group">
+
+                                                <div className="form-control">
+                                                    <label>Video</label>
+                                                    <div className="file">
+                                                      <input
+                                                        className="form-control"
+                                                        type="file"
+                                                        name="video_url_1"
+                                                        onChange={onChangeInputFile} />
+                                                        <span className="btn btn-outline-secondary">Choose File</span>
+                                                    </div>
+                                                </div>
+                                        
+                                                <span className="input-group-text p-0">
+                                                    {   ( previewImage.video_url_1 === "" )
+                                                            ?
+                                                            <img style={ {'marginLeft': '10px', 'marginRight': '10px'} } src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAADXElEQVR4nO2azUtUURiHn8KMKNG2oatEpdqIUv0BCpGB1j/SRuxj1UailSTUqrTaBLUrqMjEbIqwVtVCkjaRLiso8yPQafG+x3uZMe+ZmXPu1ZnzwOHO3HvOe973N+d7LgQCgUAgEAjAGeAdsArkqzStaox9mwWftXNpp4G4AO/15iWgvlCdKqIeuIzEOhN/YJp9NQdv2IvEuhK/aZpFrbAR7+6MHcmcmhegLuX6jgGngF6gFTgI7AO+AV+At8B9/ZwqvseAk8AT7Keol0C3R3+K4vUlQB0wErP/A7gN9APtwH5N7ci8PKZ58sAacAM/M1MqAjQB02p3CRgGGi3KNWreJS37wrJcKXgXYA/ieB6YB7rKsNGtZfNATm26wrsAN4mCb67ATjORCCMO/DJ4FaAL6b9LFP/yOeAT0FOCvW5gGfHvhAsH8SzApNoa3qLiPPAA+9ZxVcs8c+EgHgVoUzvf2XzgMvUs6vU3cIHkkb6RaHY44sBPbwJcVDu3Eio+BNyLfZ9DFkhbMa55Bx346U2ACbXTb1lxDzCLXbc4q3meO/DTmwBzaqfVtmJkejsP/NJnf4AryLY1TjtRa6kUbwKYIBpsK47RjLQAk+d1wfMGotVkpezo7XBhy3CCqxbwWe20lVCPbRfo0OezDvz0PggO/Od50iD4EGj5T9lzmuepAz+9CTCkdsYSKi5nGryreYcc+OlNADNS2y6EFpG1Q9JCqAn4qWUOO/DT61LY7AKTlsJbNfdCrmmZSRcO4lmALmAd2cAUnupMIZuh3hLsHVdba0CnCwdJYTs8ipvtcAuwoLZGHfhl8C5AHVFXWEB+xVLpBL6qjWncHo15FwBk4DIiLCNbWpujrSakz69o2Sm955JUBABpCdeR/muWsePIOqEDOKCpA9ns3CEa7de1rI+j+9QEMBwFHsfqSUoTlHeOaMtGvLtiN+LffdGK/Pq9yABnpsF55M+RCeARsqT2SVG8vlvAdmNH7wadEgTI2oGs8SFAjuLTnG1PJYPgG+ynN9cpV6bPTgfBdQc2ysXZzOVyGswBrxzZ8kXqK8HtRlgHGIIAev2r11p5URLk5dANAT7qdZDqFqGe6M/VD/EHfWQ3l2eVTheq04e8QFztr8vPbBZ8IBAIBAKB2uMfvJxdOagS2aYAAAAASUVORK5CYII="/>
+                                                            : 
+                                                        <div className="preview__video"> 
+                                                            <video className="preview__video" width="200" height="50" controls muted>
+                                                              <source src={previewImage.video_url_1} />  
+                                                            </video>
+                                                        </div>
+                                                    }
+                                                </span>
+                                            </div>
+
+                                             
+                                        </div>
+
+
+                                    </div>
 
                             </div>
                             
@@ -413,64 +545,6 @@ const Settings = () => {
 
 
                                         <div className='col-md-4'>
-
-{/*                                             
-                                            <div className="input-group">
-                                                
-                                                <div className="form-control">
-                                                    <label>Logo Active</label>
-                                                    <div className="file">
-                                                        <input
-                                                            className="form-control"
-                                                            type="file"
-                                                            name="site_logo_url"
-                                                            onChange={onChangeInputFile} />
-                                                        <span className='btn btn-outline-secondary'>Choose File</span>
-                                                    </div>
-                                                </div>
-                                                <span className="input-group-text">
-                                                        
-                                                    {   (previewImage.site_logo_url === "" )
-                                                            ?
-                                                        <img className="preview__image" src={`${process.env.REACT_APP_UPLOADS_URL}${site_logo_url}`}
-                                                        />
-                                                            : 
-                                                        <div className="preview__image"> 
-                                                            <img src={previewImage.site_logo_url} />
-                                                        </div>
-                                                    }
-                                                </span>
-                                            </div>
-        
-        
-                                            <div className="input-group">
-                                                
-                                                <div className="form-control">
-                                                    <label>Logo Inactive</label>
-                                                    
-                                                    <div className="file">
-                                                        <input
-                                                            className="form-control"
-                                                            type="file"
-                                                            name="site_logo_inactive_url"
-                                                            onChange={onChangeInputFile} />
-                                                        <span className='btn btn-outline-secondary'>Choose File</span>
-                                                    </div>
-
-                                                </div>
-                                                <span className="input-group-text">
-                                                    {   ( previewImage.site_logo_inactive_url === "" )
-                                                            ?
-                                                            <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+site_logo_inactive_url} />
-                                                            : 
-                                                        <div className="preview__image"> 
-                                                            <img src={previewImage.site_logo_inactive_url} />
-                                                        </div>
-                                                    }
-                                                </span>
-                                            </div> */}
-
-
 
                                             <div className="input-group">
                                                 
@@ -620,11 +694,14 @@ const Settings = () => {
                                                 
                                                 <div className="form-control">
                                                     <label>cursor_icon_url</label>
-                                                    <input
+                                                    <div className="file">
+                                                      <input
                                                         className="form-control"
                                                         type="file"
                                                         name="cursor_icon_url"
                                                         onChange={onChangeInputFile} />
+                                                      <span className='btn btn-outline-secondary'>Choose File</span>
+                                                    </div>
                                                 </div>
                                                 <span className="input-group-text">
                                                     {   ( previewImage.cursor_icon_url === "" )
@@ -650,14 +727,16 @@ const Settings = () => {
                                                         ></textarea>
                                             </span>
                                             <span className="input-group-text">
-                                                <span className='image_preview'
-                                                    style={
-                                                        {
-                                                            width: cursor_circle_size,
-                                                            height: cursor_circle_size,
+                                                <span className='preview__image'>
+                                                    <span 
+                                                        style={
+                                                            {
+                                                                width: cursor_circle_size,
+                                                                height: cursor_circle_size,
+                                                            }
                                                         }
-                                                    }
-                                                dangerouslySetInnerHTML={{__html: cursor_icon_svg}}></span>
+                                                        dangerouslySetInnerHTML={{__html: cursor_icon_svg}}></span>
+                                                </span>
                                             </span>
                                         </div>
 
@@ -738,7 +817,7 @@ const Settings = () => {
 
                                       <div className='collapse row' id='collapseContent'>
 
-                                        <div className='col col-md-4'>
+                                      <div className='col col-md-4'>
                                             <h4 style={
                                                     {
                                                         fontFamily: headings_font,
@@ -759,9 +838,9 @@ const Settings = () => {
                                                             >
                                                             {
                                                             fontFamilies.map( (ff, idx ) => (
-                                                                <>
-                                                                    <option style={{'font-family': ff }} value={ff}>{ff}</option>
-                                                                </>
+                                                                <optgroup key={idx}>
+                                                                    <option style={{'fontFamily': ff }} value={ff}>{ff}</option>
+                                                                </optgroup>
                                                                 )
                                                             )}
                                                     </select>
@@ -784,13 +863,12 @@ const Settings = () => {
                                                     <div className="btn-group w-100" role="group">
                                                         {
                                                             fontWeights.map( (fw, idx ) => (
-                                                                <>
-                                                                    <input key={idx} type="radio" className="btn-check" name="headings_weight"
-                                                                            id={`headings_weight_${idx}`} value={fw}
-                                                                            onChange={ updateInput }
-                                                                            />
-                                                                    <label className={`btn btn-outline-secondary ${(fw==headings_weight)?' active' : ' '}`} htmlFor={`headings_weight_${idx}`}>{fw}</label>
-                                                                </>
+                                                                    <label key={idx} className={`btn btn-outline-secondary ${(fw==headings_weight)?' active' : ' '}`} htmlFor={`headings_weight_${idx}`}>{fw}
+                                                                        <input type="radio" className="btn-check" name="headings_weight"
+                                                                                id={`headings_weight_${idx}`} value={fw}
+                                                                                onChange={ updateInput }
+                                                                                />
+                                                                    </label>
                                                             ) )
                                                         }
                                                     </div>
@@ -824,9 +902,9 @@ const Settings = () => {
                                                             >
                                                             {
                                                             fontFamilies.map( (ff, idx ) => (
-                                                                <>
-                                                                    <option style={{'font-family': ff }} value={ff}>{ff}</option>
-                                                                </>
+                                                                <optgroup  key={idx}>
+                                                                    <option key={idx} style={{'fontFamily': ff }} value={ff}>{ff}</option>
+                                                                </optgroup>
                                                                 )
                                                             )}
                                                 </select>
@@ -850,13 +928,13 @@ const Settings = () => {
                                                 <div className="btn-group  w-100" role="group">
                                                     {
                                                         fontWeights.map( (fw, idx ) => (
-                                                            <>
-                                                                <input  key={idx} type="radio" className="btn-check" name="body_weight"
+                                                                <label key={idx} className={`btn btn-outline-secondary ${(fw==body_weight)?' active' : ' '}`} htmlFor={`body_weight_${idx}`}>{fw}
+                                                                
+                                                                    <input type="radio" className="btn-check" name="body_weight"
                                                                         id={`body_weight_${idx}`} value={fw}
                                                                         onChange={ updateInput }
                                                                         />
-                                                                <label className={`btn btn-outline-secondary ${(fw==body_weight)?' active' : ' '}`} htmlFor={`body_weight_${idx}`}>{fw}</label>
-                                                            </>
+                                                                </label>
                                                         ) )
                                                     }
                                                 </div>
@@ -865,7 +943,6 @@ const Settings = () => {
                                             
                                         </div>          
 
-                                        
                                         
                                         </div>
 
@@ -892,9 +969,9 @@ const Settings = () => {
                                                             >
                                                             {
                                                             fontFamilies.map( (ff, idx ) => (
-                                                                <>
-                                                                    <option style={{'font-family': ff }} value={ff}>{ff}</option>
-                                                                </>
+                                                                <optgroup  key={idx}>
+                                                                    <option key={idx} style={{'fontFamily': ff }} value={ff}>{ff}</option>
+                                                                </optgroup>
                                                                 )
                                                             )}
                                                 </select>
@@ -918,15 +995,14 @@ const Settings = () => {
                                                 <div className="btn-group  w-100" role="group">
                                                     {
                                                         fontWeights.map( (fw, idx ) => (
-                                                    <>
-                                                        <input key={idx} type="radio" className="btn-check" name="links_weight"
+                                                            <label key={idx} className={`btn btn-outline-secondary ${(fw==links_weight)?' active' : ' '}`}
+                                                                htmlFor={`links_weight_${idx}`}>{fw}
+                                                                
+                                                                <input  type="radio" className="btn-check" name="links_weight"
                                                                 id={`links_weight_${idx}`} value={fw}
                                                                 onChange={ updateInput }
                                                                 />
-                                                        <label  className={`btn btn-outline-secondary ${(fw==links_weight)?' active' : ' '}`}
-                                                                htmlFor={`links_weight_${idx}`}>{fw}</label>
-
-                                                    </>
+                                                            </label>
                                                         ) )
                                                     }
                                                 </div>

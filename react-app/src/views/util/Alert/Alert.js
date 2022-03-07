@@ -2,7 +2,6 @@ const Alert = (props) => {
 
     const styles = {
             alert: {
-                    display: 'flex',
                     padding: '5px'
                 },
             btn: {
@@ -19,11 +18,11 @@ const Alert = (props) => {
         <>
             <div className={`alert alert-${props.class}`} role="alert" style={styles.alert}>
                 
-                <h6>{props.title}</h6>
-                <p>{props.desc}</p>
-
-                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                    style={styles.btn}></button>
+                { props.title ? <h6>{props.title}</h6> : " "}
+                { props.desc? <span>{props.desc}</span> : " " }
+                
+                {/* <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                    style={styles.btn}></button> */}
             </div>
         </>
     )

@@ -115,12 +115,19 @@ router.patch('/:id',
     { name:"site_logo_url"},
     { name:"favicon_url"},
     { name:"cursor_icon_url"},
+    { name:"intro_shape_url_1"},
+    { name:"intro_shape_url_2"},
+    { name:"video_url_1"},
+    { name:"background_image_url"},
+    
   ] )
 
   , getSetting, async (req, res) => {
 
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
 
   console.clear()
 
@@ -143,6 +150,28 @@ router.patch('/:id',
     console.log("🌈 Cursor Icon Uploaded");
     res.setting.cursor_icon_url = req.files.cursor_icon_url[0].path.replaceAll("\\", "/") // save file location
   }
+
+
+  if(req.files.intro_shape_url_1) {
+    console.log("🌈 intro Shape 1 Uploaded");
+    res.setting.intro_shape_url_1 = req.files.intro_shape_url_1[0].path.replaceAll("\\", "/") // save file location
+  }
+
+  if(req.files.intro_shape_url_2) {
+    console.log("🌈 intro Shape 2 Uploaded");
+    res.setting.intro_shape_url_2 = req.files.intro_shape_url_2[0].path.replaceAll("\\", "/") // save file location
+  }
+  
+  if(req.files.video_url_1) {
+    console.log("🌈 Video 1 Uploaded");
+    res.setting.video_url_1 = req.files.video_url_1[0].path.replaceAll("\\", "/") // save file location
+  }
+
+  if(req.files.background_image_url) {
+    console.log("🌈 Background Uploaded");
+    res.setting.background_image_url = req.files.background_image_url[0].path.replaceAll("\\", "/") // save file location
+  }
+
   
 
   // Site Info
@@ -204,9 +233,9 @@ router.patch('/:id',
     res.setting.background_color = req.body.background_color
   }
 
-  if( req.body.background_image_url != null ) {
-    res.setting.background_image_url = req.body.background_image_url
-  }
+  // if( req.body.background_image_url != null ) {
+  //   res.setting.background_image_url = req.body.background_image_url
+  // }
 
 
 

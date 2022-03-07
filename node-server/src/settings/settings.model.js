@@ -14,8 +14,14 @@ const settingSchema = new mongoose.Schema({
   site_logo_svg: { type: String },
   site_logo_inactive_svg: { type: String },
 
+  video_url_1: { type: String },
+
   intro_shape_svg_1: { type: String },
   intro_shape_svg_2: { type: String },
+  
+  intro_shape_url_1: { type: String },
+  intro_shape_url_2: { type: String },
+ 
 
   cursor_icon_url: { type: String },
   cursor_icon_svg: { type: String },
