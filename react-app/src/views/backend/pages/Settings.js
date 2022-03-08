@@ -32,6 +32,8 @@ const Settings = () => {
     let fontFamilies = ['Arial', 'ITC-Benguiat', 'Verdana', 'Georgia', 'Comic Sans MS', 'Helvetica', 'Times New Roman', 'Impact']
 
 
+    const [settingsId, setSettingsId] = useState();
+
     const [settingsData, setSettingsData] = useState({
         site_name: 'na',
         site_desc: 'na',
@@ -110,7 +112,6 @@ const Settings = () => {
             ...previewImage,
             [name]: URL.createObjectURL(files[0])
         });    
-    
 
         console.log( "previewImage >", previewImage )
         console.log("onChangeInputFile", settingsData )
@@ -118,31 +119,36 @@ const Settings = () => {
 
 
 
-    const requestUpdateSiteLogo = async ( e ) => {
-        e.preventDefault()
+    // const requestUpdateSiteLogo = async ( e ) => {
+    //     e.preventDefault()
 
-        const settingFormData = new FormData();
-        // Image file update in settingFormData
-        settingFormData.append('site_logo', settingsData.site_logo );
-        settingFormData.append('site_name', "NEW" );
+    //     const settingFormData = new FormData();
+    //     // Image file update in settingFormData
+    //     settingFormData.append('site_logo', settingsData.site_logo );
+    //     settingFormData.append('site_name', "NEW" );
         
-        axios.post(`${process.env.REACT_APP_API_BASE_URL}/settings/site_logo`, settingFormData, HEADER_MULTIPART_FORM ).then( res=> {
-            console.log("Logo updated")
-        } ).catch( err=> {
-            console.log("Err", err )
-        })
-    }
+    //     axios.post(`${process.env.REACT_APP_API_BASE_URL}/settings/site_logo`, settingFormData, HEADER_MULTIPART_FORM ).then( res=> {
+    //         console.log("Logo updated")
+    //     } ).catch( err=> {
+    //         console.log("Err", err )
+    //     })
+    // }
 
 
     const getSettingsData = async () => {
-
          
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/settings`).then( res => {
              
             // console.log( "Res", res.data )
+            setSettingsId(res.data[0]._id)
+            setSettingsId((state) => {
+                console.log("immediately update the state --> setSettingsId", state); 
+                return state;
+            }); 
 
             // store API response into State
             setSettingsData( res.data[0] )
+
             setStyles( res.data[0] );
             // immediately update the state
             setSettingsData((state) => {
@@ -161,84 +167,90 @@ const Settings = () => {
 
 
 
-    const saveSettings = (event) => {
+    const saveSettings = async (event) => {
 
         setPageInfo({ loading: true })
 
         event.preventDefault()
         
-        let SETTING_ID = process.env.REACT_APP_SITE_SETTING_ID;
+        //let SETTING_ID = process.env.REACT_APP_SITE_SETTING_ID;
 
+        if( settingsId.length > 1 ) {
 
-        const settingFormData = new FormData();
-        
-        settingFormData.append('site_name', settingsData.site_name );
-        settingFormData.append('site_desc', settingsData.site_desc );
-
-        // Image file update in settingFormData
-        settingFormData.append('site_logo_url', settingsData.site_logo_url );
-        settingFormData.append('site_logo_inactive_url', settingsData.site_logo_inactive_url );
-        settingFormData.append('favicon_url', settingsData.favicon_url );
-
-        // Logo SVG
-        settingFormData.append('site_logo_svg', settingsData.site_logo_svg );
-        settingFormData.append('site_logo_inactive_svg', settingsData.site_logo_inactive_svg );
-
-
-        settingFormData.append('video_url_1', settingsData.video_url_1 );
-
-        // Intro
-        // settingFormData.append('intro_shape_svg_1', settingsData.intro_shape_svg_1 );
-        // settingFormData.append('intro_shape_svg_2', settingsData.intro_shape_svg_2 );
-        
-        settingFormData.append('intro_shape_url_1', settingsData.intro_shape_url_1 );
-        settingFormData.append('intro_shape_url_2', settingsData.intro_shape_url_2 );
-
-
-
-        // Cursor
-        settingFormData.append('cursor_icon_url', settingsData.cursor_icon_url );
-        // settingFormData.append('cursor_icon_svg', settingsData.cursor_icon_svg );
-        settingFormData.append('cursor_circle_size', settingsData.cursor_circle_size );
-        settingFormData.append('cursor_circle_color', settingsData.cursor_circle_color );
-        settingFormData.append('cursor_circle_text', settingsData.cursor_circle_text );
-
-        settingFormData.append('cursor_blend_mode', settingsData.cursor_blend_mode );
-
-
-        //Background
-        settingFormData.append('background_color', settingsData.background_color );
-        settingFormData.append('background_image_url', settingsData.background_image_url );
-
-
-        // Headings
-        settingFormData.append('headings_font', settingsData.headings_font );
-        settingFormData.append('headings_weight', settingsData.headings_weight );
-        settingFormData.append('headings_color', settingsData.headings_color );
-
-        
-        // Body Content
-        settingFormData.append('body_font', settingsData.body_font );
-        settingFormData.append('body_weight', settingsData.body_weight );
-        settingFormData.append('body_color', settingsData.body_color );
-
-
-        // Links
-        settingFormData.append('links_font', settingsData.links_font );
-        settingFormData.append('links_weight', settingsData.links_weight );
-        settingFormData.append('links_color', settingsData.links_color );
-
-
-        axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
+            let SETTING_ID = settingsId;
             
-            console.log("Saved !")
-
-            setPageInfo({ loading: false, alert: { display: true, title: "Changes Saved!", desc: "Your changes have been successfully saved" } })
+            const settingFormData = new FormData();
             
-        }).catch( err=> {
-            console.log( "Err", err )
-        })
-        
+            settingFormData.append('site_name', settingsData.site_name );
+            settingFormData.append('site_desc', settingsData.site_desc );
+
+            // Image file update in settingFormData
+            settingFormData.append('site_logo_url', settingsData.site_logo_url );
+            settingFormData.append('site_logo_inactive_url', settingsData.site_logo_inactive_url );
+            settingFormData.append('favicon_url', settingsData.favicon_url );
+
+            // Logo SVG
+            settingFormData.append('site_logo_svg', settingsData.site_logo_svg );
+            settingFormData.append('site_logo_inactive_svg', settingsData.site_logo_inactive_svg );
+
+
+            settingFormData.append('video_url_1', settingsData.video_url_1 );
+
+            // Intro
+            // settingFormData.append('intro_shape_svg_1', settingsData.intro_shape_svg_1 );
+            // settingFormData.append('intro_shape_svg_2', settingsData.intro_shape_svg_2 );
+            
+            settingFormData.append('intro_shape_url_1', settingsData.intro_shape_url_1 );
+            settingFormData.append('intro_shape_url_2', settingsData.intro_shape_url_2 );
+
+
+            // Cursor
+            settingFormData.append('cursor_icon_url', settingsData.cursor_icon_url );
+            // settingFormData.append('cursor_icon_svg', settingsData.cursor_icon_svg );
+            settingFormData.append('cursor_circle_size', settingsData.cursor_circle_size );
+            settingFormData.append('cursor_circle_color', settingsData.cursor_circle_color );
+            settingFormData.append('cursor_circle_text', settingsData.cursor_circle_text );
+
+            settingFormData.append('cursor_blend_mode', settingsData.cursor_blend_mode );
+
+
+            //Background
+            settingFormData.append('background_color', settingsData.background_color );
+            settingFormData.append('background_image_url', settingsData.background_image_url );
+
+
+            // Headings
+            settingFormData.append('headings_font', settingsData.headings_font );
+            settingFormData.append('headings_weight', settingsData.headings_weight );
+            settingFormData.append('headings_color', settingsData.headings_color );
+
+            
+            // Body Content
+            settingFormData.append('body_font', settingsData.body_font );
+            settingFormData.append('body_weight', settingsData.body_weight );
+            settingFormData.append('body_color', settingsData.body_color );
+
+
+            // Links
+            settingFormData.append('links_font', settingsData.links_font );
+            settingFormData.append('links_weight', settingsData.links_weight );
+            settingFormData.append('links_color', settingsData.links_color );
+
+
+            await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
+                
+                console.log("await... saved !")
+
+                setPageInfo({ loading: false, alert: { display: true, title: "Changes Saved!", desc: "Your changes have been successfully saved" } })
+                
+            }).catch( err=> {
+                console.log( "Err", err )
+            })
+                        
+        } else {
+            console.warn("Please check connection to setting has data")
+        }
+
 
     }
 
