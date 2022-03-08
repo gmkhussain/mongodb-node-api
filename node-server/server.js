@@ -1,13 +1,20 @@
 require('dotenv').config()
 
+
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 
 const cors = require('cors') // Access Control Origin Header error using Axios
 
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 
+
+// Files / Folders listings on browser
+const serveIndex = require('serve-index');
+
+    app.use(express.static(__dirname + "/"))
+    app.use('/uploads', serveIndex(__dirname + '/uploads'));
 
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
