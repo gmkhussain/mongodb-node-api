@@ -91,8 +91,8 @@ const BackendPageEdit = ( ) => {
             { loading ? <Loader /> : ""  }
 
             <div className="row">
-                <div className="col-md-12">
-                    <Link to="/dashboard/pages" className="btn btn-default"> Back </Link>
+                <div className="col-md-12 mt-2">
+                    <Link to="/dashboard/pages" className="btn btn-default"> ← Back </Link>
                 </div>
             </div>
 

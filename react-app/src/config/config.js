@@ -7,7 +7,8 @@ const HEADER_JSON = {
 
 const HEADER_MULTIPART_FORM = {
     headers: {
-        'content-type': 'multipart/form-data; boundary=---------------------------293582696224464'
+        'content-type': 'multipart/form-data; boundary=---------------------------293582696224464',
+        'accept-patch': 'text/example;charset=utf-8'
     }
 };
 

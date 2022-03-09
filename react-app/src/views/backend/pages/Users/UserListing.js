@@ -5,7 +5,6 @@ import axios from 'axios'
 
 // import { API_BASE_URL } from '../../../../config/config'
 
-
 import BackendAddUser from './AddUser'
 
 
@@ -22,8 +21,9 @@ const BackendUsersListing = () => {
     })
 
 
-    const getUser = ( paginate ) => {
-        axios.get(`${process.env.REACT_APP_API_BASE_URL}/users?pageSize=${paginate.page_size}&page=${paginate.current_page}`).then(res=>{
+    const getUser = async ( paginate ) => {
+        
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/users?pageSize=${paginate.page_size}&page=${paginate.current_page}`).then(res=>{
             
             setUsersData( { users: res.data } )
             setPagenateInfo( { ...paginateInfo, total_pages: res.headers.total_pages })
@@ -37,15 +37,12 @@ const BackendUsersListing = () => {
 
 
     // intial paginate
-    const gotoPageNumber =( pn )=> {
-        
+    const gotoPageNumber = ( pn ) => {        
         setPagenateInfo( { ...paginateInfo, current_page: pn } )
         console.log("paginate", pn , paginateInfo)
 
         let goto = {...paginateInfo, current_page: pn };
-
-        getUser( goto );
-        
+        getUser( goto );        
     }
 
 

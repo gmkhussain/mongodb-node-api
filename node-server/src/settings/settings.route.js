@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 const Setting = require('./settings.model')
 
- 
+const path = require('path')
+var FormData = require('form-data');
 
 // for site_logo
 const multer = require("multer")
-
 
 
 
@@ -56,9 +56,10 @@ router.get('/:id', getSetting, (req, res) => {
 // Site Logo :: NOTE Upload manage from differnt file
 var fileStorage = multer.diskStorage({
   destination: ( req, file, cb) => {
-    cb(null, "./uploads/logos");
+    cb(null, "./uploads");
   },
   filename: ( req, file, cb ) => {
+    //cb( null, Date.now() +"-"+ file.fieldname + "." + path.extname(file.originalname) );
     cb( null, Date.now() +"-"+ file.originalname );
   }
 });
@@ -119,17 +120,19 @@ router.patch('/:id',
     { name:"intro_shape_url_2"},
     { name:"video_url_1"},
     { name:"background_image_url"},
-    
   ] )
 
   , getSetting, async (req, res) => {
 
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    // const form = new FormData();
+          // form.append('image2.png', fs.readFileSync('./public/image2.png'));
+          // console.clear()
+          // res.setHeader('Content-Type', 'multipart/form-data');
+          // res.setHeader('X-Custom-Header', '123'); // Set header here
+      
+          // form.pipe(res);
 
-  console.clear()
+          // console.log("-----", res.setHeader('Content-Type', 'multipart/form-data; boundary=' + form.getBoundary()) )
 
   if(req.files.site_logo_url) {
     console.log("🌈 Logo 1 Uploaded");
@@ -285,11 +288,24 @@ router.patch('/:id',
   
   try {
     const updatedSetting = await res.setting.save()
-    res.json(updatedSetting)
+    
+    return res.status(200).send(updatedSetting); // empty
+    
+    //res.json(updatedSetting)
+
   } catch (err) {
-    res.status(400).json({ message: err.message })
+    
+    return res.status(500).send("Error 500"); // empty
+
+    // return res.status(400).json({ message: "Error --> "+err.message })
+
   }
+  
 })
+
+
+
+
 
 
 

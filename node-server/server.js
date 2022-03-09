@@ -26,17 +26,33 @@ db.once('open', () => console.log('Connected to Database'))
 
 
 /* Access Control Origin Header error using Axios */
-app.use(
-    cors({
-        origin: "*",
-    })
-);
+// app.use( cors({ origin: "*", }) );
+app.use(cors())
+
+
   
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
+    // res.setHeader('Content-Type', 'multipart/form-data; boundary='+form.getBoundary());
+    
+    // res.setHeader(
+    //     'Content-Security-Policy-Report-Only',
+    //     // `default-src 'self' ${process.env.API_BASE_URL}; font-src 'self'; img-src 'self' ${process.env.API_BASE_URL}; script-src 'self'; style-src 'self'; frame-src 'self'`
+    //     `default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'`
+    //   );
+    // res.setHeader(
+    //     'Content-Security-Policy',
+    //     "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+    // );
+    res.setHeader('Access-Control-Allow-Credentials', true); // If needed
+
+    // console.log("When Header is set an 'Beta':", 
+    // res.setHeader("Access-Control-Allow-Origin", "*") );
+
+    // res.send('cors problem fixed:)');
+
     next();
 });
 /* Access Control Origin Header error using Axios */
@@ -53,6 +69,8 @@ app.set("view engine", "ejs");
 
 const rootRouter = require('./src/root/root.route')
 app.use('/', rootRouter )
+// app.use('/', express.static('./public2'));
+
 
 const usersRouter = require('./src/users/users.route')
 app.use('/users', usersRouter)

@@ -1,16 +1,16 @@
 import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 
-import Context from '../../../context/Context'
+// import Context from '../../../context/Context'
 
 
 const Sidebar = () => {
 
-    let { styles, setStyles } = useContext(Context)
+    // let { styles, setStyles } = useContext(Context);
 
-    const style_headings = { color: styles.links_color, fontFamily: styles.links_font, fontWeight: styles.links_weight  }
+    // const style_headings = { color: styles.links_color, fontFamily: styles.links_font, fontWeight: styles.links_weight  }
 
-    console.log( "styles", styles )
+    // console.log( "styles", styles )
 
     return (
         <aside className='col-md-2 p-0'>

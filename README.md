@@ -119,6 +119,31 @@ db.users.insertMany([
 
 
 
+### Export DB
+
+- Open CMD as Admin
+- Goto ```C:\Program Files\MongoDB\Server\5.0\bin>```
+- ```mongodump --db database_name```
+- Check `dump` folder
+
+
+
+mongorestore dump/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Node 
 

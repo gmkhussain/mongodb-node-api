@@ -10,10 +10,10 @@ const [ themeInfo, setThemeInfo ] = useState({
         link: {}
     });
 
-    const getThemeSetting = () => {
-        axios.get(`${process.env.REACT_APP_API_BASE_URL}/setting/${process.env.REACT_APP_SITE_SETTING_ID}`).then( res=> {
+    const getThemeSetting = async () => {
+        await axios.get(`${process.env.REACT_APP_API_BASE_URL}/setting/${process.env.REACT_APP_SITE_SETTING_ID}`).then( res=> {
             
-            console.log("Res", res)
+            console.log("Res", res, themeInfo)
             setThemeInfo(res.data)
 
         }).catch( err=> {
@@ -23,7 +23,7 @@ const [ themeInfo, setThemeInfo ] = useState({
 
 
     useEffect(()=> {
-        getThemeSetting()
+        getThemeSetting();
     }, [])
 
     return (

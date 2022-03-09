@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
 // import { API_BASE_URL } from '../../../config/config'
-import Theme, { STYLES } from '../theme/Theme'
+import Theme, { STYLES } from '../../theme/Theme'
 
 const Home = () => {
 
-   console.log("Theme", STYLES )
+   console.log("Theme", STYLES, Theme )
 
    const [homePage, setHomePage] = useState({
       data: [],

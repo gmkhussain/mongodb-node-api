@@ -1,10 +1,7 @@
-import React, { useState, useContext } from 'react'
-import { StateContext } from './../../../context/State' 
+import React, { useState } from 'react'
 
 import axios from 'axios'
-import { Redirect, useHistory } from "react-router-dom";
-
-// import { API_BASE_URL } from '../../../config/config'
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
 
@@ -67,9 +64,9 @@ const Login = () => {
         }
 
 
-        const { username, password, loggedIn, loginMsg } = loginInfo
+        const { username, password, loginMsg } = loginInfo
 
-        const _token = localStorage.getItem('token');
+        // const _token = localStorage.getItem('token');
 
         return (
             <section className="login-page">

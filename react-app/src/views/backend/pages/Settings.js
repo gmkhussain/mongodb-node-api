@@ -9,7 +9,7 @@ import Context from '../../../context/Context'
 // Config
 import { HEADER_MULTIPART_FORM } from '../../../config/config'
 
-import Theme, { STYLES } from '../../theme/Theme'
+import { STYLES } from '../../theme/Theme'
 
 
 const Settings = () => {
@@ -32,7 +32,7 @@ const Settings = () => {
     let fontFamilies = ['Arial', 'ITC-Benguiat', 'Verdana', 'Georgia', 'Comic Sans MS', 'Helvetica', 'Times New Roman', 'Impact']
 
 
-    const [settingsId, setSettingsId] = useState();
+    const [settingsId, setSettingsId] = useState("");
 
     const [settingsData, setSettingsData] = useState({
         site_name: 'na',
@@ -165,6 +165,9 @@ const Settings = () => {
 
 
 
+    
+
+
 
 
     const saveSettings = async (event) => {
@@ -175,10 +178,9 @@ const Settings = () => {
         
         //let SETTING_ID = process.env.REACT_APP_SITE_SETTING_ID;
 
-        if( settingsId.length > 1 ) {
+        if( settingsId?.length ) {
 
-            let SETTING_ID = settingsId;
-            
+            let SETTING_ID = settingsId
             const settingFormData = new FormData();
             
             settingFormData.append('site_name', settingsData.site_name );
@@ -237,13 +239,14 @@ const Settings = () => {
             settingFormData.append('links_color', settingsData.links_color );
 
 
-            await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
+//           await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
+             axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData ).then( res => {
                 
-                console.log("await... saved !")
+                console.log("Await ~ ~ saved!")
 
-                setPageInfo({ loading: false, alert: { display: true, title: "Changes Saved!", desc: "Your changes have been successfully saved" } })
+                setPageInfo({ loading: false, alert: { display: true, class: "success", title: "Changes Saved!", desc: "Your changes have been successfully saved" } })
                 
-            }).catch( err=> {
+            }).catch( err => {
                 console.log( "Err", err )
             })
                         
@@ -253,6 +256,9 @@ const Settings = () => {
 
 
     }
+
+
+
 
 
 
@@ -328,10 +334,7 @@ const Settings = () => {
 
                     <div className="setting-form col-md-12 ">
                         
-
                         <form className='row' onSubmit={ saveSettings } encType="multipart/form-data">
-                            
-                            
                             
                             <div className="form-group pos-sticky mt-4">
                                 <button className="btn btn-primary" type="submit">SAVE CHANGES</button>
@@ -340,9 +343,7 @@ const Settings = () => {
                             
                             <div className='col-md-12'>
 
-                            { alert?.display ? <Alert className="success" title={alert.title} desc={alert.desc} /> : " " }
-
- 
+                            { alert?.display ? <Alert class={alert.class} title={alert.title} desc={alert.desc} /> : " " }
 
 
                                 <div className="card">
@@ -376,10 +377,10 @@ const Settings = () => {
                                             <span className="input-group-text">
                                                 {   ( previewImage.intro_shape_url_1 === "" )
                                                         ?
-                                                        <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+intro_shape_url_1} />
+                                                        <img className="preview__image" src={`${process.env.REACT_APP_UPLOADS_URL}/${intro_shape_url_1}`} alt="img" />
                                                         : 
                                                     <div className="preview__image"> 
-                                                        <img src={previewImage.intro_shape_url_1} />
+                                                        <img src={previewImage.intro_shape_url_1} alt="img" />
                                                     </div>
                                                 }
                                             </span>
@@ -404,10 +405,10 @@ const Settings = () => {
                                             <span className="input-group-text">
                                                 {   ( previewImage.intro_shape_url_2 === "" )
                                                         ?
-                                                        <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+intro_shape_url_2} />
+                                                        <img className="preview__image" src={`${process.env.REACT_APP_UPLOADS_URL}/${intro_shape_url_2}`} alt="img" />
                                                         : 
                                                     <div className="preview__image"> 
-                                                        <img src={previewImage.intro_shape_url_2} />
+                                                        <img src={previewImage.intro_shape_url_2} alt="img" />
                                                     </div>
                                                 }
                                             </span>
@@ -483,7 +484,7 @@ const Settings = () => {
                                                 <span className="input-group-text p-0">
                                                     {   ( previewImage.video_url_1 === "" )
                                                             ?
-                                                            <img style={ {'marginLeft': '10px', 'marginRight': '10px'} } src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAADXElEQVR4nO2azUtUURiHn8KMKNG2oatEpdqIUv0BCpGB1j/SRuxj1UailSTUqrTaBLUrqMjEbIqwVtVCkjaRLiso8yPQafG+x3uZMe+ZmXPu1ZnzwOHO3HvOe973N+d7LgQCgUAgEAjAGeAdsArkqzStaox9mwWftXNpp4G4AO/15iWgvlCdKqIeuIzEOhN/YJp9NQdv2IvEuhK/aZpFrbAR7+6MHcmcmhegLuX6jgGngF6gFTgI7AO+AV+At8B9/ZwqvseAk8AT7Keol0C3R3+K4vUlQB0wErP/A7gN9APtwH5N7ci8PKZ58sAacAM/M1MqAjQB02p3CRgGGi3KNWreJS37wrJcKXgXYA/ieB6YB7rKsNGtZfNATm26wrsAN4mCb67ATjORCCMO/DJ4FaAL6b9LFP/yOeAT0FOCvW5gGfHvhAsH8SzApNoa3qLiPPAA+9ZxVcs8c+EgHgVoUzvf2XzgMvUs6vU3cIHkkb6RaHY44sBPbwJcVDu3Eio+BNyLfZ9DFkhbMa55Bx346U2ACbXTb1lxDzCLXbc4q3meO/DTmwBzaqfVtmJkejsP/NJnf4AryLY1TjtRa6kUbwKYIBpsK47RjLQAk+d1wfMGotVkpezo7XBhy3CCqxbwWe20lVCPbRfo0OezDvz0PggO/Od50iD4EGj5T9lzmuepAz+9CTCkdsYSKi5nGryreYcc+OlNADNS2y6EFpG1Q9JCqAn4qWUOO/DT61LY7AKTlsJbNfdCrmmZSRcO4lmALmAd2cAUnupMIZuh3hLsHVdba0CnCwdJYTs8ipvtcAuwoLZGHfhl8C5AHVFXWEB+xVLpBL6qjWncHo15FwBk4DIiLCNbWpujrSakz69o2Sm955JUBABpCdeR/muWsePIOqEDOKCpA9ns3CEa7de1rI+j+9QEMBwFHsfqSUoTlHeOaMtGvLtiN+LffdGK/Pq9yABnpsF55M+RCeARsqT2SVG8vlvAdmNH7wadEgTI2oGs8SFAjuLTnG1PJYPgG+ynN9cpV6bPTgfBdQc2ysXZzOVyGswBrxzZ8kXqK8HtRlgHGIIAev2r11p5URLk5dANAT7qdZDqFqGe6M/VD/EHfWQ3l2eVTheq04e8QFztr8vPbBZ8IBAIBAKB2uMfvJxdOagS2aYAAAAASUVORK5CYII="/>
+                                                            <img style={ {'marginLeft': '10px', 'marginRight': '10px'} } src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAADXElEQVR4nO2azUtUURiHn8KMKNG2oatEpdqIUv0BCpGB1j/SRuxj1UailSTUqrTaBLUrqMjEbIqwVtVCkjaRLiso8yPQafG+x3uZMe+ZmXPu1ZnzwOHO3HvOe973N+d7LgQCgUAgEAjAGeAdsArkqzStaox9mwWftXNpp4G4AO/15iWgvlCdKqIeuIzEOhN/YJp9NQdv2IvEuhK/aZpFrbAR7+6MHcmcmhegLuX6jgGngF6gFTgI7AO+AV+At8B9/ZwqvseAk8AT7Keol0C3R3+K4vUlQB0wErP/A7gN9APtwH5N7ci8PKZ58sAacAM/M1MqAjQB02p3CRgGGi3KNWreJS37wrJcKXgXYA/ieB6YB7rKsNGtZfNATm26wrsAN4mCb67ATjORCCMO/DJ4FaAL6b9LFP/yOeAT0FOCvW5gGfHvhAsH8SzApNoa3qLiPPAA+9ZxVcs8c+EgHgVoUzvf2XzgMvUs6vU3cIHkkb6RaHY44sBPbwJcVDu3Eio+BNyLfZ9DFkhbMa55Bx346U2ACbXTb1lxDzCLXbc4q3meO/DTmwBzaqfVtmJkejsP/NJnf4AryLY1TjtRa6kUbwKYIBpsK47RjLQAk+d1wfMGotVkpezo7XBhy3CCqxbwWe20lVCPbRfo0OezDvz0PggO/Od50iD4EGj5T9lzmuepAz+9CTCkdsYSKi5nGryreYcc+OlNADNS2y6EFpG1Q9JCqAn4qWUOO/DT61LY7AKTlsJbNfdCrmmZSRcO4lmALmAd2cAUnupMIZuh3hLsHVdba0CnCwdJYTs8ipvtcAuwoLZGHfhl8C5AHVFXWEB+xVLpBL6qjWncHo15FwBk4DIiLCNbWpujrSakz69o2Sm955JUBABpCdeR/muWsePIOqEDOKCpA9ns3CEa7de1rI+j+9QEMBwFHsfqSUoTlHeOaMtGvLtiN+LffdGK/Pq9yABnpsF55M+RCeARsqT2SVG8vlvAdmNH7wadEgTI2oGs8SFAjuLTnG1PJYPgG+ynN9cpV6bPTgfBdQc2ysXZzOVyGswBrxzZ8kXqK8HtRlgHGIIAev2r11p5URLk5dANAT7qdZDqFqGe6M/VD/EHfWQ3l2eVTheq04e8QFztr8vPbBZ8IBAIBAKB2uMfvJxdOagS2aYAAAAASUVORK5CYII=" alt="img" />
                                                             : 
                                                         <div className="preview__video"> 
                                                             <video className="preview__video" width="200" height="50" controls muted>
@@ -571,10 +572,10 @@ const Settings = () => {
                                                 <span className="input-group-text">
                                                     {   ( previewImage.favicon_url === "" )
                                                             ?
-                                                            <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+favicon_url} />
+                                                            <img className="preview__image" src={`${process.env.REACT_APP_UPLOADS_URL}/${favicon_url}`} alt="img" />
                                                             : 
                                                         <div className="preview__image"> 
-                                                            <img src={previewImage.favicon_url} />
+                                                            <img src={previewImage.favicon_url} alt="img" />
                                                         </div>
                                                     }
                                                 </span>
@@ -658,11 +659,13 @@ const Settings = () => {
                                                     
                                                 {   (previewImage.background_image_url === "" )
                                                         ?
-                                                    <img className="preview__image" src={`${process.env.REACT_APP_UPLOADS_URL}${background_image_url}`}
+                                                    <img className="preview__image" src={`${process.env.REACT_APP_UPLOADS_URL}/${background_image_url}`}
+                                                    alt="img" 
                                                     />
                                                         : 
                                                     <div className="preview__image"> 
-                                                        <img src={previewImage.background_image_url} />
+                                                        <img src={previewImage.background_image_url} 
+                                                             alt="img" />
                                                     </div>
                                                 }
                                             </span>
@@ -718,10 +721,10 @@ const Settings = () => {
                                                 <span className="input-group-text">
                                                     {   ( previewImage.cursor_icon_url === "" )
                                                             ?
-                                                            <img className="preview__image" src={process.env.REACT_APP_UPLOADS_URL+cursor_icon_url} />
+                                                            <img className="preview__image" src={`${process.env.REACT_APP_UPLOADS_URL}/${cursor_icon_url}`} alt="img" />
                                                             : 
                                                         <div className="preview__image"> 
-                                                            <img src={previewImage.cursor_icon_url} />
+                                                            <img src={previewImage.cursor_icon_url} alt="img" />
                                                         </div>
                                                     }
                                                 </span>
