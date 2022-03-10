@@ -119,22 +119,6 @@ const Settings = () => {
 
 
 
-    // const requestUpdateSiteLogo = async ( e ) => {
-    //     e.preventDefault()
-
-    //     const settingFormData = new FormData();
-    //     // Image file update in settingFormData
-    //     settingFormData.append('site_logo', settingsData.site_logo );
-    //     settingFormData.append('site_name', "NEW" );
-        
-    //     axios.post(`${process.env.REACT_APP_API_BASE_URL}/settings/site_logo`, settingFormData, HEADER_MULTIPART_FORM ).then( res=> {
-    //         console.log("Logo updated")
-    //     } ).catch( err=> {
-    //         console.log("Err", err )
-    //     })
-    // }
-
-
     const getSettingsData = async () => {
          
         await axios.get(`${process.env.REACT_APP_API_BASE_URL}/settings`).then( res => {
@@ -167,6 +151,8 @@ const Settings = () => {
 
     
 
+    
+
 
 
 
@@ -175,10 +161,15 @@ const Settings = () => {
         setPageInfo({ loading: true })
 
         event.preventDefault()
+
+        let response = () => {
+            return new Promise(function(resolve, reject) {
+              
+                
         
         //let SETTING_ID = process.env.REACT_APP_SITE_SETTING_ID;
 
-        if( settingsId?.length ) {
+        
 
             let SETTING_ID = settingsId
             const settingFormData = new FormData();
@@ -238,21 +229,19 @@ const Settings = () => {
             settingFormData.append('links_weight', settingsData.links_weight );
             settingFormData.append('links_color', settingsData.links_color );
 
+ 
 
 //           await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData, HEADER_MULTIPART_FORM ).then( res => {
-             axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData ).then( res => {
-                
-                console.log("Await * saved!")
+             axios.patch(`${process.env.REACT_APP_API_BASE_URL}/settings/${SETTING_ID}`, settingFormData ).then(response => {
+            setPageInfo({ loading: false, alert: { display: true, class: "success", title: "Changes Saved!", desc: "Your changes have been successfully saved" } })
 
-                setPageInfo({ loading: false, alert: { display: true, class: "success", title: "Changes Saved!", desc: "Your changes have been successfully saved" } })
-                
-            }).catch( err => {
-                console.log( "Err", err )
-            })
-                        
-        } else {
-            console.warn("Please check connection to setting has data")
-        }
+            console.log("Saved...")
+            resolve(response);
+          });
+        });
+      };
+      let responseData = await response();
+      console.log(responseData.data);
 
 
     }
@@ -334,7 +323,7 @@ const Settings = () => {
 
                     <div className="setting-form col-md-12 ">
                         
-                        <form className='row' onSubmit={ saveSettings } encType="multipart/form-data">
+                        <form className='row' onSubmit={ saveSettings } encType="multipart/form-data" method="post">
                             
                             <div className="form-group pos-sticky mt-4">
                                 <button className="btn btn-primary" type="submit">SAVE CHANGES</button>

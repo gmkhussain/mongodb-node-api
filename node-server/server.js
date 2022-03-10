@@ -36,22 +36,8 @@ app.use(function (req, res, next) {
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     res.setHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, PATCH, DELETE");
     // res.setHeader('Content-Type', 'multipart/form-data; boundary='+form.getBoundary());
-    
-    // res.setHeader(
-    //     'Content-Security-Policy-Report-Only',
-    //     // `default-src 'self' ${process.env.API_BASE_URL}; font-src 'self'; img-src 'self' ${process.env.API_BASE_URL}; script-src 'self'; style-src 'self'; frame-src 'self'`
-    //     `default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'`
-    //   );
-    // res.setHeader(
-    //     'Content-Security-Policy',
-    //     "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
-    // );
-    res.setHeader('Access-Control-Allow-Credentials', true); // If needed
-
-    // console.log("When Header is set an 'Beta':", 
-    // res.setHeader("Access-Control-Allow-Origin", "*") );
-
-    // res.send('cors problem fixed:)');
+     
+    res.setHeader('Access-Control-Allow-Credentials', true); // If needed 
 
     next();
 });
@@ -91,5 +77,26 @@ const pagesRouter = require('./src/pages/pages.route')
 app.use('/pages', pagesRouter)
 
 
+
+app.use(function(req, res, next){
+   res.setTimeout(120000, function(){
+      console.log('Request has timed out.');
+         res.send(408);
+      });
+
+      next();
+ });
+ 
 // API URL: localhost:4000
 app.listen(4000, () => console.log('Server Started -> localhost:4000'))
+
+// var server = app.listen(4000);
+
+// server.on('connection', function(socket) {
+//   console.log("A new connection was made by a client.");
+//   socket.setTimeout(50 * 1000); 
+//   // 40 second timeout. Change this as you see fit.
+// });
+
+// server.keepAliveTimeout = 30000;
+ 

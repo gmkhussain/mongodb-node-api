@@ -55,89 +55,37 @@ router.get('/:id', getSetting, (req, res) => {
 
 // Site Logo :: NOTE Upload manage from differnt file
 var fileStorage = multer.diskStorage({
+  
   destination: ( req, file, cb) => {
-    cb(null, "./uploads");
+    cb(null, "./uploads"); 
   },
   filename: ( req, file, cb ) => {
-    //cb( null, Date.now() +"-"+ file.fieldname + "." + path.extname(file.originalname) );
+  //cb( null, Date.now() +"-"+ file.fieldname + "." + path.extname(file.originalname) );
     cb( null, Date.now() +"-"+ file.originalname );
   }
 });
 
 var upload = multer( { storage: fileStorage } );
 
-// upload.fields([
-//   { name:"site_logo_url", maxCount: 1 },
-//   { name:"site_logo_inactive_url", maxCount: 1 }
-// ] ),
-
-// Not in use
-// router.post("/site_logo", upload.single("site_logo_url"), (req, res) => {
-
-//     try {
-//       if (req.file) {
-
-//         console.log("Upload from setting")
-     
-//         res.send({
-//           status: true,
-//           message: "File Uploaded!",
-//         });
-//       } else {
-//         res.status(400).send({
-//           status: false,
-//           data: "File Not Found :(",
-//         });
-//       }
-//     } catch (err) {
-//       res.status(500).send(err);
-//     }
-
-// });
-
-
-
-
-
-//upload.single("site_logo_url")
-
-// upload.fields([
-//   { name:"site_logo_url", maxCount: 1 },
-//   { name:"site_logo_inactive_url", maxCount: 1 }
-// ] )
 
 // Updating One
-// router.post -> to -> router.patch 
-router.post('/:id',
+router.patch('/:id',
 
   upload.fields([
     { name:"site_logo_inactive_url" },
-    { name:"site_logo_url"},
-    { name:"favicon_url"},
-    { name:"cursor_icon_url"},
-    { name:"intro_shape_url_1"},
-    { name:"intro_shape_url_2"},
-    { name:"video_url_1"},
-    { name:"background_image_url"},
+    { name:"site_logo_url" },
+    { name:"favicon_url" },
+    { name:"cursor_icon_url" },
+    { name:"intro_shape_url_1" },
+    { name:"intro_shape_url_2" },
+    { name:"video_url_1" },
+    { name:"background_image_url" },
   ] )
 
   , getSetting, async (req, res) => {
 
-    // const form = new FormData();
-          // form.append('image2.png', fs.readFileSync('./public/image2.png'));
-          // console.clear()
-          // res.setHeader('Content-Type', 'multipart/form-data');
-          // res.setHeader('X-Custom-Header', '123'); // Set header here
-      
-          // form.pipe(res);
-
-          // console.log("-----", res.setHeader('Content-Type', 'multipart/form-data; boundary=' + form.getBoundary()) )
-          // console.log( req.files )
-     
-
-          // setTimeout( ()=> {
-
-
+   
+    
   if(req.files.site_logo_url) {
     console.log("🌈 Logo 1 Uploaded");
     res.setting.site_logo_url = req.files.site_logo_url[0].path.replaceAll("\\", "/") // save file location
@@ -148,8 +96,8 @@ router.post('/:id',
     res.setting.site_logo_inactive_url = req.files.site_logo_inactive_url[0].path.replaceAll("\\", "/") // save file location
   }
 
-  if(req.files.favicon_url) {
-    console.log("🌈 favicon Uploaded");
+  if( req.files.favicon_url ) {
+    console.log("🌈 favicon Uploaded", req.files.favicon_url[0].size);
     res.setting.favicon_url = req.files.favicon_url[0].path.replaceAll("\\", "/") // save file location
   }
 
@@ -185,8 +133,8 @@ router.post('/:id',
   if (req.body.site_name != null) {
     res.setting.site_name = req.body.site_name
   }
-  if( req.body.site_desc != null ) {
-    res.setting.site_desc = req.body.site_desc
+  if( req.body.site_desc != undefined ) {
+    res.setting.site_desc = "req.body.site_desc"
   }
   
   // Logos
@@ -289,13 +237,13 @@ router.post('/:id',
   }
 
 
-  
   try {
-    const updatedSetting = await res.setting.save();
-    
+    const updatedSetting = await res.setting.save()
+
+    // console.log( "updatedSetting", updatedSetting, res.status(200) )
+    // return res.send(updatedSetting); // empty
     return res.status(200).send(updatedSetting); // empty
-    
-    //res.json(updatedSetting)
+    // return res.json(updatedSetting)
 
   } catch (err) {
     
@@ -304,10 +252,7 @@ router.post('/:id',
 
   }
   
-  
-  req.end(); 
-
-// }, 5000 );
+  return res.json("Setting Saved!")
 
 })
 
@@ -330,8 +275,8 @@ async function getSetting(req, res, next) {
     return res.status(500).json({ message: err.message + "~ Setting" })
   }
 
-  res.setting = setting
-  next()
+  //return res.setting = setting
+  next();
 }
 
 

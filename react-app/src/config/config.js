@@ -12,6 +12,11 @@ const HEADER_MULTIPART_FORM = {
     }
 };
 
+const HEADER_XW3FORM = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Accept': 'application/json'
+}
+
 
 export default HEADER_JSON;
-export { HEADER_JSON, HEADER_MULTIPART_FORM };
+export { HEADER_JSON, HEADER_MULTIPART_FORM, HEADER_XW3FORM };
