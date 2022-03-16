@@ -44,11 +44,11 @@ app.use(function (req, res, next) {
 /* Access Control Origin Header error using Axios */
 
 
-
 app.use(bodyParser.urlencoded({ extended: false }))
 // app.use(express.json())
 app.use(bodyParser.json())
-  
+
+
 // Set EJS as templating engine 
 app.set("view engine", "ejs");
 
@@ -61,13 +61,14 @@ app.use('/', rootRouter )
 const usersRouter = require('./src/users/users.route')
 app.use('/users', usersRouter)
 
+
 const authRouter = require('./src/auth/auth.route')
 app.use('/auth', authRouter)
 
 
-
 const settingRouter = require('./src/settings/settings.route')
 app.use('/settings', settingRouter)
+
 
 const userImageRouter = require('./src/users/image.route')
 app.use('/updateuserimage', userImageRouter)
@@ -77,11 +78,10 @@ const pagesRouter = require('./src/pages/pages.route')
 app.use('/pages', pagesRouter)
 
 
-
-app.use(function(req, res, next){
-   res.setTimeout(120000, function(){
+app.use( function(req, res, next) {
+    res.setTimeout(120000, function() {
       console.log('Request has timed out.');
-         res.send(408);
+        res.send(408);
       });
 
       next();
