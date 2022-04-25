@@ -137,8 +137,24 @@ mongorestore dump/
 
 
 
+# NVM : Node Version Manager
+
+<a href="https://github.com/nvm-sh/nvm"><img alt="nvm project logo" src="https://raw.githubusercontent.com/nvm-sh/logos/HEAD/nvm-logo-color.svg" height="50" /></a>
 
 
+- (Download windows installer)[https://github.com/coreybutler/nvm-windows/releases]
+- Download ```nvm-setup.zip```
+- Unzip and Intstall
+
+- Reopen ```CMD``` 
+- Run ```nvm list```
+- ```* 16.12.0 (Currently using 64-bit executable)```
+
+
+
+### install Old version
+
+- ```nvm install 12```
 
 
 
