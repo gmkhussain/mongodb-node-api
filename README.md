@@ -137,6 +137,45 @@ mongorestore dump/
 
 
 
+
+
+
+
+
+
+
+
+
+
+## MongoDB CMD
+#### Show databases
+- ```show dbs```
+
+#### Select a database
+- ```use <database-name>```
+
+### Show collections
+- ```show collections```
+
+### Create Collection
+- ```db.<collectionName>.insert({<key> : <value>, <key> : <value>})```
+- i.e.
+```js
+db.collectionName .insert({
+   name: "Amoos",
+   age: 27,
+})
+```
+
+### Show Collection Records
+-
+```js
+db.collectionName.find().pretty()
+```
+
+
+
+
 # NVM : Node Version Manager
 
 <a href="https://github.com/nvm-sh/nvm"><img alt="nvm project logo" src="https://raw.githubusercontent.com/nvm-sh/logos/HEAD/nvm-logo-color.svg" height="50" /></a>

@@ -1,3 +1,5 @@
+@import "./assets/styles/Sidebar.scss";
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -46,7 +48,7 @@
 
 
 nav.navbar {
-  background-color: #0d6efd !important;
+  background-color: #004400 !important;
 }
 
 nav.navbar .navbar-nav .nav-link {
@@ -211,4 +213,14 @@ label.btn {
   height: 80px;
   overflow: hidden;
   width: 146px;
+}
+
+.mockup {
+  position: fixed;
+  height: 100vh;
+  background: gray;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
 }

@@ -9,7 +9,7 @@ import axios from 'axios';
 
 
 // Styles
-import './App.css';
+import './App.scss';
 // import { API_BASE_URL } from './config/config'
 
 
@@ -123,10 +123,11 @@ function App() {
               </DashboardLayout>
             </Route>
 
-            
           </Switch>
         </Router>
       </Context.Provider>
+
+      <div className='mockup' style={ { "backgroundImage": `url(${process.env.REACT_APP_IMG})` } }></div>
     </div>
   );
 }

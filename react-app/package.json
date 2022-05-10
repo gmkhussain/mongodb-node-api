@@ -15,6 +15,7 @@
     "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.0",
     "react-svg": "^14.1.12",
+    "sass": "^1.51.0",
     "svg-inline-react": "^3.2.1",
     "web-vitals": "^2.1.3"
   },
