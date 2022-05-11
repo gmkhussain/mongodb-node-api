@@ -5,6 +5,9 @@ const Setting = require('./settings.model')
 const path = require('path')
 var FormData = require('form-data');
 
+const Agent = require('agentkeepalive');
+const agent = new Agent();
+
 // for site_logo
 const multer = require("multer")
 
@@ -121,8 +124,9 @@ router.post('/:id',
     { name:"background_image_url"},
   ] )
 
-  , getSetting, async (req, res) => {
+  , getSetting,  async (req, res) => {
 
+    req.setTimeout(0) // no timeout
     // const form = new FormData();
           // form.append('image2.png', fs.readFileSync('./public/image2.png'));
           // console.clear()
@@ -304,10 +308,7 @@ router.post('/:id',
 
   }
   
-  
-  req.end(); 
-
-// }, 5000 );
+   
 
 })
 

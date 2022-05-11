@@ -18,6 +18,9 @@ var upload = multer( { storage: fileStorage } );
 
 
 router.post("/", upload.single("image"), (req, res) => {
+
+   // 10 minutes timeout just for POST to myroute
+   req.setTimeout(10 * 60 * 1000);
     
     res.send("File uploaded");
     try {    
