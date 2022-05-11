@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Wrapper from './Wrapper';
 import Header from './Header';
 import Sidebar from './Sidebar';
 
@@ -7,16 +8,12 @@ const DashboardLayout = ({ children }) => {
     return (
     <React.Fragment>
         <Header />
-        <main className="wrapper">
-            <div className='container-fluid'>
-                <div className='row'>
-                    <Sidebar />
-                    <div className='col-md-10'>
-                        {children}
-                    </div>
-                </div>
+        <Wrapper>
+            <Sidebar />
+            <div className='col-md-10'>
+                {children}
             </div>
-        </main>
+        </Wrapper>
     </React.Fragment>
     );
 };
